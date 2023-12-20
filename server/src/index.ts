@@ -1,19 +1,19 @@
-import cors from 'cors';
-import express, { Express, Request, Response } from 'express';
-import config from './config';
+import cors from "cors";
+import express, { Express, Request, Response } from "express";
+import config from "./config";
 
 const app: Express = express();
 
 app.use(
   cors({
-    origin: config.CORS_ORIGIN.split(','),
+    origin: config.CORS_ORIGIN.split(","),
   })
 );
 
 app.use(express.json());
 
-app.get('/', (req: Request, res: Response) => {
-  res.send('<h1>Hello! I am working!</h1>');
+app.get("/", (req: Request, res: Response) => {
+  res.send("<h1>Hello! I am workingggg!</h1>");
 });
 
 app.listen(config.PORT, () => {
