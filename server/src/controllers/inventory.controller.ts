@@ -1,15 +1,13 @@
 import { Request, Response } from "express";
-import dotenv from "dotenv";
 import axios, { AxiosResponse } from "axios";
 import { IngredientInterface } from "../interfaces/ingredientInterface";
 import { AuthRequestInterface } from "../middlewares/jwtVerify.middleware";
-dotenv.config();
 
 /* 
 *   This API call will be coming from Menu Builder to get all the  ingredients of that Restaurant from the  Inventory.
 
-*   Send get req to inventory. Get a response
-*   send the response to Menu Builder
+*   Send get req to inventory. Get a response.
+*   send the response to Menu Builder.
 
 
 */
