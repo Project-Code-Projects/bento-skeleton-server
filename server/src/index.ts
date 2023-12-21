@@ -20,6 +20,10 @@ app.use("/process-pos-order", verifyJWTMiddleware, processPosOrderRouter); //Req
 
 app.use("/process-marketplace-order", verifyJWTMiddleware, processMarketplaceOrderRouter); //Req from POS to Inventoy + Kitchen
 
+app.get("/test", (req, res) => {
+  res.send("Its workinggg");
+});
+
 app.listen(config.PORT, () => {
   console.log(`[server]: Server is running on port ${config.PORT}`);
 });
