@@ -8,9 +8,8 @@ import cookieParser from "cookie-parser";
 import config from "./config";
 import verifyJWTMiddleware from "./middlewares/jwtVerify.middleware";
 import inventoryRouter from "./routers/inventory.router";
-import processPosOrderRouter from "./routers/processPosOrder.router";
-import processMarketplaceOrderRouter from "./routers/processMarketplaceOrder.router";
 import serviceAuthRouter from "./routers/serviceAuth.router";
+import processOrderRouter from "./routers/processOrder.router";
 
 app.use(cookieParser());
 app.use(
@@ -27,10 +26,9 @@ app.use("/service-auth", serviceAuthRouter);
 app.use("/inventory", verifyJWTMiddleware, inventoryRouter);
 
 //Req from POS/Marketplace to Inventory + Kitchen
-app.use("/process-order", verifyJWTMiddleware, processPosOrderRouter);
+app.use("/process-order", processOrderRouter);
 
 //Req from Marketplace to Inventory + Kitchen
-app.use("/process-marketplace-order", processMarketplaceOrderRouter);
 
 app.listen(config.PORT, () => {
   console.log(`[server]: Server is running on port ${config.PORT}`);

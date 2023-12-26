@@ -1,66 +1,79 @@
-/* export interface CategoriesInterface {
-  id: Number;
+export interface CategoriesInterface {
+  id: number;
   name: String;
 }
 
 export interface PackingInterface {
-  dimensionLength: Number;
-  dimensionWidth: Number;
-  dimensionHeight: Number;
+  dimensionLength: number;
+  dimensionWidth: number;
+  dimensionHeight: number;
 }
 
 export interface AddOptionInterface {
-  ingredientId: Number;
+  ingredientId: number;
   ingredientName: String;
-  quantity: Number;
-  ingredient: POSIngredientInterface[];
+  ingredient: IngredientInterface;
 }
 
 export interface NoOptionInterface {
-  ingredientId: Number;
+  ingredientId: number;
   ingredientName: String;
-  quantity: Number;
-  ingredient: POSIngredientInterface[];
+  ingredient: IngredientInterface;
 }
 
-export interface POSIngredientInterface {
-  id: Number;
-  restaurantId: Number;
+export interface IngredientInterface {
+  id: number;
+  //restaurantId: number;
   ingredientName: String;
   unit: String;
-  quantity: Number;
-  costPerUnit: Number;
-  caloriePerUnit: Number;
+  quantity: number;
+  costPerUnit: number;
+  caloriePerUnit: number;
 }
 
 export interface ItemInterface {
-  itemId: Number;
+  itemId: number;
   itemName: String;
-  itemQuantity: Number;
   itemImage: String; //newly included
-  categoryId: Number;
-  itemPreparationTime: Number;
+  categoryId: number;
+  itemQuantity: number; //newly added -----------------------------------------------
+  itemPreparationTime: number; //time in caps
   itemPackingType: String;
-  itemPackingDimension: PackingInterface;
-  ingredients: POSIngredientInterface[];
-  options: {
-    add: AddOptionInterface[];
-    no: NoOptionInterface[];
-  };
+  itemPackingDimension: PackingInterface; //spelling mistake
+  itemServingTemperature: String; //needed for both marketplace and inhouse
+  itemLastingTime?: number; //needed for marketplace
+  itemPortionSize: number; //needed for both marketplace and inhouse
+  ingredients: IngredientInterface[]; // -------------------------------------------------
+  options: { add: AddOptionInterface[]; no: NoOptionInterface[] }; //------------------------
   optionalNotes: String;
 }
 
-export interface OrderItemInterface {
-  restaurantId: Number;
-  orderId: Number;
+export interface OrderInterface {
+  restaurantId: number;
+  orderId: number;
   categories: CategoriesInterface[];
-  orderTime: Number;
+  orderTime: number;
   orderType: String; //inhouse or marketplace
   vipCustomer: Boolean;
-  tableId: Number;
-  items: ItemInterface[];
+  tableId?: number; //only for inhouse
+  deliveryServiceArriveTime?: number; //only for marketplace, in minutes
+  items: ItemInterface[]; // -----------------------------------
 }
- */
+
+// ------------------------
+// ------------------------
+// ------------------------
+// ------------------------
+// ------------------------
+// ------------------------
+// ------------------------
+// ------------------------
+// ------------------------
+// ------------------------
+// ------------------------
+// ------------------------
+// ------------------------
+// ------------------------
 
 const orderItems = {
   restaurantId: 5,
@@ -73,21 +86,28 @@ const orderItems = {
   orderTime: Date.now(),
   orderType: "inhouse",
   vipCustomer: false,
-  tableId: 5,
+  tableId: 5, // Only for POS
+  deliveryServiceArriveTime: 15, //only for marketplace, in minutes
   items: [
     {
       itemId: 1,
       itemName: "Margherita Pizza",
-      itemQuantity: 2,
       itemImage: "pizza.jpg",
       categoryId: 1,
-      itemPreparationtime: 15,
-      itemPackingDimention: {
+      itemQuantity: 2, // $$$$$$$$$$$$$$$$$
+      itemPreparationTime: 15,
+      itemPackingType: "Round Box",
+      itemPackingDimension: {
         dimensionLength: 10,
         dimensionWidth: 5,
         dimensionHeight: 3,
       },
+      itemServingTemperature: "32 celsius", //needed for both marketplace and inhouse
+      itemLastingTime: "50", //needed for marketplace
+      itemPortionSize: 4, //needed for both marketplace and inhouse
       ingredients: [
+        // $$$$$$$$$$$$$$$$$$$$$$$$$$$$
+        // restaurantId maybe thakbe na
         { id: 1, restaurantId: 5, ingredientName: "Tomato", unit: "gm", quantity: 200, costPerUnit: 1.5, caloriePerUnit: 2 },
         { id: 2, restaurantId: 5, ingredientName: "Chicken", unit: "gm", quantity: 300, costPerUnit: 5.0, caloriePerUnit: 15 },
         { id: 3, restaurantId: 5, ingredientName: "Cheese", unit: "gm", quantity: 450, costPerUnit: 3.0, caloriePerUnit: 22 },
@@ -118,12 +138,17 @@ const orderItems = {
       itemName: "Beef Burger",
       itemImage: "burger.jpg",
       categoryId: 2,
-      itemPreparationtime: 12,
-      itemPackingDimention: {
+      itemQuantity: 2,
+      itemPreparationTime: 12,
+      itemPackingType: "Round Box",
+      itemPackingDimension: {
         dimensionLength: 8,
         dimensionWidth: 3,
         dimensionHeight: 3,
       },
+      itemServingTemperature: "32 celsius", //needed for both marketplace and inhouse
+      itemLastingTime: "50", //needed for marketplace
+      itemPortionSize: 4, //needed for both marketplace and inhouse
       ingredients: [
         { id: 1, restaurantId: 5, ingredientName: "Tomato", unit: "gm", quantity: 20, costPerUnit: 1.5, caloriePerUnit: 2 },
         { id: 2, restaurantId: 5, ingredientName: "Beef Patty", unit: "gm", quantity: 200, costPerUnit: 4.0, caloriePerUnit: 20 },
