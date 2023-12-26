@@ -1,15 +1,25 @@
-export interface IngredientInterface {
+interface IngredientInterface {
   id: number;
-  restaurantId: number;
   ingredientName: string;
-  unit: string;
-  stockQuantity: number;
+  unitOfStock: string;
+  currentStockQuantity: number;
+  unitOfPrice: string;
   purchasePrice: number;
-  costPerUnit?: number;
-  caloriesPerUnit?: number;
-  expirationDate?: Date;
-  reorderPoint?: number;
-  description?: string;
-  idealStoringTemperature?: number;
-  receivedAt: Date;
+  costPerUnit: number;
+  caloriesPerUnit: number;
+  expirationDate: Date;
+  reorderPoint: number;
+  description: string;
+  unitOfIdealStoringTemperature: string;
+  idealStoringTemperature: number;
+  expectedStockForToday: null | any;
+  expectedStockForTomorrow: null | any;
+  restaurantId: number;
+  categoryId: number;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface IngredientResultInterface {
+  ingredients: IngredientInterface[];
 }

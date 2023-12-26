@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import axios, { AxiosResponse } from "axios";
-import { IngredientInterface } from "../interfaces/ingredientInterface";
+import { IngredientResultInterface } from "../interfaces/ingredientInterface";
 import { AuthRequestInterface } from "../middlewares/jwtVerify.middleware";
 
 /* 
@@ -14,7 +14,7 @@ import { AuthRequestInterface } from "../middlewares/jwtVerify.middleware";
 async function getIngredientsFromInventory(req: AuthRequestInterface, res: Response) {
   try {
     const apiUrl = `/v1/ingredient/restaurant/${req.user?.restaurantId}`;
-    const response: AxiosResponse<IngredientInterface[]> = await axios.get<IngredientInterface[]>(apiUrl);
+    const response: AxiosResponse<IngredientResultInterface> = await axios.get<IngredientResultInterface>(apiUrl);
     res.send(response.data);
   } catch (error) {
     console.error(error);

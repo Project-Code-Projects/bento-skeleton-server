@@ -1,24 +1,36 @@
 import express, { Express, Request, Response } from "express";
+const app: Express = express();
 import cors from "cors";
-import config from "./config";
 import dotenv from "dotenv";
 dotenv.config();
-import verifyJWTMiddleware from "./middlewares/jwtVerify.middleware";
 import cookieParser from "cookie-parser";
+
+import config from "./config";
+import verifyJWTMiddleware from "./middlewares/jwtVerify.middleware";
 import inventoryRouter from "./routers/inventory.router";
 import processPosOrderRouter from "./routers/processPosOrder.router";
 import processMarketplaceOrderRouter from "./routers/processMarketplaceOrder.router";
-const app: Express = express();
+import serviceAuthRouter from "./routers/serviceAuth.router";
 
 app.use(cookieParser());
-app.use(cors({ origin: config.CORS_ORIGIN.split(",") }));
+app.use(
+  cors({
+    origin: config.CORS_ORIGIN.split(","),
+  })
+);
 app.use(express.json());
 
-app.use("/inventory", verifyJWTMiddleware, inventoryRouter); //Request From Menu Builder to Inventory to   get all the ingredients.
+// Request from every Silo to HR for Login and to get JWT Token from Skeleton
+app.use("/service-auth", serviceAuthRouter);
 
-app.use("/process-pos-order", verifyJWTMiddleware, processPosOrderRouter); //Req from POS to Inventoy + Kitchen
+//Request From Menu Builder to Inventory to  get all the ingredients.
+app.use("/inventory", verifyJWTMiddleware, inventoryRouter);
 
-app.use("/process-marketplace-order", verifyJWTMiddleware, processMarketplaceOrderRouter); //Req from POS to Inventoy + Kitchen
+//Req from POS/Marketplace to Inventory + Kitchen
+app.use("/process-order", verifyJWTMiddleware, processPosOrderRouter);
+
+//Req from Marketplace to Inventory + Kitchen
+app.use("/process-marketplace-order", processMarketplaceOrderRouter);
 
 app.listen(config.PORT, () => {
   console.log(`[server]: Server is running on port ${config.PORT}`);

@@ -1,10 +1,11 @@
+import jwt from "jsonwebtoken";
 import { NextFunction, Request, Response } from "express";
-import { verifyToken } from "../utilities/auth.utility";
+import config from "../config";
 
 export interface userJWTPayloadInterface {
-  userId: string | number;
-  restaurantId: string | number;
-  role: string;
+  id: number;
+  restaurantId: number;
+  service: string;
 }
 
 export interface AuthRequestInterface extends Request {
@@ -12,19 +13,16 @@ export interface AuthRequestInterface extends Request {
 }
 
 const verifyJWTMiddleware = (req: AuthRequestInterface, res: Response, next: NextFunction) => {
-  const token = req.cookies.jwtToken;
-  if (!token) {
-    res.status(401);
-    res.json({ message: "Your are not Authorized" });
-    return;
-  }
-  try {
-    const user = verifyToken(token) as userJWTPayloadInterface;
-    req.user = user;
+  const authHeaders = req.headers["authorization"];
+  if (!authHeaders) return res.status(401).send({ message: "Unauthorized" });
+  const token = authHeaders.split(" ")[1];
+
+  const payloadData = jwt.verify(token, config.JWT_SECRET) as userJWTPayloadInterface;
+  if (payloadData.id && payloadData.restaurantId && payloadData.service) {
+    req.user = payloadData;
     next();
-  } catch (error) {
-    res.status(401);
-    res.json({ message: "Your are not Authorized" });
+  } else {
+    res.status(401).send({ message: "Unauthorized" });
   }
 };
 
