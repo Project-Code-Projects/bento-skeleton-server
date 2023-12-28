@@ -31,5 +31,6 @@ app.use("/process-order", processOrderRouter);
 //Req from Marketplace to Inventory + Kitchen
 
 app.listen(config.PORT, () => {
+  // console.log(process.env.PORT, "df");
   console.log(`[server]: Server is running on port ${config.PORT}`);
 });

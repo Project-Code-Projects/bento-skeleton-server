@@ -83,7 +83,7 @@ const orderItems = {
     { id: 2, name: "Main Course" },
     { id: 3, name: "Desserts" },
   ],
-  orderTime: Date.now(),
+  orderTime: "12.00.55",
   orderType: "inhouse",
   vipCustomer: false,
   tableId: 5, // Only for POS
@@ -103,7 +103,7 @@ const orderItems = {
         dimensionHeight: 3,
       },
       itemServingTemperature: "32 celsius", //needed for both marketplace and inhouse
-      itemLastingTime: "50", //needed for marketplace
+      itemLastingTime: 50, //needed for marketplace
       itemPortionSize: 4, //needed for both marketplace and inhouse
       ingredients: [
         // $$$$$$$$$$$$$$$$$$$$$$$$$$$$
@@ -151,7 +151,7 @@ const orderItems = {
       itemPortionSize: 4, //needed for both marketplace and inhouse
       ingredients: [
         { id: 1, restaurantId: 5, ingredientName: "Tomato", unit: "gm", quantity: 20, costPerUnit: 1.5, caloriePerUnit: 2 },
-        { id: 2, restaurantId: 5, ingredientName: "Beef Patty", unit: "gm", quantity: 200, costPerUnit: 4.0, caloriePerUnit: 20 },
+        { id: 4, restaurantId: 5, ingredientName: "Beef Patty", unit: "gm", quantity: 200, costPerUnit: 4.0, caloriePerUnit: 20 },
         { id: 3, restaurantId: 5, ingredientName: "Cheese", unit: "gm", quantity: 50, costPerUnit: 3.0, caloriePerUnit: 22 },
       ],
       options: {
