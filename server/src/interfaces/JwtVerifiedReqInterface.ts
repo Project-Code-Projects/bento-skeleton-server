@@ -1,7 +1,7 @@
 import { Request } from "express";
 
 export interface JwtVerifiedReqInterface extends Request {
-  user: {
+  user?: {
     id: number;
     restaurantId: number;
     service: string;

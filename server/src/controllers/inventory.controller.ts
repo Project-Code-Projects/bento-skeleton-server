@@ -13,9 +13,13 @@ import { JwtVerifiedReqInterface } from "../interfaces/JwtVerifiedReqInterface";
 */
 async function getIngredientsFromInventory(req: JwtVerifiedReqInterface, res: Response) {
   try {
-    const apiUrl = `/v1/ingredient/restaurant/${req.user?.restaurantId}`;
-    const response: AxiosResponse<IngredientResultInterface> = await axios.get<IngredientResultInterface>(apiUrl);
-    res.send(response.data);
+    if (req.user) {
+      const apiUrl = `/v1/ingredient/restaurant/${req.user?.restaurantId}`;
+      const response: AxiosResponse<IngredientResultInterface> = await axios.get<IngredientResultInterface>(apiUrl);
+      res.send(response.data);
+    } else {
+      res.status(401).send({ message: "Unauthorized" });
+    }
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Error fetching data from Inventory" });

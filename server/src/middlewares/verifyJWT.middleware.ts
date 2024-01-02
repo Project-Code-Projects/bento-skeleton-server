@@ -7,6 +7,7 @@ export interface userJWTPayloadInterface {
   restaurantId: number;
   service: string;
 }
+
 export interface AuthRequestInterface extends Request {
   user?: userJWTPayloadInterface;
 }
@@ -17,6 +18,9 @@ const verifyJWTMiddleware = (req: AuthRequestInterface, res: Response, next: Nex
   const token = authHeaders.split(" ")[1];
 
   const payloadData = jwt.verify(token, config.JWT_SECRET) as userJWTPayloadInterface;
+
+  console.log("Token ------ ", payloadData);
+
   if (payloadData.id && payloadData.restaurantId && payloadData.service) {
     req.user = payloadData;
     next();
