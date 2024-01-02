@@ -3,7 +3,7 @@ import { Request, Response } from "express";
 import { validateLoginData } from "../utilities/validateLoginData.utility";
 import { hrLogin, hrServiceCheck } from "../utilities/hr.utility";
 import config from "../config";
-import { AuthRequestInterface, userJWTPayloadInterface } from "../middlewares/jwtVerify.middleware";
+import { AuthRequestInterface } from "../middlewares/verifyJWT.middleware";
 
 export async function checkServiceAccess(req: AuthRequestInterface, res: Response) {
   try {

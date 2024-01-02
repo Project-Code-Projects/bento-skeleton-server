@@ -6,10 +6,10 @@ dotenv.config();
 import cookieParser from "cookie-parser";
 
 import config from "./config";
-import verifyJWTMiddleware from "./middlewares/jwtVerify.middleware";
 import inventoryRouter from "./routers/inventory.router";
 import serviceAuthRouter from "./routers/serviceAuth.router";
 import processOrderRouter from "./routers/processOrder.router";
+import orderStatusRouter from "./routers/orderStatus.router";
 
 app.use(cookieParser());
 app.use(
@@ -23,12 +23,13 @@ app.use(express.json());
 app.use("/service-auth", serviceAuthRouter);
 
 //Request From Menu Builder to Inventory to  get all the ingredients.
-app.use("/inventory", verifyJWTMiddleware, inventoryRouter);
+app.use("/inventory", inventoryRouter);
 
 //Req from POS/Marketplace to Inventory + Kitchen
 app.use("/process-order", processOrderRouter);
 
-//Req from Marketplace to Inventory + Kitchen
+// Post req from KDS to Pos and Marketplace regarding food preparation status
+app.use("/order-prep-status", orderStatusRouter);
 
 app.listen(config.PORT, () => {
   // console.log(process.env.PORT, "df");

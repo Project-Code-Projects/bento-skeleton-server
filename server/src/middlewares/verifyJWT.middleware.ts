@@ -7,7 +7,6 @@ export interface userJWTPayloadInterface {
   restaurantId: number;
   service: string;
 }
-
 export interface AuthRequestInterface extends Request {
   user?: userJWTPayloadInterface;
 }

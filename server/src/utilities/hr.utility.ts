@@ -1,6 +1,6 @@
 import axios from "axios";
 import { LoginDataInterface } from "../interfaces/loginDataInterface";
-import { UserInterface } from "../interfaces/userInterface";
+import { UserInterface } from "../interfaces/UserInterface";
 import config from "../config";
 
 interface HrResponseInterface {
