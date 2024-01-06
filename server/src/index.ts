@@ -2,6 +2,8 @@ import express, { Express, Request, Response } from "express";
 const app: Express = express();
 import cors from "cors";
 import dotenv from "dotenv";
+import mongoose from "mongoose";
+
 dotenv.config();
 import cookieParser from "cookie-parser";
 
@@ -11,6 +13,7 @@ import serviceAuthRouter from "./routers/serviceAuth.router";
 import processOrderRouter from "./routers/processOrder.router";
 import orderStatusRouter from "./routers/orderStatus.router";
 import chefEfficiency from "./routers/chefEfficiency.router";
+import authRouter from "./routers/authRouter.router";
 
 app.use(cookieParser());
 app.use(
@@ -20,7 +23,8 @@ app.use(
 );
 app.use(express.json());
 
-// Request from every Silo to HR for Login and to get JWT Token from Skeleton
+// Auth api's
+app.use("/auth", authRouter);
 app.use("/service-auth", serviceAuthRouter);
 
 //Request From Menu Builder to Inventory to  get all the ingredients.
@@ -35,7 +39,18 @@ app.use("/order-prep-status", orderStatusRouter);
 // Post req from KDS to HR sending data about chef efficiency to prepare dishes
 app.use("/hr", chefEfficiency);
 
-app.listen(config.PORT, () => {
-  // console.log(process.env.PORT, "df");
-  console.log(`[server]: Server is running on port ${config.PORT}`);
-});
+async function main() {
+  try {
+    const uri = `mongodb+srv://${config.DB_USER}:${config.DB_PASS}@cluster0.f3aocvj.mongodb.net/?retryWrites=true&w=majority`;
+    await mongoose.connect(uri, {});
+    console.log("Mongoose connected");
+
+    app.listen(config.PORT, () => {
+      console.log(`[server]: Server is running on port ${config.PORT}`);
+    });
+  } catch (err) {
+    console.log(err);
+  }
+}
+// Dont forget the call the main function
+main();

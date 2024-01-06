@@ -4,4 +4,14 @@ export interface UserInterface {
   email: string;
   restaurantId: number;
   role: "admin" | "employee";
+  serviceAccess: string[];
 }
+
+/* 
+POS
+KDS
+MARKETPLACE
+INVENTORY
+HR
+MENU BUILDER
+*/

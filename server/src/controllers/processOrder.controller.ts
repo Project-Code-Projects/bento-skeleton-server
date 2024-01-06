@@ -79,6 +79,7 @@ const processOrder = async (req: JwtVerifiedReqInterface, res: Response) => {
         // PACKAGING ADD KORTE HOBE
         ingredientsToReduce: finalArrayForInventoryUpdate,
       };
+
       const kdsRes = await axios.post(`${process.env.KDS_BASE_URL}/process-order-kitchen/${req.user?.restaurantId}`, order);
       if (kdsRes.status == 201) {
         const inventoryRes = await axios.post(`${process.env.INVENTORY_BASE_URL}/update-inventory-for-order`, infoForInventoryForOrderProcessing);
@@ -86,6 +87,7 @@ const processOrder = async (req: JwtVerifiedReqInterface, res: Response) => {
           res.status(201).json({ message: "Sent order to Inventory and KDS for processing" });
         }
       }
+
       res.send(infoForInventoryForOrderProcessing);
     } else {
       res.status(401).send({ message: "Unauthorized" });
