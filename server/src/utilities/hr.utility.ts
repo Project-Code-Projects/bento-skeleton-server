@@ -16,8 +16,7 @@ interface HrResponseInterface {
 // Function to go and ask HR if the person trying to login to one of the 6 silos, has access to that silo or not.
 export async function hrLogin(data: LoginDataInterface) {
   try {
-    const url = process.env.HR_BASE_URL + "/auth/login";
-    const res = await axios.post<HrResponseInterface>(`${process.env.HR_BASE_URL}/auth/login`, data);
+    const res = await axios.post<HrResponseInterface>(`${process.env.HR_BASE_URL}/employee/login`, data);
     return res.data;
   } catch (error) {
     throw error;
