@@ -1,29 +1,56 @@
 import express, { Express, Request, Response } from "express";
-import cors from "cors";
-import config from "./config";
-import dotenv from "dotenv";
-dotenv.config();
-import verifyJWTMiddleware from "./middlewares/jwtVerify.middleware";
-import cookieParser from "cookie-parser";
-import inventoryRouter from "./routers/inventory.router";
-import processPosOrderRouter from "./routers/processPosOrder.router";
-import processMarketplaceOrderRouter from "./routers/processMarketplaceOrder.router";
 const app: Express = express();
+import cors from "cors";
+import dotenv from "dotenv";
+import mongoose from "mongoose";
+
+dotenv.config();
+import cookieParser from "cookie-parser";
+
+import config from "./config";
+import inventoryRouter from "./routers/inventory.router";
+import serviceAuthRouter from "./routers/serviceAuth.router";
+import processOrderRouter from "./routers/processOrder.router";
+import orderStatusRouter from "./routers/orderStatus.router";
+import chefEfficiency from "./routers/chefEfficiency.router";
+import authRouter from "./routers/authRouter.router";
 
 app.use(cookieParser());
-app.use(cors({ origin: config.CORS_ORIGIN.split(",") }));
+app.use(
+  cors({
+    origin: config.CORS_ORIGIN.split(","),
+  })
+);
 app.use(express.json());
 
-app.use("/inventory", verifyJWTMiddleware, inventoryRouter); //Request From Menu Builder to Inventory to   get all the ingredients.
+// Auth api's
+app.use("/auth", authRouter);
+app.use("/service-auth", serviceAuthRouter);
 
-app.use("/process-pos-order", verifyJWTMiddleware, processPosOrderRouter); //Req from POS to Inventoy + Kitchen
+//Request From Menu Builder to Inventory to  get all the ingredients.
+app.use("/inventory", inventoryRouter);
 
-app.use("/process-marketplace-order", verifyJWTMiddleware, processMarketplaceOrderRouter); //Req from POS to Inventoy + Kitchen
+//Req from POS/Marketplace to Inventory + Kitchen
+app.use("/process-order", processOrderRouter);
 
-app.get("/test", (req, res) => {
-  res.send("Its workinggg");
-});
+// Post req from KDS to Pos and Marketplace regarding food preparation status
+app.use("/order-prep-status", orderStatusRouter);
 
-app.listen(config.PORT, () => {
-  console.log(`[server]: Server is running on port ${config.PORT}`);
-});
+// Post req from KDS to HR sending data about chef efficiency to prepare dishes
+app.use("/hr", chefEfficiency);
+
+async function main() {
+  try {
+    const uri = `mongodb+srv://${config.DB_USER}:${config.DB_PASS}@cluster0.f3aocvj.mongodb.net/?retryWrites=true&w=majority`;
+    await mongoose.connect(uri, {});
+    console.log("Mongoose connected");
+
+    app.listen(config.PORT, () => {
+      console.log(`[server]: Server is running on port ${config.PORT}`);
+    });
+  } catch (err) {
+    console.log(err);
+  }
+}
+// Dont forget the call the main function
+main();
