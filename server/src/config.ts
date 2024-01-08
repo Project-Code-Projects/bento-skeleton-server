@@ -9,23 +9,20 @@ const config = {
   CORS_ORIGIN: process.env.CORS_ORIGIN ?? "*",
   JWT_SECRET: process.env.JWT_SECRET ?? "secret",
 
-  // Server URLs
-  HR_SERVER_URL: process.env.HR_SERVER_URL,
-  INVENTORY_SERVER_URL: process.env.INVENTORY_SERVER_URL,
-  KDS_SERVER_URL: process.env.KDS_SERVER_URL,
-  POS_SERVER_URL: process.env.POS_SERVER_URL,
-  MARKETPLACE_SERVER_URL: process.env.MARKETPLACE_SERVER_URL,
-  MENU_SERVER_URL: process.env.MENU_SERVER_URL,
-  REVIEW_SERVER_URL: process.env.REVIEW_SERVER_URL,
-
-  // Client URLs
-  HR_CLIENT_URL: process.env.HR_CLIENT_URL,
-  INVENTORY_CLIENT_URL: process.env.INVENTORY_CLIENT_URL,
-  KDS_CLIENT_URL: process.env.KDS_CLIENT_URL,
-  POS_CLIENT_URL: process.env.POS_CLIENT_URL,
-  MARKETPLACE_CLIENT_URL: process.env.MARKETPLACE_CLIENT_URL,
-  MENU_CLIENT_URL: process.env.MENU_CLIENT_URL,
-  REVIEW_CLIENT_URL: process.env.REVIEW_CLIENT_URL,
+  HR_BE_BASE_URL: process.env.HR_BE_BASE_URL ?? "http://localhost:4000",
+  HR_FE_BASE_URL: process.env.HR_FE_BASE_URL ?? "http://localhost:4001",
+  INVENTORY_BE_BASE_URL: process.env.INVENTORY_BE_BASE_URL ?? "http://localhost:4010",
+  INVENTORY_FE_BASE_URL: process.env.INVENTORY_FE_BASE_URL ?? "http://localhost:4011",
+  KDS_BE_BASE_URL: process.env.KDS_BE_BASE_URL ?? "http://localhost:4020",
+  KDS_FE_BASE_URL: process.env.KDS_FE_BASE_URL ?? "http://localhost:4021",
+  POS_BE_BASE_URL: process.env.POS_BE_BASE_URL ?? "http://localhost:4030",
+  POS_FE_BASE_URL: process.env.POS_FE_BASE_URL ?? "http://localhost:4031",
+  MARKETPLACE_BE_BASE_URL: process.env.MARKETPLACE_BE_BASE_URL ?? "http://localhost:4040",
+  MARKETPLACE_FE_BASE_URL: process.env.MARKETPLACE_FE_BASE_URL ?? "http://localhost:4041",
+  MENU_BE_BASE_URL: process.env.MENU_BE_BASE_URL ?? "http://localhost:4050",
+  MENU_FE_BASE_URL: process.env.MENU_FE_BASE_URL ?? "http://localhost:4051",
+  REVIEW_BE_BASE_URL: process.env.REVIEW_BE_BASE_URL ?? "http://localhost:4060",
+  REVIEW_FE_BASE_URL: process.env.REVIEW_FE_BASE_URL ?? "http://localhost:4061",
 };
 
 export default config;

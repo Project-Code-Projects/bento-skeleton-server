@@ -81,9 +81,9 @@ const processOrder = async (req: JwtVerifiedReqInterface, res: Response) => {
         ingredientsToReduce: finalArrayForInventoryUpdate,
       };
 
-      const kdsRes = await axios.post(`${config.KDS_SERVER_URL}/process-order-kitchen/${req.user?.restaurantId}`, order);
+      const kdsRes = await axios.post(`${config.KDS_BE_BASE_URL}/process-order-kitchen/${req.user?.restaurantId}`, order);
       if (kdsRes.status == 201) {
-        const inventoryRes = await axios.post(`${config.INVENTORY_SERVER_URL}/update-inventory-for-order`, infoForInventoryForOrderProcessing);
+        const inventoryRes = await axios.post(`${config.INVENTORY_BE_BASE_URL}/update-inventory-for-order`, infoForInventoryForOrderProcessing);
         if (inventoryRes.status == 201) {
           res.status(201).json({ message: "Sent order to Inventory and KDS for processing" });
         }

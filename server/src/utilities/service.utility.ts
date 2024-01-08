@@ -9,17 +9,17 @@ export function validateService(service: string) {
 export function getRedirectUrlForService(service: string, code: string) {
   switch (service) {
     case "pos":
-      return config.POS_CLIENT_URL + "/auth-redirect?code=" + code;
+      return config.POS_FE_BASE_URL + "/auth-redirect?code=" + code;
     case "kds":
-      return config.KDS_CLIENT_URL + "/auth-redirect?code=" + code;
+      return config.KDS_FE_BASE_URL + "/auth-redirect?code=" + code;
     case "inventory":
-      return config.INVENTORY_CLIENT_URL + "/auth-redirect?code=" + code;
+      return config.INVENTORY_FE_BASE_URL + "/auth-redirect?code=" + code;
     case "menu-builder":
-      return config.MENU_CLIENT_URL + "/auth-redirect?code=" + code;
+      return config.MENU_FE_BASE_URL + "/auth-redirect?code=" + code;
     case "hr":
-      return config.HR_CLIENT_URL + "/auth-redirect?code=" + code;
+      return config.HR_FE_BASE_URL + "/auth-redirect?code=" + code;
     case "review":
-      return config.REVIEW_CLIENT_URL + "/auth-redirect?code=" + code;
+      return config.REVIEW_FE_BASE_URL + "/auth-redirect?code=" + code;
     default:
       return null;
   }
