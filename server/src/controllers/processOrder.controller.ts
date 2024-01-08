@@ -2,6 +2,7 @@ import { Response } from "express";
 import { JwtVerifiedReqInterface } from "../interfaces/JwtVerifiedReqInterface";
 import { IngredientInterface, OrderInterface } from "../interfaces/OrderInterface";
 import axios from "axios";
+import config from "../config";
 
 // 1. Send needed data to kitchen
 // 2. Extract and send data to reduce ingredients data to inventory
@@ -80,9 +81,9 @@ const processOrder = async (req: JwtVerifiedReqInterface, res: Response) => {
         ingredientsToReduce: finalArrayForInventoryUpdate,
       };
 
-      const kdsRes = await axios.post(`${process.env.KDS_BASE_URL}/process-order-kitchen/${req.user?.restaurantId}`, order);
+      const kdsRes = await axios.post(`${config.KDS_SERVER_URL}/process-order-kitchen/${req.user?.restaurantId}`, order);
       if (kdsRes.status == 201) {
-        const inventoryRes = await axios.post(`${process.env.INVENTORY_BASE_URL}/update-inventory-for-order`, infoForInventoryForOrderProcessing);
+        const inventoryRes = await axios.post(`${config.INVENTORY_SERVER_URL}/update-inventory-for-order`, infoForInventoryForOrderProcessing);
         if (inventoryRes.status == 201) {
           res.status(201).json({ message: "Sent order to Inventory and KDS for processing" });
         }

@@ -11,6 +11,7 @@ export interface userJWTPayloadInterface {
 export interface AuthRequestInterface extends Request {
   id?: number;
   service?: string;
+  restaurantId?: number;
 }
 
 const verifyJWTMiddleware = (req: AuthRequestInterface, res: Response, next: NextFunction) => {
@@ -18,11 +19,12 @@ const verifyJWTMiddleware = (req: AuthRequestInterface, res: Response, next: Nex
   if (!authHeaders) return res.status(401).send({ message: "Unauthorized" });
   const token = authHeaders.split(" ")[1];
 
-  const data = jwt.verify(token, config.JWT_SECRET) as { id?: number; service?: string };
+  const data = jwt.verify(token, config.JWT_SECRET) as { id?: number; service?: string; restaurantId?: number };
 
   if (data.id && data.service) {
     req.id = data.id;
     req.service = data.service;
+    req.restaurantId = data.restaurantId;
     next();
   } else {
     res.status(401).send({ message: "Unauthorized" });

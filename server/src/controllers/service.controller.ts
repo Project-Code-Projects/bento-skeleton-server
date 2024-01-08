@@ -9,12 +9,13 @@ import { createServiceTokenStore, findServiceTokenStore } from "../models/servic
 export async function redirectToService(req: AuthRequestInterface, res: Response) {
   try {
     const id = req.id;
+    const restaurantId = req.restaurantId;
     const service = req.params.service;
 
     if (id && validateService(service)) {
       const checkAccess = await hrServiceCheck({ userId: id, service });
       if (checkAccess.auth) {
-        const token = jwt.sign({ id, service }, config.JWT_SECRET, {
+        const token = jwt.sign({ id, service, restaurantId }, config.JWT_SECRET, {
           expiresIn: "7d",
         });
 

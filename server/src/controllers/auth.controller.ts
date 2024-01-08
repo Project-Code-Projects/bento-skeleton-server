@@ -8,13 +8,16 @@ import { AuthRequestInterface } from "../middlewares/verifyJWT.middleware";
 export async function login(req: Request, res: Response) {
   try {
     const { email, password } = req.body;
+    console.log(email, password);
     if (validateLoginData({ email, password })) {
-      const { user } = await hrLogin({ email, password });
+      const { employee } = await hrLogin({ email, password });
+      const user = employee;
+      console.log(user);
 
-      const token = jwt.sign({ id: user.id, service: "skeleton" }, config.JWT_SECRET, {
+      const token = jwt.sign({ id: user.id, service: "skeleton", restaurantId: user.restaurantId }, config.JWT_SECRET, {
         expiresIn: "7d",
       });
-
+      console.log("token", token);
       res.setHeader("Authorization", "Bearer " + token);
       res.send({ status: "success", user });
     } else {
@@ -43,7 +46,6 @@ export async function getServices(req: AuthRequestInterface, res: Response) {
 export async function checkServiceAccess(req: AuthRequestInterface, res: Response) {
   try {
     const id = req.id;
-    // const restaurantId = req.user?.restaurantId;
     const service = req.service;
 
     if (id && service) {

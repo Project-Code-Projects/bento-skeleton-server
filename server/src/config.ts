@@ -9,13 +9,23 @@ const config = {
   CORS_ORIGIN: process.env.CORS_ORIGIN ?? "*",
   JWT_SECRET: process.env.JWT_SECRET ?? "secret",
 
-  HR_BASE_URL: process.env.HR_BASE_URL,
-  INVENTORY_BASE_URL: process.env.INVENTORY_BASE_URL,
-  KDS_BASE_URL: process.env.KDS_BASE_URL,
-  POS_BASE_URL: process.env.POS_BASE_URL,
-  MARKETPLACE_BASE_URL: process.env.MARKETPLACE_BASE_URL,
-  MENU_BASE_URL: process.env.MENU_BASE_URL,
-  REVIEW_BASE_URL: process.env.REVIEW_BASE_URL,
+  // Server URLs
+  HR_SERVER_URL: process.env.HR_SERVER_URL,
+  INVENTORY_SERVER_URL: process.env.INVENTORY_SERVER_URL,
+  KDS_SERVER_URL: process.env.KDS_SERVER_URL,
+  POS_SERVER_URL: process.env.POS_SERVER_URL,
+  MARKETPLACE_SERVER_URL: process.env.MARKETPLACE_SERVER_URL,
+  MENU_SERVER_URL: process.env.MENU_SERVER_URL,
+  REVIEW_SERVER_URL: process.env.REVIEW_SERVER_URL,
+
+  // Client URLs
+  HR_CLIENT_URL: process.env.HR_CLIENT_URL,
+  INVENTORY_CLIENT_URL: process.env.INVENTORY_CLIENT_URL,
+  KDS_CLIENT_URL: process.env.KDS_CLIENT_URL,
+  POS_CLIENT_URL: process.env.POS_CLIENT_URL,
+  MARKETPLACE_CLIENT_URL: process.env.MARKETPLACE_CLIENT_URL,
+  MENU_CLIENT_URL: process.env.MENU_CLIENT_URL,
+  REVIEW_CLIENT_URL: process.env.REVIEW_CLIENT_URL,
 };
 
 export default config;
