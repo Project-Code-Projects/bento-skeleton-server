@@ -15,7 +15,7 @@ import config from "../config";
 async function getIngredientsFromInventory(req: JwtVerifiedReqInterface, res: Response) {
   try {
     if (req.user) {
-      const apiUrl = config.INVENTORY_SERVER_URL + `/v1/ingredient/restaurant/${req.user?.restaurantId}`;
+      const apiUrl = config.INVENTORY_BE_BASE_URL + `/v1/ingredient/restaurant/${req.user?.restaurantId}`;
       const response: AxiosResponse<IngredientResultInterface> = await axios.get<IngredientResultInterface>(apiUrl);
       res.send(response.data);
     } else {
