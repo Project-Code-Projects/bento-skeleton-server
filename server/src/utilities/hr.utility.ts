@@ -29,6 +29,7 @@ export async function hrLogin(data: LoginDataInterface) {
     const res = await axios.post<any>(config.HR_BE_BASE_URL + "/employee/login", data);
     return res.data;
   } catch (error) {
+    console.log(error);
     throw new Error((error as AxiosError<{ message: string }>).response?.data.message);
   }
 }
