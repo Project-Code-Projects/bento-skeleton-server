@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { Response } from "express";
 import { JwtVerifiedReqInterface } from "../interfaces/JwtVerifiedReqInterface";
 import axios from "axios";
 import config from "../config";
