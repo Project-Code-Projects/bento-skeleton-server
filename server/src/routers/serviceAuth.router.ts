@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { checkServiceAccess, login } from "../controllers/auth.controller";
 import verifyJWTMiddleware from "../middlewares/verifyJWT.middleware";
-import { getTokenFromStore, redirectToService } from "../controllers/service.controller";
+import { getTokenFromStore, getUserInfoByToken, redirectToService } from "../controllers/service.controller";
 const serviceAuthRouter = Router();
 
 // From Silo-backend to Skeleton
@@ -12,5 +12,7 @@ serviceAuthRouter.get("/redirect/:service", verifyJWTMiddleware, redirectToServi
 
 // From Silo-backend to Skeleton
 serviceAuthRouter.get("/token/:code", getTokenFromStore);
+
+serviceAuthRouter.get("user-from-token", verifyJWTMiddleware, getUserInfoByToken);
 
 export default serviceAuthRouter;

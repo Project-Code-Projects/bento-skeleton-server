@@ -3,7 +3,7 @@ import { Response, Request } from "express";
 import { AuthRequestInterface } from "../middlewares/verifyJWT.middleware";
 import config from "../config";
 import { getRedirectUrlForService, validateService } from "../utilities/service.utility";
-import { hrServiceCheck } from "../utilities/hr.utility";
+import { hrServiceCheck, hrUserInfo } from "../utilities/hr.utility";
 import { createServiceTokenStore, findServiceTokenStore } from "../models/serviceTokenStore.query";
 
 export async function redirectToService(req: AuthRequestInterface, res: Response) {
@@ -41,6 +41,16 @@ export async function getTokenFromStore(req: Request, res: Response) {
     } else res.status(401).send({ status: "fail", auth: false });
   } catch (error) {
     console.log(error);
+    res.status(500).send({ message: (error as Error).message });
+  }
+}
+
+export async function getUserInfoByToken(req: AuthRequestInterface, res: Response) {
+  try {
+    const id = req.id;
+    const userData = await hrUserInfo(id);
+    res.send(userData);
+  } catch (error) {
     res.status(500).send({ message: (error as Error).message });
   }
 }

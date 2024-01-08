@@ -45,7 +45,6 @@ export async function hrServiceCheck(data: { userId: number; service: string }) 
   }
 }
 
-// APU
 // Gets the accessible-silo names array
 export async function hrServiceList(userId: number) {
   try {
@@ -54,5 +53,15 @@ export async function hrServiceList(userId: number) {
   } catch (error) {
     console.log(error);
     throw new Error((error as AxiosError<{ message: string }>).response?.data.message);
+  }
+}
+
+// Gets the full user Info using jwt info (user id)
+export async function hrUserInfo(userId: any) {
+  try {
+    const res = await axios.get(config.HR_BE_BASE_URL + "/employee/userInfo/" + userId);
+    return res.data;
+  } catch (error) {
+    console.log(error);
   }
 }
