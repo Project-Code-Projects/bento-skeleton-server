@@ -16,11 +16,17 @@ import chefEfficiency from "./routers/chefEfficiency.router";
 import authRouter from "./routers/authRouter.router";
 
 app.use(cookieParser());
+
 app.use(
   cors({
-    origin: config.CORS_ORIGIN.split(","),
+    // origin: config.CORS_ORIGIN.split(","),
+    origin: "*",
+    credentials: true,
+    exposedHeaders: ["Authorization"],
   })
 );
+
+app.use(cors());
 app.use(express.json());
 
 // Auth api's

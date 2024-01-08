@@ -1,12 +1,13 @@
-import { Request, Response } from "express";
+import { Response } from "express";
 import { JwtVerifiedReqInterface } from "../interfaces/JwtVerifiedReqInterface";
 import axios from "axios";
+import config from "../config";
 
 const chefEfficiency = async (req: JwtVerifiedReqInterface, res: Response) => {
   try {
     if (req.user) {
       const efficiencyData = req.body;
-      await axios.post(`${process.env.HR_BASE_URL}/chef-efficiency`, efficiencyData);
+      await axios.post(`${config.HR_BE_BASE_URL}/chef-efficiency`, efficiencyData);
       res.status(200).json({ message: "Data sent successfully to HR" });
     }
   } catch (error) {
