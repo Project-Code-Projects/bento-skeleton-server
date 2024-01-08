@@ -11,17 +11,17 @@ export async function redirectToService(req: AuthRequestInterface, res: Response
     const id = req.id;
     const restaurantId = req.restaurantId;
     const service = req.params.service;
+    console.log("service-name", service);
 
     if (id && validateService(service)) {
-      const checkAccess = await hrServiceCheck({ userId: id, service });
+      const checkAccess = await hrServiceCheck({ userId: id, service: service.toUpperCase() });
+
       if (checkAccess.auth) {
         const token = jwt.sign({ id, service, restaurantId }, config.JWT_SECRET, {
           expiresIn: "7d",
         });
-
         const store = await createServiceTokenStore(token);
-        const url = getRedirectUrlForService(service, store._id.toString());
-
+        const url = await getRedirectUrlForService(service, store._id.toString());
         res.send({ status: "success", redirect: url });
       } else res.status(403).send({ message: "User does not have access to this service." });
     } else res.status(400).send({ message: "Invalid service." });

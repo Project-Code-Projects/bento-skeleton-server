@@ -8,16 +8,13 @@ import { AuthRequestInterface } from "../middlewares/verifyJWT.middleware";
 export async function login(req: Request, res: Response) {
   try {
     const { email, password } = req.body;
-    console.log(email, password);
     if (validateLoginData({ email, password })) {
       const { employee } = await hrLogin({ email, password });
       const user = employee;
-      console.log(user);
 
       const token = jwt.sign({ id: user.id, service: "skeleton", restaurantId: user.restaurantId }, config.JWT_SECRET, {
         expiresIn: "7d",
       });
-      console.log("token", token);
       res.setHeader("Authorization", "Bearer " + token);
       res.send({ status: "success", user });
     } else {

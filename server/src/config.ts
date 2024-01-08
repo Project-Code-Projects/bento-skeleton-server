@@ -13,10 +13,10 @@ const config = {
   HR_FE_BASE_URL: process.env.HR_FE_BASE_URL ?? "http://localhost:4001",
 
   INVENTORY_BE_BASE_URL: process.env.INVENTORY_BE_BASE_URL ?? "http://localhost:4010",
-  INVENTORY_FE_BASE_URL: process.env.INVENTORY_FE_BASE_URL ?? "http://localhost:4011",
+  INVENTORY_FE_BASE_URL: process.env.INVENTORY_FE_BASE_URL,
 
-  KDS_BE_BASE_URL: process.env.KDS_BE_BASE_URL ?? "http://localhost:4020",
-  KDS_FE_BASE_URL: process.env.KDS_FE_BASE_URL ?? "http://localhost:4021",
+  KDS_BE_BASE_URL: process.env.KDS_BE_BASE_URL,
+  KDS_FE_BASE_URL: process.env.KDS_FE_BASE_URL,
 
   POS_BE_BASE_URL: process.env.POS_BE_BASE_URL ?? "http://localhost:4030",
   POS_FE_BASE_URL: process.env.POS_FE_BASE_URL ?? "http://localhost:4031",
