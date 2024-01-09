@@ -63,5 +63,6 @@ export async function hrUserInfo(userId: any) {
     return res.data;
   } catch (error) {
     console.log(error);
+    throw new Error((error as AxiosError<{ message: string }>).response?.data.message);
   }
 }
