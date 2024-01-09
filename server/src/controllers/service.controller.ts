@@ -49,8 +49,12 @@ export async function getUserInfoByToken(req: AuthRequestInterface, res: Respons
   try {
     const id = req.id;
     const userData = await hrUserInfo(id);
-    res.send(userData);
+    const result = {
+      user: { ...userData.message },
+    };
+    res.send(result);
   } catch (error) {
+    console.log(error);
     res.status(500).send({ message: (error as Error).message });
   }
 }
