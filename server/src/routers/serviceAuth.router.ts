@@ -13,6 +13,7 @@ serviceAuthRouter.get("/redirect/:service", verifyJWTMiddleware, redirectToServi
 // From Silo-backend to Skeleton
 serviceAuthRouter.get("/token/:code", getTokenFromStore);
 
-serviceAuthRouter.get("user-from-token", verifyJWTMiddleware, getUserInfoByToken);
+// Get user info using jwt token
+serviceAuthRouter.get("/user-from-token", verifyJWTMiddleware, getUserInfoByToken);
 
 export default serviceAuthRouter;
