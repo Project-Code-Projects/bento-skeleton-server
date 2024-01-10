@@ -1,5 +1,5 @@
 import { model, Schema } from "mongoose";
-import { IServiceTokenStore } from "../interfaces/IServiceTokenStore";
+import { IServiceTokenStore } from "../../interfaces/IServiceTokenStore";
 
 const serviceTokenStoreSchema = new Schema<IServiceTokenStore>({
   token: {

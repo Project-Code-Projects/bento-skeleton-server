@@ -4,7 +4,7 @@ import { AuthRequestInterface } from "../middlewares/verifyJWT.middleware";
 import config from "../config";
 import { getRedirectUrlForService, validateService } from "../utilities/service.utility";
 import { hrServiceCheck, hrUserInfo } from "../utilities/hr.utility";
-import { createServiceTokenStore, findServiceTokenStore } from "../models/serviceTokenStore.query";
+import { createServiceTokenStore, findServiceTokenStore } from "../models/serviceTokenStore/serviceTokenStore.query";
 
 export async function redirectToService(req: AuthRequestInterface, res: Response) {
   try {
