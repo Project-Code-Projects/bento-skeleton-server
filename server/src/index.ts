@@ -1,4 +1,4 @@
-import express, { Express, Request, Response } from "express";
+import express, { Express } from "express";
 const app: Express = express();
 import cors from "cors";
 import dotenv from "dotenv";
@@ -14,14 +14,13 @@ import processOrderRouter from "./routers/processOrder.router";
 import orderStatusRouter from "./routers/orderStatus.router";
 import chefEfficiency from "./routers/chefEfficiency.router";
 import authRouter from "./routers/authRouter.router";
-import skeletonRouter from "./routers/skeleton.router";
 
 app.use(cookieParser());
 
 app.use(
   cors({
-    // origin: config.CORS_ORIGIN.split(","),
-    origin: "*",
+    origin: getCorsOrigin(),
+    // origin: "*",
     credentials: true,
     exposedHeaders: ["Authorization"],
   })
