@@ -14,6 +14,8 @@ import processOrderRouter from "./routers/processOrder.router";
 import orderStatusRouter from "./routers/orderStatus.router";
 import chefEfficiency from "./routers/chefEfficiency.router";
 import authRouter from "./routers/authRouter.router";
+import { getCorsOrigin } from "./utilities/cors.utility";
+import skeletonRouter from "./routers/skeleton.router";
 
 app.use(cookieParser());
 
