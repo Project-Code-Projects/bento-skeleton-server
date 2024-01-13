@@ -1,4 +1,4 @@
-import { Response } from "express";
+import { Request, Response } from "express";
 import { JwtVerifiedReqInterface } from "../interfaces/JwtVerifiedReqInterface";
 import { IngredientInterface, OrderInterface } from "../interfaces/OrderInterface";
 import axios from "axios";
@@ -98,11 +98,8 @@ const processOrder = async (req: JwtVerifiedReqInterface, res: Response) => {
   }
 };
 
-const sendOrderToKDS = async (req: JwtVerifiedReqInterface, res: Response) => {
+const sendOrderToKDS = async (req: Request, res: Response) => {
   try {
-    const user = req.user;
-    if (!user) return res.status(401).send({ message: 'Unauthorized.' });
-
     const { order } = req.body;
 
     const kdsRes = await axios.post(config.KDS_BE_BASE_URL + '/orders/create', order);
