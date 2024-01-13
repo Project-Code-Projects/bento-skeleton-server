@@ -8,7 +8,7 @@ const sendOrderStatusFromKDS = async (req: JwtVerifiedReqInterface, res: Respons
     if (req.user) {
       const orderStatusObj = req.body;
       const { orderType } = orderStatusObj;
-      if (orderType.toLowerCase().includes("inhouse")) {
+      if (orderType.toLowerCase().includes("in-house")) {
         const response = await axios.post(`${config.POS_BE_BASE_URL}/order-status`, orderStatusObj);
       } else if (orderType.toLowerCase().includes("marketplace")) {
         const response = await axios.post(`${config.MARKETPLACE_BE_BASE_URL}/order-status`, orderStatusObj);

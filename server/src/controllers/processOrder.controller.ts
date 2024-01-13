@@ -98,8 +98,24 @@ const processOrder = async (req: JwtVerifiedReqInterface, res: Response) => {
   }
 };
 
+const sendOrderToKDS = async (req: JwtVerifiedReqInterface, res: Response) => {
+  try {
+    const user = req.user;
+    if (!user) return res.status(401).send({ message: 'Unauthorized.' });
+
+    const { order } = req.body;
+
+    const kdsRes = await axios.post(config.KDS_BE_BASE_URL + '/orders/create', order);
+    res.status(201).send({ message: 'Success' });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({ message: (error as Error).message });
+  }
+};
+
 const processOrderController = {
   processOrder,
+  sendOrderToKDS
 };
 
 export default processOrderController;
