@@ -12,6 +12,7 @@ export interface AuthRequestInterface extends Request {
   id?: number;
   service?: string;
   restaurantId?: number;
+  token?: string;
 }
 
 const verifyJWTMiddleware = (req: AuthRequestInterface, res: Response, next: NextFunction) => {
@@ -25,6 +26,7 @@ const verifyJWTMiddleware = (req: AuthRequestInterface, res: Response, next: Nex
     req.id = data.id;
     req.service = data.service;
     req.restaurantId = data.restaurantId;
+    req.token = token;
     next();
   } else {
     res.status(401).send({ message: "Unauthorized" });

@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { Response } from "express";
 import { JwtVerifiedReqInterface } from "../interfaces/JwtVerifiedReqInterface";
 import { IngredientInterface, OrderInterface } from "../interfaces/OrderInterface";
 import axios from "axios";
@@ -8,10 +8,9 @@ import config from "../config";
 // 2. Extract and send data to reduce ingredients data to inventory
 const processOrder = async (req: JwtVerifiedReqInterface, res: Response) => {
   try {
-    if (req.user) {
+    if (req.id) {
       const order: OrderInterface = req.body;
       const itemsArray = order.items;
-      // console.log(itemsArray);
 
       let finalIngredArr: IngredientInterface[] = [];
 
@@ -81,7 +80,7 @@ const processOrder = async (req: JwtVerifiedReqInterface, res: Response) => {
         ingredientsToReduce: finalArrayForInventoryUpdate,
       };
 
-      const kdsRes = await axios.post(`${config.KDS_BE_BASE_URL}/process-order-kitchen/${req.user?.restaurantId}`, order);
+      const kdsRes = await axios.post(`${config.KDS_BE_BASE_URL}/process-order-kitchen/${req.restaurantId}`, order);
       if (kdsRes.status == 201) {
         const inventoryRes = await axios.post(`${config.INVENTORY_BE_BASE_URL}/update-inventory-for-order`, infoForInventoryForOrderProcessing);
         if (inventoryRes.status == 201) {
@@ -94,15 +93,17 @@ const processOrder = async (req: JwtVerifiedReqInterface, res: Response) => {
       res.status(401).send({ message: "Unauthorized" });
     }
   } catch (error) {
-    throw error;
+    console.log(error);
+    res.status(500).send({ message: (error as Error).message });
   }
 };
 
-const sendOrderToKDS = async (req: Request, res: Response) => {
+const sendOrderToKDS = async (req: JwtVerifiedReqInterface, res: Response) => {
   try {
+    if (!req.token) return res.status(401).send({ message: 'Unauthorized.' });
     const { order } = req.body;
 
-    const kdsRes = await axios.post(config.KDS_BE_BASE_URL + '/orders/create', order);
+    await axios.post(config.KDS_BE_BASE_URL + '/orders/create', order, { headers: { 'Authorization': 'Bearer ' + req.token }});
     res.status(201).send({ message: 'Success' });
   } catch (error) {
     console.log(error);
