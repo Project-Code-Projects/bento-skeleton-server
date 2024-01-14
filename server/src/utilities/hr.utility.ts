@@ -66,3 +66,25 @@ export async function hrUserInfo(userId: any) {
     throw new Error((error as AxiosError<{ message: string }>).response?.data.message);
   }
 }
+
+// Gets the active chefs in a restaurant
+export async function hrActiveChefs(restaurantId: number, token: string) {
+  try {
+    const res = await axios.get(config.HR_BE_BASE_URL + "/position/" + restaurantId + "/chef", { headers: { 'Authorization': 'Bearer ' + token }});
+    return res.data;
+  } catch (error) {
+    console.log(error);
+    throw new Error((error as AxiosError<{ message: string }>).response?.data.message);
+  }
+}
+
+// Gets the active chefs in a restaurant
+export async function hrActiveWaiters(restaurantId: number, token: string) {
+  try {
+    const res = await axios.get(config.HR_BE_BASE_URL + "/position/" + restaurantId + "/waiter", { headers: { 'Authorization': 'Bearer ' + token }});
+    return res.data;
+  } catch (error) {
+    console.log(error);
+    throw new Error((error as AxiosError<{ message: string }>).response?.data.message);
+  }
+}
