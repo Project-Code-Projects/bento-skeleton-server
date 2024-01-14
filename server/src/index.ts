@@ -16,6 +16,7 @@ import chefEfficiency from "./routers/chefEfficiency.router";
 import authRouter from "./routers/authRouter.router";
 import { getCorsOrigin } from "./utilities/cors.utility";
 import skeletonRouter from "./routers/skeleton.router";
+import employeeRouter from "./routers/employee.router";
 
 app.use(cookieParser());
 
@@ -49,6 +50,9 @@ app.use("/hr", chefEfficiency);
 
 // All the skeleton specific Routes
 app.use("/skeleton", skeletonRouter);
+
+// Employee routes
+app.use("/employee", employeeRouter);
 
 async function main() {
   try {
