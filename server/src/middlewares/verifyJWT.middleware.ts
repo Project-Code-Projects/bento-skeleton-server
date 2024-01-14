@@ -8,9 +8,12 @@ const verifyJWTMiddleware = (req: JwtVerifiedReqInterface, res: Response, next: 
   if (!authHeaders) return res.status(401).send({ message: "Unauthorized" });
   const token = authHeaders.split(" ")[1];
 
+  console.log('Token', token);
+  
   const data = jwt.verify(token, config.JWT_SECRET) as { id?: number; service?: string; restaurantId?: number };
-
+  
   if (data.id && data.service) {
+    console.log('Successful auth');
     const user = {
       id: data.id,
       service: data.service,
