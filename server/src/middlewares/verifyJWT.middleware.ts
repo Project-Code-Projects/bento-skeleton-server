@@ -11,7 +11,6 @@ const verifyJWTMiddleware = (req: JwtVerifiedReqInterface, res: Response, next: 
   const data = jwt.verify(token, config.JWT_SECRET) as { id?: number; service?: string; restaurantId?: number };
   
   if (data.id && data.service) {
-
     const user = {
       id: data.id,
       service: data.service,
