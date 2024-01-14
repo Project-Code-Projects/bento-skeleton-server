@@ -100,7 +100,6 @@ const processOrder = async (req: JwtVerifiedReqInterface, res: Response) => {
 
 const sendOrderToKDS = async (req: JwtVerifiedReqInterface, res: Response) => {
   try {
-    console.log('Inside sendTo KDS:', req.user);
     if (!req.user) return res.status(401).send({ message: 'Unauthorized.' });
     const { order } = req.body;
 
