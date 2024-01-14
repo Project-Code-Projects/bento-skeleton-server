@@ -1,23 +1,22 @@
 import jwt from "jsonwebtoken";
 import { Response, Request } from "express";
-import { AuthRequestInterface } from "../middlewares/verifyJWT.middleware";
 import config from "../config";
 import { getRedirectUrlForService, validateService } from "../utilities/service.utility";
 import { hrServiceCheck, hrUserInfo } from "../utilities/hr.utility";
 import { createServiceTokenStore, findServiceTokenStore } from "../models/serviceTokenStore/serviceTokenStore.query";
+import { JwtVerifiedReqInterface } from "../interfaces/JwtVerifiedReqInterface";
 
-export async function redirectToService(req: AuthRequestInterface, res: Response) {
+export async function redirectToService(req: JwtVerifiedReqInterface, res: Response) {
   try {
-    const id = req.id;
-    const restaurantId = req.restaurantId;
+    const user = req.user;
     const service = req.params.service;
     console.log("service-name", service);
 
-    if (id && validateService(service)) {
-      const checkAccess = await hrServiceCheck({ userId: id, service: service.toUpperCase() });
+    if (user && validateService(service)) {
+      const checkAccess = await hrServiceCheck({ userId: user.id, service: service.toUpperCase() });
 
       if (checkAccess.auth) {
-        const token = jwt.sign({ id, service, restaurantId }, config.JWT_SECRET, {
+        const token = jwt.sign({ id: user.id, service, restaurantId: user.restaurantId }, config.JWT_SECRET, {
           expiresIn: "7d",
         });
         const store = await createServiceTokenStore(token);
@@ -45,10 +44,12 @@ export async function getTokenFromStore(req: Request, res: Response) {
   }
 }
 
-export async function getUserInfoByToken(req: AuthRequestInterface, res: Response) {
+export async function getUserInfoByToken(req: JwtVerifiedReqInterface, res: Response) {
   try {
-    const id = req.id;
-    const userData = await hrUserInfo(id);
+    const user = req.user;
+    if (!user) return res.send({ message: 'Unauthorized.' });
+
+    const userData = await hrUserInfo(user.id);
     const result = {
       user: { ...userData.message },
     };
