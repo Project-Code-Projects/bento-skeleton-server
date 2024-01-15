@@ -19,7 +19,8 @@ const verifyJWTMiddleware = (req: AuthRequestInterface, res: Response, next: Nex
   if (!authHeaders) return res.status(401).send({ message: "Unauthorized" });
   const token = authHeaders.split(" ")[1];
 
-  const data = jwt.verify(token, config.JWT_SECRET) as { id?: number; service?: string; restaurantId?: number };
+  const data = jwt.verify(token, config.JWT_SECRET) as
+    { id?: number; service?: string; restaurantId?: number };
 
   if (data.id && data.service) {
     req.id = data.id;
