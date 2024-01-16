@@ -3,7 +3,7 @@ import config from "../config";
 
 export async function posGetAllOrders(token: string) {
   try {
-    const res = await axios.get<any>(config.POS_BE_BASE_URL + "/order/", { headers: { 'Authorization': 'Bearer ' + token }});
+    const res = await axios.get<any>(config.POS_BE_BASE_URL + "/order/all", { headers: { 'Authorization': 'Bearer ' + token }});
     return res.data;
   } catch (error) {
     console.log(error);
