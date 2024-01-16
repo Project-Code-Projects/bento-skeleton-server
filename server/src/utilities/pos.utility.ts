@@ -10,3 +10,14 @@ export async function posGetAllOrders(token: string) {
     throw new Error((error as AxiosError<{ message: string }>).response?.data.message);
   }
 }
+
+
+export async function posUpdateOrderStatus(token: string, orderId: string, status: string) {
+  try {
+    const res = await axios.put<any>(config.POS_BE_BASE_URL + "/order/status", { orderId, status }, { headers: { 'Authorization': 'Bearer ' + token }});
+    return res.data;
+  } catch (error) {
+    console.log(error);
+    throw new Error((error as AxiosError<{ message: string }>).response?.data.message);
+  }
+}
