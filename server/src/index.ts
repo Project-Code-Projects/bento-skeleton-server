@@ -17,6 +17,7 @@ import authRouter from "./routers/authRouter.router";
 import { getCorsOrigin } from "./utilities/cors.utility";
 import skeletonRouter from "./routers/skeleton.router";
 import employeeRouter from "./routers/employee.router";
+import orderRouter from "./routers/order.router";
 
 app.use(cookieParser());
 
@@ -38,6 +39,8 @@ app.use("/service-auth", serviceAuthRouter);
 
 //Request From Menu Builder to Inventory to  get all the ingredients.
 app.use("/inventory", inventoryRouter);
+
+app.use("/orders", orderRouter);
 
 //Req from POS/Marketplace to Inventory + Kitchen
 app.use("/process-order", processOrderRouter);
