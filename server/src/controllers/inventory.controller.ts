@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
 import axios, { AxiosResponse } from "axios";
 import { IngredientResultInterface } from "../interfaces/IngredientInterface";
-import { JwtVerifiedReqInterface } from "../interfaces/JwtVerifiedReqInterface";
 import config from "../config";
+import { JwtReqInterface } from "../interfaces/JwtReqInterface";
 
 /* 
 *   This API call will be coming from Menu Builder to get all the  ingredients of that Restaurant from the  Inventory.
@@ -12,10 +12,10 @@ import config from "../config";
 
 
 */
-async function getIngredientsFromInventory(req: JwtVerifiedReqInterface, res: Response) {
+async function getIngredientsFromInventory(req: JwtReqInterface, res: Response) {
   try {
-    if (req.user) {
-      const apiUrl = config.INVENTORY_BE_BASE_URL + `/v1/ingredient/restaurant/${req.user?.restaurantId}`;
+    if (req.id) {
+      const apiUrl = config.INVENTORY_BE_BASE_URL + `/v1/ingredient/restaurant/${req.restaurantId}`;
       const response: AxiosResponse<IngredientResultInterface> = await axios.get<IngredientResultInterface>(apiUrl);
       res.send(response.data);
     } else {

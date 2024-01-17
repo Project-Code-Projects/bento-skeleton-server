@@ -1,5 +1,5 @@
 import axios, { AxiosError } from "axios";
-import { LoginDataInterface } from "../interfaces/loginDataInterface";
+import { LoginDataInterface } from "../interfaces/LoginDataInterface";
 import { UserInterface } from "../interfaces/UserInterface";
 import config from "../config";
 

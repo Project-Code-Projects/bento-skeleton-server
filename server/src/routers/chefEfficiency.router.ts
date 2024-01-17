@@ -1,8 +1,9 @@
 import { Router } from "express";
 import verifyJWTMiddleware from "../middlewares/verifyJWT.middleware";
 import hrController from "../controllers/hr.controller";
-const chefEfficiency = Router();
+const employeeEfficiency = Router();
 
-chefEfficiency.post("/chef-efficiency", verifyJWTMiddleware, hrController.chefEfficiency);
+employeeEfficiency.post("/chef-efficiency", verifyJWTMiddleware, hrController.chefEfficiency);
+employeeEfficiency.post('/waiter-efficiency', verifyJWTMiddleware, hrController.waiterEfficiency)
 
-export default chefEfficiency;
+export default employeeEfficiency;

@@ -1,11 +1,11 @@
 import { Response } from "express";
-import { JwtVerifiedReqInterface } from "../interfaces/JwtVerifiedReqInterface";
 import axios from "axios";
 import config from "../config";
+import { JwtReqInterface } from "../interfaces/JwtReqInterface";
 
-const sendOrderStatusFromKDS = async (req: JwtVerifiedReqInterface, res: Response) => {
+const sendOrderStatusFromKDS = async (req: JwtReqInterface, res: Response) => {
   try {
-    if (req.user) {
+    if (req.id) {
       const orderStatusObj = req.body;
       const { orderType } = orderStatusObj;
       if (orderType.toLowerCase().includes("inhouse")) {

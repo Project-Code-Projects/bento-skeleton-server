@@ -34,18 +34,13 @@ export const restaurantRegistration = async (req: Request, res: Response) => {
                     email: restaurantRepDbResult.email,
                     password: restaurantRepDbResult.password
                 };
-                let hrResponse = await sendOwnerInfoToHR(dataForHR)
-                console.log('hrResponse', hrResponse);
-                res.json({ 'message': 'hrResponse' })
+                // let hrResponse = await sendOwnerInfoToHR(dataForHR) // Gotta uncomment this when HR API is Ready
+                res.status(200).json({ 'message': 'All Good' })
             }
 
         }
 
         // res.send(restaurantInfoDbResult)
-
-
-
-
 
 
     } catch (error) {

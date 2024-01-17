@@ -1,20 +1,9 @@
 import jwt from "jsonwebtoken";
 import { NextFunction, Request, Response } from "express";
 import config from "../config";
+import { JwtReqInterface } from "../interfaces/JwtReqInterface";
 
-export interface userJWTPayloadInterface {
-  id: number;
-  restaurantId: number;
-  service: string;
-}
-
-export interface AuthRequestInterface extends Request {
-  id?: number;
-  service?: string;
-  restaurantId?: number;
-}
-
-const verifyJWTMiddleware = (req: AuthRequestInterface, res: Response, next: NextFunction) => {
+const verifyJWTMiddleware = (req: JwtReqInterface, res: Response, next: NextFunction) => {
   const authHeaders = req.headers["authorization"];
   if (!authHeaders) return res.status(401).send({ message: "Unauthorized" });
   const token = authHeaders.split(" ")[1];
@@ -22,7 +11,7 @@ const verifyJWTMiddleware = (req: AuthRequestInterface, res: Response, next: Nex
   const data = jwt.verify(token, config.JWT_SECRET) as
     { id?: number; service?: string; restaurantId?: number };
 
-  if (data.id && data.service) {
+  if (data.id && data.service && data.restaurantId) {
     req.id = data.id;
     req.service = data.service;
     req.restaurantId = data.restaurantId;
