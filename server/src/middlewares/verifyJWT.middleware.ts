@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import { NextFunction, Request, Response } from "express";
+import { NextFunction, Response } from "express";
 import config from "../config";
 import { JwtReqInterface } from "../interfaces/JwtReqInterface";
 
@@ -8,13 +8,16 @@ const verifyJWTMiddleware = (req: JwtReqInterface, res: Response, next: NextFunc
   if (!authHeaders) return res.status(401).send({ message: "Unauthorized" });
   const token = authHeaders.split(" ")[1];
 
-  const data = jwt.verify(token, config.JWT_SECRET) as
-    { id?: number; service?: string; restaurantId?: number };
+  const data = jwt.verify(token, config.JWT_SECRET) as { id?: number; service?: string; restaurantId?: number };
 
-  if (data.id && data.service && data.restaurantId) {
-    req.id = data.id;
-    req.service = data.service;
-    req.restaurantId = data.restaurantId;
+  if (data.id && data.service) {
+    const user = {
+      id: data.id,
+      service: data.service,
+      restaurantId: data.restaurantId,
+      token
+    }
+    req.user = user;
     next();
   } else {
     res.status(401).send({ message: "Unauthorized" });

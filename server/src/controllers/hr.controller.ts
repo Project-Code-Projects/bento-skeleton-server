@@ -1,13 +1,13 @@
 import { Response } from "express";
-import axios from "axios";
-import config from "../config";
+
 import { JwtReqInterface } from "../interfaces/JwtReqInterface";
+import { hrPostChefEfficiency } from "../utilities/hr.utility";
 
 const chefEfficiency = async (req: JwtReqInterface, res: Response) => {
   try {
-    if (req.id) {
+    if (req.user) {
       const efficiencyData = req.body;
-      await axios.post(`${config.HR_BE_BASE_URL}/chef-efficiency/${req.restaurantId}`, efficiencyData);
+      await hrPostChefEfficiency(efficiencyData, req.user.token);
       res.status(200).json({ message: "Data sent successfully to HR" });
     }
   } catch (error) {
@@ -19,7 +19,8 @@ const chefEfficiency = async (req: JwtReqInterface, res: Response) => {
 const waiterEfficiency = async (req: JwtReqInterface, res: Response) => {
   try {
     const data = req.body;
-    await axios.post(`${config.HR_BE_BASE_URL}/waiter-efficiency/${req.restaurantId}`, data)
+    // this will be happening in utility file
+    // await axios.post(`${config.HR_BE_BASE_URL}/waiter-efficiency/${req.restaurantId}`, data)
     res.status(200).json({ message: "Data sent successfully to HR" });
   } catch (error) {
     console.log(error);

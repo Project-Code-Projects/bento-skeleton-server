@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
 import { getAllCountry } from "../models/countryList/countryList.query";
-import { CountryInterface } from "../interfaces/CountryInterface";
 
 export const getAllCountryController = async (req: Request, res: Response) => {
   try {

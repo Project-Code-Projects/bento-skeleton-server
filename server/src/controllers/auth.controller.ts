@@ -3,7 +3,7 @@ import { Request, Response } from "express";
 import { validateLoginData } from "../utilities/validateLoginData.utility";
 import { hrLogin, hrServiceCheck, hrServiceList } from "../utilities/hr.utility";
 import config from "../config";
-import { AuthRequestInterface } from "../middlewares/verifyJWT.middleware";
+import { JwtVerifiedReqInterface } from "../interfaces/JwtVerifiedReqInterface";
 
 export async function login(req: Request, res: Response) {
   try {
@@ -27,11 +27,11 @@ export async function login(req: Request, res: Response) {
 }
 
 // Gets the accessible-silo array
-export async function getServices(req: AuthRequestInterface, res: Response) {
+export async function getServices(req: JwtVerifiedReqInterface, res: Response) {
   try {
-    const { id } = req;
-    if (id) {
-      const data = await hrServiceList(id);
+    const { user } = req;
+    if (user) {
+      const data = await hrServiceList(user.id);
       res.send(data);
     } else res.status(403).send({ auth: false });
   } catch (error) {
@@ -40,13 +40,12 @@ export async function getServices(req: AuthRequestInterface, res: Response) {
   }
 }
 
-export async function checkServiceAccess(req: AuthRequestInterface, res: Response) {
+export async function checkServiceAccess(req: JwtVerifiedReqInterface, res: Response) {
   try {
-    const id = req.id;
-    const service = req.service;
+    const user = req.user;
 
-    if (id && service) {
-      const check = await hrServiceCheck({ userId: id, service });
+    if (user) {
+      const check = await hrServiceCheck({ userId: user.id, service: user.service });
       if (check.auth) {
         res.send({ auth: true });
       } else {

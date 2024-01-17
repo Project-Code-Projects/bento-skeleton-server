@@ -15,7 +15,12 @@ import orderStatusRouter from "./routers/orderStatus.router";
 import authRouter from "./routers/authRouter.router";
 import { getCorsOrigin } from "./utilities/cors.utility";
 import skeletonRouter from "./routers/skeleton.router";
+<<<<<<< HEAD
 import employeeEfficiency from "./routers/chefEfficiency.router";
+=======
+import employeeRouter from "./routers/employee.router";
+import orderRouter from "./routers/order.router";
+>>>>>>> cd67b781a12950801e573bec13e4a5a3c9ca3086
 
 app.use(cookieParser());
 
@@ -38,6 +43,8 @@ app.use("/service-auth", serviceAuthRouter);
 //Request From Menu Builder to Inventory to  get all the ingredients.
 app.use("/inventory", inventoryRouter);
 
+app.use("/orders", orderRouter);
+
 //Req from POS/Marketplace to Inventory + Kitchen
 app.use("/process-order", processOrderRouter);
 
@@ -50,6 +57,9 @@ app.use("/hr", employeeEfficiency);
 
 // All the skeleton specific Routes
 app.use("/skeleton", skeletonRouter);
+
+// Employee routes
+app.use("/employee", employeeRouter);
 
 async function main() {
   try {
