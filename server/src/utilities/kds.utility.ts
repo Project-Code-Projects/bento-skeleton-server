@@ -20,3 +20,13 @@ export async function chefCheckOut (token: string) {
     throw new Error((error as AxiosError<{ message: string }>).response?.data.message);
   }
 }
+
+export async function kdsPostIncomingOrder (token: string, order: any) {
+  try {
+    const res = await axios.post(config.KDS_BE_BASE_URL + '/orders/incoming', order, { headers: { 'Authorization': 'Bearer ' + token }});
+    return res;
+  } catch (error) {
+    console.log(error);
+    throw new Error((error as AxiosError<{ message: string }>).response?.data.message);
+  }
+}
