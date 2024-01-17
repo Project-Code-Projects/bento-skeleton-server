@@ -15,12 +15,9 @@ import orderStatusRouter from "./routers/orderStatus.router";
 import authRouter from "./routers/authRouter.router";
 import { getCorsOrigin } from "./utilities/cors.utility";
 import skeletonRouter from "./routers/skeleton.router";
-<<<<<<< HEAD
 import employeeEfficiency from "./routers/chefEfficiency.router";
-=======
 import employeeRouter from "./routers/employee.router";
 import orderRouter from "./routers/order.router";
->>>>>>> cd67b781a12950801e573bec13e4a5a3c9ca3086
 
 app.use(cookieParser());
 

@@ -1,7 +1,10 @@
 import { Request } from "express";
 
 export interface JwtReqInterface extends Request {
-  id?: number;
-  restaurantId?: number;
-  service?: string;
+  user?: {
+    id: number;
+    restaurantId?: number;
+    service: string;
+    token: string;
+  }
 }
