@@ -18,6 +18,8 @@ import skeletonRouter from "./routers/skeleton.router";
 import employeeEfficiency from "./routers/chefEfficiency.router";
 import employeeRouter from "./routers/employee.router";
 import orderRouter from "./routers/order.router";
+import menuRouter from "./routers/menu.router";
+import posRouter from "./routers/pos.router";
 
 app.use(cookieParser());
 
@@ -52,11 +54,19 @@ app.use("/order-prep-status", orderStatusRouter);
 // Post req from POS to HR sending data about waiter efficiency 
 app.use("/hr", employeeEfficiency);
 
+// Get req from Review to POS to get an Order Info using OrderId
+app.use("/pos", posRouter)
+
+// Request from POS and Marketplace for menu
+app.use("/menu", menuRouter)
+
 // All the skeleton specific Routes
 app.use("/skeleton", skeletonRouter);
 
 // Employee routes
 app.use("/employee", employeeRouter);
+
+
 
 async function main() {
   try {

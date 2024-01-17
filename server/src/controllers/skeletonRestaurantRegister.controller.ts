@@ -29,7 +29,7 @@ export const restaurantRegistration = async (req: Request, res: Response) => {
             if (restaurantRepDbResult) {
                 console.log('restaurantRepDbResult', restaurantRepDbResult);
                 let dataForHR = {
-                    restaurantId: restaurantRepDbResult.restaurantId as number, // Potential Bug Here
+                    restaurantId: restaurantRepDbResult.restaurantId, // Potential Bug Here
                     name: restaurantRepDbResult.firstName + " " + restaurantRepDbResult.lastName,
                     email: restaurantRepDbResult.email,
                     password: restaurantRepDbResult.password
