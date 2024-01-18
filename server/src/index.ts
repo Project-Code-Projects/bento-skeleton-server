@@ -15,12 +15,11 @@ import orderStatusRouter from "./routers/orderStatus.router";
 import authRouter from "./routers/authRouter.router";
 import { getCorsOrigin } from "./utilities/cors.utility";
 import skeletonRouter from "./routers/skeleton.router";
-import employeeEfficiency from "./routers/chefEfficiency.router";
 import employeeRouter from "./routers/employee.router";
 import orderRouter from "./routers/order.router";
 import menuRouter from "./routers/menu.router";
 import posRouter from "./routers/pos.router";
-
+import hrRouter from "./routers/hr.router";
 app.use(cookieParser());
 
 app.use(
@@ -52,7 +51,8 @@ app.use("/order-prep-status", orderStatusRouter);
 
 // Post req from KDS to HR sending data about chef efficiency to prepare dishes
 // Post req from POS to HR sending data about waiter efficiency 
-app.use("/hr", employeeEfficiency);
+// Post req from Review to HR sending data about review of an order
+app.use("/hr", hrRouter);
 
 // Get req from Review to POS to get an Order Info using OrderId
 app.use("/pos", posRouter)

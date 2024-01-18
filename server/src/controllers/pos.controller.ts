@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { getOrderInfoUsingOrderId } from "../utilities/pos.utility";
+import { getAllReservationOfARestaurant, getOrderInfoUsingOrderId, getReservationOfARestaurantByDate } from "../utilities/pos.utility";
 
 const getOrderInfo = async (req: Request, res: Response) => {
     try {
@@ -11,6 +11,31 @@ const getOrderInfo = async (req: Request, res: Response) => {
     }
 }
 
-let posController = { getOrderInfo }
+
+const getAllReservations = async (req: Request, res: Response) => {
+    try {
+        const restaurantId = req.params.restaurantId;
+        const result = await getAllReservationOfARestaurant(restaurantId)
+        res.status(200).send(result);
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({ message: (error as Error).message });
+    }
+
+}
+
+const getReservationByDate = async (req: Request, res: Response) => {
+    try {
+        const restaurantId = req.query.restaurantId as string;
+        const date = req.query.date;
+        const result = await getReservationOfARestaurantByDate(restaurantId, date);
+        res.status(200).send(result)
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({ message: (error as Error).message });
+    }
+}
+
+let posController = { getOrderInfo, getAllReservations, getReservationByDate }
 
 export default posController;

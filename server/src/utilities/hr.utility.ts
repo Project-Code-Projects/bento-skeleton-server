@@ -124,3 +124,15 @@ export async function hrPostWaiterEfficiency(data: any, token: string) {
   }
 
 }
+
+export async function hrPostOrderReview(data: any, restaurantId: string) {
+  try {
+    const res = await axios.post(`${config.HR_BE_BASE_URL}/order-review/${restaurantId}`, data)
+    if (res) {
+      return res.data;
+    }
+  } catch (error) {
+    console.log(error);
+    throw new Error((error as AxiosError<{ message: string }>).response?.data.message);
+  }
+}

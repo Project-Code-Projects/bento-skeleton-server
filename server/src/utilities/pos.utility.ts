@@ -42,3 +42,25 @@ export async function getOrderInfoUsingOrderId(orderId: string) {
     throw new Error((error as AxiosError<{ message: string }>).response?.data.message);
   }
 }
+
+
+export async function getAllReservationOfARestaurant(restaurantId: string) {
+  try {
+    const res = await axios.get<any>(`${config.POS_BE_BASE_URL}/get-all-reservation/${restaurantId}`)
+    return res.data
+  } catch (error) {
+    console.log(error);
+    throw new Error((error as AxiosError<{ message: string }>).response?.data.message);
+  }
+}
+
+export async function getReservationOfARestaurantByDate(restaurantId: string, date: any) {
+  try {
+    const res = await axios.get<any>
+      (`${config.POS_BE_BASE_URL}/get-oneday-reservation?restaurantId=${restaurantId}&date=${date}`);
+    return res.data;
+
+  } catch (error) {
+    console.log(error);
+  }
+}

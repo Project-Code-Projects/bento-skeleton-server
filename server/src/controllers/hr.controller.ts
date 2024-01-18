@@ -1,7 +1,7 @@
-import { Response } from "express";
+import { Request, Response } from "express";
 
 import { JwtReqInterface } from "../interfaces/JwtReqInterface";
-import { hrPostChefEfficiency, hrPostWaiterEfficiency } from "../utilities/hr.utility";
+import { hrPostChefEfficiency, hrPostOrderReview, hrPostWaiterEfficiency } from "../utilities/hr.utility";
 
 const chefEfficiency = async (req: JwtReqInterface, res: Response) => {
   try {
@@ -29,6 +29,20 @@ const waiterEfficiency = async (req: JwtReqInterface, res: Response) => {
   }
 }
 
-const hrController = { chefEfficiency, waiterEfficiency };
+const reviewInfoForHR = async (req: Request, res: Response) => {
+  try {
+    const restaurantId = req.params.restaurantId;
+    const reviewData = req.body;
+    const postToHrResult = await hrPostOrderReview(reviewData, restaurantId)
+    res.status(201).send(postToHrResult);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "Internal server error while sending data to HR" });
+  }
+
+
+}
+
+const hrController = { chefEfficiency, waiterEfficiency, reviewInfoForHR, };
 
 export default hrController;
