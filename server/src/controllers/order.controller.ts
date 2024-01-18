@@ -1,9 +1,9 @@
 import { Response } from "express";
-import { JwtVerifiedReqInterface } from "../interfaces/JwtVerifiedReqInterface";
 import { posGetAllOrders, posUpdateOrderChef, posUpdateOrderStatus } from "../utilities/pos.utility";
 import { kdsPostIncomingOrder } from "../utilities/kds.utility";
+import { JwtReqInterface } from "../interfaces/JwtReqInterface";
 
-export async function getAllOrders (req: JwtVerifiedReqInterface, res: Response) {
+export async function getAllOrders(req: JwtReqInterface, res: Response) {
   try {
     const { user } = req;
     if (!user) return res.status(401).send({ message: 'Unauthorized.' });
@@ -17,7 +17,7 @@ export async function getAllOrders (req: JwtVerifiedReqInterface, res: Response)
 }
 
 
-export async function updateOrderStatus (req: JwtVerifiedReqInterface, res: Response) {
+export async function updateOrderStatus(req: JwtReqInterface, res: Response) {
   try {
     const { user } = req;
     if (!user) return res.status(401).send({ message: 'Unauthorized.' });
@@ -35,7 +35,7 @@ export async function updateOrderStatus (req: JwtVerifiedReqInterface, res: Resp
 }
 
 
-export async function incomingOrder (req: JwtVerifiedReqInterface, res: Response) {
+export async function incomingOrder(req: JwtReqInterface, res: Response) {
   try {
     const { user } = req;
     if (!user) return res.status(401).send({ message: 'Unauthorized.' });
@@ -51,7 +51,7 @@ export async function incomingOrder (req: JwtVerifiedReqInterface, res: Response
 }
 
 
-export async function updateOrderChef (req: JwtVerifiedReqInterface, res: Response) {
+export async function updateOrderChef(req: JwtReqInterface, res: Response) {
   try {
     const { user } = req;
     if (!user) return res.status(401).send({ message: 'Unauthorized.' });

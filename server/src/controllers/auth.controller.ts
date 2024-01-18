@@ -3,7 +3,7 @@ import { Request, Response } from "express";
 import { validateLoginData } from "../utilities/validateLoginData.utility";
 import { hrLogin, hrServiceCheck, hrServiceList } from "../utilities/hr.utility";
 import config from "../config";
-import { JwtVerifiedReqInterface } from "../interfaces/JwtVerifiedReqInterface";
+import { JwtReqInterface } from "../interfaces/JwtReqInterface";
 
 export async function login(req: Request, res: Response) {
   try {
@@ -27,7 +27,7 @@ export async function login(req: Request, res: Response) {
 }
 
 // Gets the accessible-silo array
-export async function getServices(req: JwtVerifiedReqInterface, res: Response) {
+export async function getServices(req: JwtReqInterface, res: Response) {
   try {
     const { user } = req;
     if (user) {
@@ -40,7 +40,7 @@ export async function getServices(req: JwtVerifiedReqInterface, res: Response) {
   }
 }
 
-export async function checkServiceAccess(req: JwtVerifiedReqInterface, res: Response) {
+export async function checkServiceAccess(req: JwtReqInterface, res: Response) {
   try {
     const user = req.user;
 

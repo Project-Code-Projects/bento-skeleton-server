@@ -4,9 +4,9 @@ import config from "../config";
 import { getRedirectUrlForService, validateService } from "../utilities/service.utility";
 import { hrServiceCheck, hrUserInfo } from "../utilities/hr.utility";
 import { createServiceTokenStore, findServiceTokenStore } from "../models/serviceTokenStore/serviceTokenStore.query";
-import { JwtVerifiedReqInterface } from "../interfaces/JwtVerifiedReqInterface";
+import { JwtReqInterface } from "../interfaces/JwtReqInterface";
 
-export async function redirectToService(req: JwtVerifiedReqInterface, res: Response) {
+export async function redirectToService(req: JwtReqInterface, res: Response) {
   try {
     const user = req.user;
     const service = req.params.service;
@@ -44,7 +44,7 @@ export async function getTokenFromStore(req: Request, res: Response) {
   }
 }
 
-export async function getUserInfoByToken(req: JwtVerifiedReqInterface, res: Response) {
+export async function getUserInfoByToken(req: JwtReqInterface, res: Response) {
   try {
     const user = req.user;
     if (!user) return res.send({ message: 'Unauthorized.' });

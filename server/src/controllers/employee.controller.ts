@@ -1,12 +1,12 @@
 import { Response } from "express";
-import { JwtVerifiedReqInterface } from "../interfaces/JwtVerifiedReqInterface";
 import { chefCheckIn, chefCheckOut } from "../utilities/kds.utility";
 import { hrActiveChefs, hrActiveWaiters } from "../utilities/hr.utility";
+import { JwtReqInterface } from "../interfaces/JwtReqInterface";
 
-export const employeeCheckIn = async (req: JwtVerifiedReqInterface, res: Response) => {
+export const employeeCheckIn = async (req: JwtReqInterface, res: Response) => {
   try {
     if (!req.user) return res.status(401).send({ message: 'Unauthorized.' });
-    
+
 
     // Implement functionality to send checked in user to HR
 
@@ -21,10 +21,10 @@ export const employeeCheckIn = async (req: JwtVerifiedReqInterface, res: Respons
 };
 
 
-export const employeeCheckOut = async (req: JwtVerifiedReqInterface, res: Response) => {
+export const employeeCheckOut = async (req: JwtReqInterface, res: Response) => {
   try {
     if (!req.user) return res.status(401).send({ message: 'Unauthorized.' });
-    
+
 
     // Implement functionality to send checked out user to HR
 
@@ -39,7 +39,7 @@ export const employeeCheckOut = async (req: JwtVerifiedReqInterface, res: Respon
 };
 
 
-export const getActiveChefs = async (req: JwtVerifiedReqInterface, res: Response) => {
+export const getActiveChefs = async (req: JwtReqInterface, res: Response) => {
   try {
     if (!req.user || !req.user.restaurantId) return res.status(401).send({ message: 'Unauthorized.' });
     const response = await hrActiveChefs(req.user.restaurantId, req.user.token);
@@ -51,7 +51,7 @@ export const getActiveChefs = async (req: JwtVerifiedReqInterface, res: Response
 };
 
 
-export const getActiveWaiters = async (req: JwtVerifiedReqInterface, res: Response) => {
+export const getActiveWaiters = async (req: JwtReqInterface, res: Response) => {
   try {
     if (!req.user || !req.user.restaurantId) return res.status(401).send({ message: 'Unauthorized.' });
     const response = await hrActiveWaiters(req.user.restaurantId, req.user.token);

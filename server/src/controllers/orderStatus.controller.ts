@@ -5,7 +5,7 @@ import { JwtReqInterface } from "../interfaces/JwtReqInterface";
 
 const sendOrderStatusFromKDS = async (req: JwtReqInterface, res: Response) => {
   try {
-    if (req.id) {
+    if (req.user?.id) {
       const orderStatusObj = req.body;
       const { orderType } = orderStatusObj;
       if (orderType.toLowerCase().includes("in-house")) {

@@ -14,8 +14,8 @@ import { JwtReqInterface } from "../interfaces/JwtReqInterface";
 */
 async function getIngredientsFromInventory(req: JwtReqInterface, res: Response) {
   try {
-    if (req.id) {
-      const apiUrl = config.INVENTORY_BE_BASE_URL + `/v1/ingredient/restaurant/${req.restaurantId}`;
+    if (req.user?.id) {
+      const apiUrl = config.INVENTORY_BE_BASE_URL + `/v1/ingredient/restaurant/${req.user.restaurantId}`;
       const response: AxiosResponse<IngredientResultInterface> = await axios.get<IngredientResultInterface>(apiUrl);
       res.send(response.data);
     } else {
