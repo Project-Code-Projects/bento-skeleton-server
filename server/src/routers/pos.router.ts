@@ -11,4 +11,7 @@ posRouter.get('all-reservations/:restaurantId', posController.getAllReservations
 // Get req from Review to POS to get reservations of a day using date of that day
 posRouter.get('/reservation-by-date', posController.getReservationByDate)
 
+// Post req from Review to POS for sending new reservations. (Websocket)
+posRouter.post('/send-new-reservation/:restaurantId', posController.postNewReservation)
+
 export default posRouter;

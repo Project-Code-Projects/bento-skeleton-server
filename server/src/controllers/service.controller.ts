@@ -59,3 +59,9 @@ export async function getUserInfoByToken(req: JwtReqInterface, res: Response) {
     res.status(500).send({ message: (error as Error).message });
   }
 }
+
+export function generateJwtTokenForMarketplace(req: Request, res: Response) {
+  const token = jwt.sign({ id: 0, service: "marketplace", restaurantId: 0 }, config.JWT_SECRET, {});
+  res.setHeader("Authorization", "Bearer " + token);
+  res.send({ status: "success", token });
+}

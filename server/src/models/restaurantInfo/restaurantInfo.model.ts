@@ -154,6 +154,10 @@ const restaurantInfo = new Schema<IRestaurantInfo>({
         type: [String],
         required: true,
     },
+    orderServingMethod: {
+        type: String,
+        required: true,
+    },
     doesOperateOnHolidays: {
         type: Boolean,
         required: true,

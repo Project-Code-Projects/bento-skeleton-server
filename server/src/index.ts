@@ -43,7 +43,7 @@ app.use("/inventory", inventoryRouter);
 
 app.use("/orders", orderRouter);
 
-//Req from POS/Marketplace to Inventory + Kitchen
+//Req from POS/Marketplace to Inventory + Kitchen [NEED FIXES]
 app.use("/process-order", processOrderRouter);
 
 // Post req from KDS to Pos and Marketplace regarding food preparation status
@@ -55,6 +55,9 @@ app.use("/order-prep-status", orderStatusRouter);
 app.use("/hr", hrRouter);
 
 // Get req from Review to POS to get an Order Info using OrderId
+// Get req from Review to POS to get all the reservations
+// Get req from Review to POS to get reservations of a day using date of that day
+// Post req from Review to POS for sending new reservations. (Websocket)
 app.use("/pos", posRouter)
 
 // Request from POS and Marketplace for menu

@@ -44,6 +44,7 @@ export interface IRestaurantInfo {
 
     operatingDays: string[];
     cuisines: string[];
+    orderServingMethod: string;
     doesOperateOnHolidays: boolean;
     maximumWaiterNumber: number;
     maximumChefNumber: number;

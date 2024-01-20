@@ -59,8 +59,20 @@ export async function getReservationOfARestaurantByDate(restaurantId: string, da
     const res = await axios.get<any>
       (`${config.POS_BE_BASE_URL}/get-oneday-reservation?restaurantId=${restaurantId}&date=${date}`);
     return res.data;
-
   } catch (error) {
     console.log(error);
+    throw new Error((error as AxiosError<{ message: string }>).response?.data.message);
+
   }
+}
+
+export async function postNewReservationOfARestaurant(restaurantId: string, reservationData: object) {
+  try {
+    const res = await axios.post<any>(`${config.POS_BE_BASE_URL}/save-new-reservation/${restaurantId}`, reservationData)
+    return res.data;
+  } catch (error) {
+    console.log(error);
+    throw new Error((error as AxiosError<{ message: string }>).response?.data.message);
+  }
+
 }
