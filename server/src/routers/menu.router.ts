@@ -5,5 +5,6 @@ const menuRouter = Router();
 
 // Get req from POS
 menuRouter.get('/one-restaurant-menu', verifyJWTMiddleware, menuController.getOneRestaurantMenu)
+menuRouter.get('/all-menu-catagories', verifyJWTMiddleware, menuController.getAllMenuCatagories)
 
 export default menuRouter;
