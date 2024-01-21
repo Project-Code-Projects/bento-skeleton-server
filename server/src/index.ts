@@ -20,6 +20,7 @@ import orderRouter from "./routers/order.router";
 import menuRouter from "./routers/menu.router";
 import posRouter from "./routers/pos.router";
 import hrRouter from "./routers/hr.router";
+import marketplaceRouter from "./routers/marketplace.router";
 app.use(cookieParser());
 
 app.use(
@@ -68,6 +69,11 @@ app.use("/skeleton", skeletonRouter);
 
 // Employee routes
 app.use("/employee", employeeRouter);
+
+// All Marketplace related routes
+app.use('/marketplace', marketplaceRouter)
+
+
 
 
 

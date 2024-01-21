@@ -6,6 +6,16 @@ export const postRestaurantInfo = async (data: IRestaurantInfo) => {
         const result = await RestaurantInfoModel.create(data)
         return result;
     } catch (error) {
-        console.log(error);
+        console.error(error)
+        throw error;
+    }
+}
+
+export async function allDeliveryRestaurants() {
+    try {
+
+    } catch (error) {
+        console.error(error)
+        throw error
     }
 }
