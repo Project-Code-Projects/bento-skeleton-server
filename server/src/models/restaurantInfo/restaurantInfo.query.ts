@@ -13,9 +13,11 @@ export const postRestaurantInfo = async (data: IRestaurantInfo) => {
 
 export async function allDeliveryRestaurants() {
     try {
-
+        // Selecting what fields we want
+        const result = await RestaurantInfoModel.find({}).select('restaurantName restaurantLogo')
+        return result;
     } catch (error) {
-        console.error(error)
-        throw error
+        console.log(error)
+        throw new Error((error as Error).message)
     }
 }

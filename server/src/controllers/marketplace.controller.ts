@@ -7,6 +7,7 @@ import { testDummy } from "../utilities/marketplace.utility";
 export async function getAllDeliveryRestaurant(req: JwtReqInterface, res: Response) {
     try {
         const data = await allDeliveryRestaurants();
+        res.status(201).send(data)
     } catch (error) {
         console.log(error);
         res.status(500).json({ message: (error as Error).message });
