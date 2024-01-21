@@ -1,6 +1,6 @@
 import { Response } from "express";
 import { JwtReqInterface } from "../interfaces/JwtReqInterface";
-import { allDeliveryRestaurants, allPickupRestaurants, restaurantsConsideringModeCuisineSearchTerm } from "../models/restaurantInfo/restaurantInfo.query";
+import { allDeliveryRestaurants, allPickupRestaurants, restaurantsConsideringModeCuisine, restaurantsConsideringModeCuisineSearchTerm, restaurantsConsideringModeSearchTerm } from "../models/restaurantInfo/restaurantInfo.query";
 import { testDummy } from "../utilities/marketplace.utility";
 import { getAllCuisines } from "../models/cuisines/cuisines.query";
 
@@ -51,8 +51,14 @@ export async function findRestaurants(req: JwtReqInterface, res: Response) {
             const data = await restaurantsConsideringModeCuisineSearchTerm(mode, cuisine, searchTerm)
             return res.status(200).send(data)
         }
-        else if (mode && cuisine && !searchTerm) { }
-        else if (!cuisine && searchTerm) { }
+        else if (mode && cuisine && !searchTerm) {
+            const data = await restaurantsConsideringModeCuisine(mode, cuisine)
+            return res.status(200).send(data)
+        }
+        else if (mode && searchTerm && !cuisine) {
+            const data = await restaurantsConsideringModeSearchTerm(mode, searchTerm);
+            return res.status(200).send(data)
+        }
 
 
     } catch (error) {

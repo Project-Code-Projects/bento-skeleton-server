@@ -64,3 +64,58 @@ export async function restaurantsConsideringModeCuisineSearchTerm(mode: string, 
         throw new Error((error as Error).message)
     }
 }
+
+// Search with mode and cuisine
+export async function restaurantsConsideringModeCuisine(mode: string, cuisine: string) {
+    try {
+        const baseQuery = {
+            cuisines: { $in: [cuisine] }
+        }
+
+        let finalQuery;
+
+        if (mode === 'delivery') {
+            finalQuery = { ...baseQuery, delivery: true }
+        } else if (mode === 'pickup') {
+            finalQuery = { ...baseQuery, pickup: true }
+        }
+
+        if (finalQuery) {
+            const result = await RestaurantInfoModel.find(finalQuery)
+            return result
+        }
+
+    } catch (error) {
+        console.log(error);
+        throw new Error((error as Error).message)
+    }
+}
+
+// Search with mode and searchTerm
+export async function restaurantsConsideringModeSearchTerm(mode: string, searchTerm: string) {
+    try {
+
+        const regexPattern = new RegExp(searchTerm, 'i')
+
+        const baseQuery = {
+            restaurantName: { $regex: regexPattern },
+        }
+
+        let finalQuery;
+
+        if (mode === 'delivery') {
+            finalQuery = { ...baseQuery, delivery: true }
+        } else if (mode === 'pickup') {
+            finalQuery = { ...baseQuery, pickup: true }
+        }
+
+        if (finalQuery) {
+            const result = await RestaurantInfoModel.find(finalQuery)
+            return result;
+        }
+
+    } catch (error) {
+        console.log(error);
+        throw new Error((error as Error).message)
+    }
+}
