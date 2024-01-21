@@ -11,23 +11,21 @@ export const postRestaurantInfo = async (data: IRestaurantInfo) => {
     }
 }
 
-// Getting all Delivery enabled restaurants [Need to add restaurant likes and individual menu item Offer  ]
-export async function allDeliveryRestaurants() {
-    try {
-        // Selecting what fields we want
-        const result = await RestaurantInfoModel.find({ delivery: true }).select('restaurantName restaurantLogo')
-        return result;
-    } catch (error) {
-        console.log(error)
-        throw new Error((error as Error).message)
-    }
-}
 
-// Getting all Pickup enabled restaurants [Need to add restaurant likes and individual menu item Offer  ]
-export async function allPickupRestaurants() {
+// Restaurants based on mode Pickup/Delivery
+export async function restaurantsBasedOnMode(mode: string) {
     try {
-        const result = await RestaurantInfoModel.find({ pickup: true }).select('restaurantName restaurantLogo')
-        return result;
+        let baseQuery;
+        if (mode === 'delivery') {
+            baseQuery = { delivery: true }
+        }
+        else if (mode === 'pickup') {
+            baseQuery = { pickup: true }
+        }
+        if (baseQuery) {
+            const result = await RestaurantInfoModel.find(baseQuery).select('restaurantName restaurantLogo')
+            return result;
+        }
     } catch (error) {
         console.log(error);
         throw new Error((error as Error).message)

@@ -1,30 +1,9 @@
 import { Response } from "express";
 import { JwtReqInterface } from "../interfaces/JwtReqInterface";
-import { allDeliveryRestaurants, allPickupRestaurants, restaurantsConsideringModeCuisine, restaurantsConsideringModeCuisineSearchTerm, restaurantsConsideringModeSearchTerm } from "../models/restaurantInfo/restaurantInfo.query";
+import { restaurantsBasedOnMode, restaurantsConsideringModeCuisine, restaurantsConsideringModeCuisineSearchTerm, restaurantsConsideringModeSearchTerm } from "../models/restaurantInfo/restaurantInfo.query";
 import { testDummy } from "../utilities/marketplace.utility";
 import { getAllCuisines } from "../models/cuisines/cuisines.query";
 
-// Get All Delivery Enabled Restaurants
-export async function getAllDeliveryRestaurant(req: JwtReqInterface, res: Response) {
-    try {
-        const data = await allDeliveryRestaurants();
-        res.status(200).send(data)
-    } catch (error) {
-        console.log(error);
-        res.status(500).json({ message: (error as Error).message });
-    }
-};
-
-// Get All Pickup Enabled Restaurants
-export async function getAllPickupRestaurant(req: JwtReqInterface, res: Response) {
-    try {
-        const data = await allPickupRestaurants();
-        res.send(200).send(data)
-    } catch (error) {
-        console.log(error);
-        res.status(500).json({ message: (error as Error).message })
-    }
-}
 
 // Get all the cuisine's name and image
 export async function getAllCuisineInfos(req: JwtReqInterface, res: Response) {
@@ -58,6 +37,10 @@ export async function findRestaurants(req: JwtReqInterface, res: Response) {
         else if (mode && searchTerm && !cuisine) {
             const data = await restaurantsConsideringModeSearchTerm(mode, searchTerm);
             return res.status(200).send(data)
+        }
+        else if (mode && !searchTerm && !cuisine) {
+            const data = await restaurantsBasedOnMode(mode)
+            return res.status(200).send(data);
         }
 
 
