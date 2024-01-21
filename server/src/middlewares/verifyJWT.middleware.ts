@@ -5,7 +5,6 @@ import { JwtReqInterface } from "../interfaces/JwtReqInterface";
 
 const verifyJWTMiddleware = (req: JwtReqInterface, res: Response, next: NextFunction) => {
   const authHeaders = req.headers["authorization"];
-  console.log('auth headers', authHeaders);
   if (!authHeaders) return res.status(401).send({ message: "Unauthorized" });
   const token = authHeaders.split(" ")[1];
 
@@ -19,8 +18,8 @@ const verifyJWTMiddleware = (req: JwtReqInterface, res: Response, next: NextFunc
       restaurantId: data.restaurantId,
       token
     }
-    req.user = user;
-    console.log('req.user', req.user);
+    // req.user = user;
+    // console.log('req.user', req.user);
     next();
   } else {
     res.status(401).send({ message: "Unauthorized" });
