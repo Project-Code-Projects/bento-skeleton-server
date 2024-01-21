@@ -60,8 +60,8 @@ export async function getUserInfoByToken(req: JwtReqInterface, res: Response) {
   }
 }
 
-export function generateJwtTokenForMarketplace(req: Request, res: Response) {
-  const token = jwt.sign({ id: 0, service: "marketplace", restaurantId: 0 }, config.JWT_SECRET, {});
+export function generateJwtTokenForClientApps(req: Request, res: Response) {
+  const token = jwt.sign({ id: 0, service: "clientFacingApps", restaurantId: 0 }, config.JWT_SECRET, {});
   res.setHeader("Authorization", "Bearer " + token);
   res.send({ status: "success", token });
 }

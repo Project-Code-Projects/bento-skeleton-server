@@ -44,18 +44,24 @@ export async function checkServiceAccess(req: JwtReqInterface, res: Response) {
   try {
     const user = req.user;
 
-    if (user) {
-      const check = await hrServiceCheck({ userId: user.id, service: user.service });
-      if (check.auth) {
-        res.send({ auth: true });
-      } else {
-        res.status(403).send({ auth: false });
-      }
+    if (!user) {
+      return res.status(403).send({ auth: false });
+    }
+
+    if (user.id === 0 && user.restaurantId === 0) {
+      return res.send({ auth: true })
+    }
+
+    const check = await hrServiceCheck({ userId: user.id, service: user.service });
+    if (check.auth) {
+      res.send({ auth: true });
     } else {
       res.status(403).send({ auth: false });
     }
+
   } catch (error) {
     console.log(error);
     res.status(500).send({ message: (error as Error).message });
   }
 }
+

@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { checkServiceAccess, login } from "../controllers/auth.controller";
 import verifyJWTMiddleware from "../middlewares/verifyJWT.middleware";
-import { generateJwtTokenForMarketplace, getTokenFromStore, getUserInfoByToken, redirectToService } from "../controllers/service.controller";
+import { generateJwtTokenForClientApps, getTokenFromStore, getUserInfoByToken, redirectToService } from "../controllers/service.controller";
 const serviceAuthRouter = Router();
 
 // From Silo-backend to Skeleton
@@ -17,6 +17,6 @@ serviceAuthRouter.get("/token/:code", getTokenFromStore);
 serviceAuthRouter.get("/user-from-token", verifyJWTMiddleware, getUserInfoByToken);
 
 // Get JWT for Marketplace [One Time Use]
-serviceAuthRouter.get('/marketplace-token', generateJwtTokenForMarketplace)
+serviceAuthRouter.get('/client-apps-token', generateJwtTokenForClientApps)
 
 export default serviceAuthRouter;

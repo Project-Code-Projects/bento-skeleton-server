@@ -8,18 +8,18 @@ const verifyJWTMiddleware = (req: JwtReqInterface, res: Response, next: NextFunc
   if (!authHeaders) return res.status(401).send({ message: "Unauthorized" });
   const token = authHeaders.split(" ")[1];
 
-  const data = jwt.verify(token, config.JWT_SECRET) as { id?: number; service?: string; restaurantId?: number };
+  const data = jwt.verify(token, config.JWT_SECRET) as { id: number; service: string; restaurantId: number };
 
-  if (data.id && data.service) {
-    // console.log('data', data);
+  if (data) {
     const user = {
       id: data.id,
       service: data.service,
       restaurantId: data.restaurantId,
       token
     }
-    // req.user = user;
-    // console.log('req.user', req.user);
+
+    req.user = user;
+    console.log('req.user', req.user);
     next();
   } else {
     res.status(401).send({ message: "Unauthorized" });

@@ -11,13 +11,24 @@ export const postRestaurantInfo = async (data: IRestaurantInfo) => {
     }
 }
 
+// Getting all Delivery enabled restaurants
 export async function allDeliveryRestaurants() {
     try {
         // Selecting what fields we want
-        const result = await RestaurantInfoModel.find({}).select('restaurantName restaurantLogo')
+        const result = await RestaurantInfoModel.find({ delivery: true }).select('restaurantName restaurantLogo')
         return result;
     } catch (error) {
         console.log(error)
+        throw new Error((error as Error).message)
+    }
+}
+
+export async function allPickupRestaurants() {
+    try {
+        const result = await RestaurantInfoModel.find({ pickup: true }).select('restaurantName restaurantLogo')
+        return result;
+    } catch (error) {
+        console.log(error);
         throw new Error((error as Error).message)
     }
 }
