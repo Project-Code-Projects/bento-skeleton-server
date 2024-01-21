@@ -11,7 +11,7 @@ export const postRestaurantInfo = async (data: IRestaurantInfo) => {
     }
 }
 
-// Getting all Delivery enabled restaurants
+// Getting all Delivery enabled restaurants [Need to add restaurant likes and individual menu item Offer  ]
 export async function allDeliveryRestaurants() {
     try {
         // Selecting what fields we want
@@ -23,10 +23,42 @@ export async function allDeliveryRestaurants() {
     }
 }
 
+// Getting all Pickup enabled restaurants [Need to add restaurant likes and individual menu item Offer  ]
 export async function allPickupRestaurants() {
     try {
         const result = await RestaurantInfoModel.find({ pickup: true }).select('restaurantName restaurantLogo')
         return result;
+    } catch (error) {
+        console.log(error);
+        throw new Error((error as Error).message)
+    }
+}
+
+
+
+// Search with cuisine, searchTerm and mode
+export async function restaurantsConsideringModeCuisineSearchTerm(mode: string, cuisine: string, searchTerm: string) {
+    try {
+        const regexPattern = new RegExp(searchTerm, 'i')
+
+        const baseQuery = {
+            restaurantName: { $regex: regexPattern },
+            cuisines: { $in: [cuisine] }
+        }
+
+        let finalQuery;
+
+        if (mode === 'delivery') {
+            finalQuery = { ...baseQuery, delivery: true }
+        } else if (mode === 'pickup') {
+            finalQuery = { ...baseQuery, pickup: true }
+        }
+
+        if (finalQuery) {
+            const result = await RestaurantInfoModel.find(finalQuery);
+            return result;
+        }
+
     } catch (error) {
         console.log(error);
         throw new Error((error as Error).message)

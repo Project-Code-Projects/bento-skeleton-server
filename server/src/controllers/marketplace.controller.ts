@@ -1,6 +1,6 @@
 import { Response } from "express";
 import { JwtReqInterface } from "../interfaces/JwtReqInterface";
-import { allDeliveryRestaurants, allPickupRestaurants } from "../models/restaurantInfo/restaurantInfo.query";
+import { allDeliveryRestaurants, allPickupRestaurants, restaurantsConsideringModeCuisineSearchTerm } from "../models/restaurantInfo/restaurantInfo.query";
 import { testDummy } from "../utilities/marketplace.utility";
 import { getAllCuisines } from "../models/cuisines/cuisines.query";
 
@@ -38,6 +38,55 @@ export async function getAllCuisineInfos(req: JwtReqInterface, res: Response) {
 }
 
 
+export async function findRestaurants(req: JwtReqInterface, res: Response) {
+    try {
+
+
+        const mode = (req.query.mode as string).toLowerCase()
+
+        const cuisine = req.query.cuisine as string
+        const searchTerm = req.query.searchTerm as string;
+
+        if (mode && cuisine && searchTerm) {
+            const data = await restaurantsConsideringModeCuisineSearchTerm(mode, cuisine, searchTerm)
+            return res.status(200).send(data)
+        }
+        else if (mode && cuisine && !searchTerm) { }
+        else if (!cuisine && searchTerm) { }
+
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: (error as Error).message })
+
+    }
+
+
+
+
+}
+
+
+
+
+
+
+
+/* if (mode === 'delivery') {
+    if (cuisine && searchTerm) {
+
+    } else if (cuisine && !searchTerm) { }
+    else if (!cuisine && searchTerm) { }
+}
+else if (mode === 'pickup') {
+    if (cuisine && searchTerm) {
+
+    } else if (cuisine && !searchTerm) {
+
+    } else if (!cuisine && searchTerm) {
+
+    }
+} */
 
 
 
@@ -53,8 +102,7 @@ export async function getAllCuisineInfos(req: JwtReqInterface, res: Response) {
 
 
 
-
-
+// --------------------------------------------------------------------------------------------------------------
 // Apu Showed this to teach relation error handling
 export async function testingError(req: JwtReqInterface, res: Response) {
     try {
