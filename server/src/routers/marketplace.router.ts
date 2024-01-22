@@ -1,6 +1,6 @@
 import { Router } from "express";
 import verifyJWTMiddleware from "../middlewares/verifyJWT.middleware";
-import { findRestaurants, getAllCuisineInfos } from "../controllers/marketplace.controller";
+import { findRestaurants, getAllCuisineInfos, getRestaurantDetails } from "../controllers/marketplace.controller";
 
 const marketplaceRouter = Router();
 
@@ -11,6 +11,8 @@ const marketplaceRouter = Router();
 // Restaurants based on mode and cuisine
 // Restaurants based on mode and searchTerm
 marketplaceRouter.get('/restaurants', verifyJWTMiddleware, findRestaurants)
+
+marketplaceRouter.get('/restaurant-details/:restaurantId', verifyJWTMiddleware, getRestaurantDetails)
 
 // Get all the cuisine's name and image
 marketplaceRouter.get('/all-cuisines', verifyJWTMiddleware, getAllCuisineInfos)

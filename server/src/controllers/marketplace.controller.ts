@@ -1,8 +1,20 @@
 import { Response } from "express";
 import { JwtReqInterface } from "../interfaces/JwtReqInterface";
 import { restaurantsBasedOnMode, restaurantsConsideringModeCuisine, restaurantsConsideringModeCuisineSearchTerm, restaurantsConsideringModeSearchTerm } from "../models/restaurantInfo/restaurantInfo.query";
-import { testDummy } from "../utilities/marketplace.utility";
+import { getRestaurantDetailsFromDB, testDummy } from "../utilities/marketplace.utility";
 import { getAllCuisines } from "../models/cuisines/cuisines.query";
+
+// Get one restaurant's details using restaurantId . [restaurantName, img, delivery, pickup, address] (need to add rating)
+export async function getRestaurantDetails(req: JwtReqInterface, res: Response) {
+    try {
+        const restaurantId = req.params.restaurantId;
+        const restaurantDetails = await getRestaurantDetailsFromDB(restaurantId)
+        res.status(200).send(restaurantDetails);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: (error as Error).message })
+    }
+}
 
 
 // Get all the cuisine's name and image
@@ -17,6 +29,8 @@ export async function getAllCuisineInfos(req: JwtReqInterface, res: Response) {
 }
 
 
+// Get Restaurants List based on Mode, Cuisine, SearchTerm 
+// [NEED TO FIX-- > Get Rating / Like info from Review of each found restaurant and attach it with the final result]
 export async function findRestaurants(req: JwtReqInterface, res: Response) {
     try {
 
