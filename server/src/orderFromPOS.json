@@ -9,6 +9,10 @@
     "vipCustomer": false,
     "items": [
         {
+            "_id": "65a921d2e134e63d02e09a8d",
+            "restaurantId": 1,
+            "categoryId": "65a9215be134e63d02e09a87",
+            "mealTimeId": 1,
             "item": {
                 "_id": "65a921d2e134e63d02e09a8e",
                 "itemId": 5,
@@ -107,13 +111,8 @@
                 "itemDietaryRestrictions": [
                     "Milk",
                     "Soy"
-                ],
-                "itemPackingDimension": []
-            },
-            "_id": "65a921d2e134e63d02e09a8d",
-            "restaurantId": 1,
-            "categoryId": "65a9215be134e63d02e09a87",
-            "mealTimeId": 1
+                ]
+            }
         },
         {
             "item": {
@@ -244,12 +243,12 @@
         }
     ],
     "createdAt": 1705823824989,
-    "updatedAt": 1705823854919,
+    "updatedAt": 1705823854919, //
     "__v": 0,
     "orderPosted": "2024-01-21T07:57:34.918Z",
     // optional datas
     "customerId": 44,
-    "orderUpdatedAt": "2024-01-21T07:57:34.918Z",
+    "orderUpdatedAt": "2024-01-21T07:57:34.918Z", //
     "preparingTimestamp": "2024-01-21T07:57:34.918Z",
     "readyTimestamp": "2024-01-21T07:57:34.918Z",
     "servedTimestamp": "2024-01-21T07:57:34.918Z",

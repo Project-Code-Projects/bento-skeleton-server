@@ -1,0 +1,125 @@
+    {
+        "_id": "65abad6499bf487881f59ec1",
+        "restaurantId": 1,
+        "categoryId": "65a8fd9501fd660bbcae33ad",
+        "mealTimeId": 1,
+        "item": {
+            "_id": "65abad6499bf487881f59ec2",
+            "itemId": 13,
+            "itemName": "Alfredo Pasta",
+            "itemImage": "http://res.cloudinary.com/dkfnaltqp/image/upload/v1705749838/dkfnaltqp_1705749845719_alfredo.jpg",
+            "itemDescription": "Alfredo add more cheese 🧀 ",
+            "itemQuantity": 3,
+            "itemPreparationTime": 20,
+            "itemPackingType": {
+                "id": 1,
+                "boxName": "Medium Box",
+                "currentStockQuantity": 200,
+                "unitOfPrice": "cents",
+                "costPerUnit": 0.755,
+                "reorderPoint": 232,
+                "unitOfDimentions": "cm",
+                "dimensions": "30 X 30 X 30",
+                "weightLimit": 3,
+                "temperatureLimit": 54,
+                "waterproof": "No",
+                "expectedStockForToday": 0,
+                "expectedStockForTomorrow": 0,
+                "restaurantId": 1,
+                "createdAt": "2024-01-18T12:30:45.603Z",
+                "updatedAt": "2024-01-20T05:34:52.220Z",
+                "_id": "65acce6e45531207c4ab1869"
+            },
+            "itemLastingTime": 40,
+            "itemPortionSize": "Medium",
+            "ingredients": [
+                {}
+            ],
+            "options": {
+                "add": [
+                    {
+                        "id": 111,
+                        "ingredientName": "Cheese",
+                        "unitOfStock": "gm",
+                        "quantity": 5,
+                        "costPerUnit": 200,
+                        "caloriesPerUnit": 150,
+                        "price": "1000",
+                        "_id": "65abad6499bf487881f59ec8"
+                    },
+                    {
+                        "id": 2,
+                        "ingredientName": "Parmesan Cheese",
+                        "unitOfStock": "gm",
+                        "quantity": 5,
+                        "costPerUnit": 0.4,
+                        "caloriesPerUnit": 80,
+                        "price": "0",
+                        "_id": "65abad6499bf487881f59ec9"
+                    }
+                ],
+                "no": [
+                    {
+                        "id": 111,
+                        "ingredientName": "Cheese",
+                        "unitOfStock": "gm",
+                        "quantity": 5,
+                        "costPerUnit": 200,
+                        "caloriesPerUnit": 150,
+                        "price": "1000",
+                        "_id": "65abad6499bf487881f59eca"
+                    },
+                    {
+                        "id": 2,
+                        "ingredientName": "Parmesan Cheese",
+                        "unitOfStock": "gm",
+                        "quantity": 5,
+                        "costPerUnit": 0.4,
+                        "caloriesPerUnit": 80,
+                        "price": "0",
+                        "_id": "65abad6499bf487881f59ecb"
+                    }
+                ],
+                "_id": "65acce6e45531207c4ab186a"
+            },
+            "chosenOptions": {
+                "add": [
+                    {
+                        "id": 111,
+                        "ingredientName": "Cheese",
+                        "unitOfStock": "gm",
+                        "quantity": 5,
+                        "costPerUnit": 200,
+                        "caloriesPerUnit": 150,
+                        "price": "1000",
+                        "_id": "65abad6499bf487881f59ec8"
+                    }
+                ],
+                "no": [],
+                "_id": "65acce6e45531207c4ab186b"
+            },
+            "optionalNotes": "dsasdav",
+            "itemPrice": 100,
+            "itemCalories": 400,
+            "timeOfDay": [
+                "BreakFast",
+                "Lunch"
+            ],
+            "itemProfileTastyTags": [
+                "Sweet",
+                "Sour",
+                "Salty",
+                "Smoky"
+            ],
+            "typeOfFoods": [
+                "Delivey Only",
+                "Pick Up"
+            ],
+            "servingTemperature": 30,
+            "itemDietaryRestrictions": [
+                "Milk",
+                "Eggs"
+            ],
+            "itemPackingDimension": []
+        }
+    }
