@@ -8,11 +8,13 @@ export async function getRestaurantDetailsFromDB(restaurantId: string) {
     try {
         const parsedToNumberRestaurantId = parseInt(restaurantId);
         const dataFromSkeletonDB = await RestaurantInfoModel.findOne({ restaurantId: parsedToNumberRestaurantId })
-        const ratingData = await getOneRestaurantRatingFromReview(parsedToNumberRestaurantId);
-        if (dataFromSkeletonDB && ratingData) {
-            const result = { ...dataFromSkeletonDB, ratingData };
-            return result;
-        }
+        //Commented this because rating routes in zerin apu's side is not ready. currently providing data excluding rating
+        /*    const ratingData = await getOneRestaurantRatingFromReview(parsedToNumberRestaurantId);
+           if (dataFromSkeletonDB && ratingData) {
+               const result = { ...dataFromSkeletonDB, ratingData };
+               return result;
+           } */
+        return dataFromSkeletonDB;
 
     } catch (error) {
         console.log(error);
@@ -22,7 +24,7 @@ export async function getRestaurantDetailsFromDB(restaurantId: string) {
 
 
 // Get the rating info of ONE restaurant from REVIEW using its id
-async function getOneRestaurantRatingFromReview(restaurantId: Number) {
+export async function getOneRestaurantRatingFromReview(restaurantId: Number) {
     try {
         const ratingDataFromReview = await axios.get<any>(`${config.REVIEW_BE_BASE_URL}/one-restaurant-rating/${restaurantId}`)
         return ratingDataFromReview.data;
@@ -35,7 +37,7 @@ async function getOneRestaurantRatingFromReview(restaurantId: Number) {
 
 // Get the rating of a GROUP of restaurants from REVIEW by providing an array of id's
 
-async function getMultipleRestaurantRatingInfoFromReview(restaurantIdArray: number[]) {
+export async function getMultipleRestaurantRatingInfoFromReview(restaurantIdArray: number[]) {
     try {
         const res = await axios.post<any>(`${config.REVIEW_FE_BASE_URL}/multiple-restaurant-rating`, restaurantIdArray)
         return res.data;

@@ -20,27 +20,30 @@ export const restaurantRegistration = async (req: Request, res: Response) => {
 
         // Save Restaurant Infos to DB
         const incrementalrestaurantId = await getNextSequenceValue('restaurantId')
-        restaurantInfo.restaurantId = incrementalrestaurantId;
-        const restaurantInfoDbResult = await postRestaurantInfo(restaurantInfo);
-        if (restaurantInfoDbResult) {
-            console.log('restaurantInfoDbResult', restaurantInfoDbResult);
-            restaurantRep.restaurantId = restaurantInfoDbResult.restaurantId;
-            const restaurantRepDbResult = await saveRestaurantRep(restaurantRep)
-            if (restaurantRepDbResult) {
-                console.log('restaurantRepDbResult', restaurantRepDbResult);
-                let dataForHR = {
-                    restaurantId: restaurantRepDbResult.restaurantId, // Potential Bug Here
-                    name: restaurantRepDbResult.firstName + " " + restaurantRepDbResult.lastName,
-                    email: restaurantRepDbResult.email,
-                    password: restaurantRepDbResult.password
-                };
-                // let hrResponse = await sendOwnerInfoToHR(dataForHR) // Gotta uncomment this when HR API is Ready
-                res.status(200).json({ 'message': 'All Good' })
+
+        if (incrementalrestaurantId) {
+            restaurantInfo.restaurantId = incrementalrestaurantId;
+            const restaurantInfoDbResult = await postRestaurantInfo(restaurantInfo);
+            if (restaurantInfoDbResult) {
+                console.log('restaurantInfoDbResult', restaurantInfoDbResult);
+                restaurantRep.restaurantId = restaurantInfoDbResult.restaurantId;
+                const restaurantRepDbResult = await saveRestaurantRep(restaurantRep)
+                if (restaurantRepDbResult) {
+                    console.log('restaurantRepDbResult', restaurantRepDbResult);
+                    let dataForHR = {
+                        restaurantId: restaurantRepDbResult.restaurantId, // Potential Bug Here
+                        name: restaurantRepDbResult.firstName + " " + restaurantRepDbResult.lastName,
+                        email: restaurantRepDbResult.email,
+                        password: restaurantRepDbResult.password
+                    };
+                    // let hrResponse = await sendOwnerInfoToHR(dataForHR) // Gotta uncomment this when HR API is Ready
+                    res.status(200).json({ 'message': 'All Good' })
+                }
+
             }
 
+            // res.send(restaurantInfoDbResult)
         }
-
-        // res.send(restaurantInfoDbResult)
 
 
     } catch (error) {

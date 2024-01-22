@@ -1,5 +1,5 @@
 export interface IRestaurantInfo {
-    restaurantId?: Number
+    restaurantId: number
     restaurantName: string;
     location: string;
     country: object;
@@ -57,4 +57,8 @@ export interface IRestaurantInfo {
     bankAccountHolder: string;
     bankAccountNumber: number;
     bankAccountRoutingNumber: number;
+}
+
+export interface IRatingAddedRestaurantInterface extends IRestaurantInfo {
+    rating?: any // FIX here after taking interface from zerin apu
 }

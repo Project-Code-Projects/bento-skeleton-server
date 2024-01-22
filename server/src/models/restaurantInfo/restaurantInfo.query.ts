@@ -1,6 +1,8 @@
-import { IRestaurantInfo } from "../../interfaces/RestaurantInfoInterface";
+import { IRatingAddedRestaurantInterface, IRestaurantInfo } from "../../interfaces/RestaurantInfoInterface";
+import { getMultipleRestaurantRatingInfoFromReview } from "../../utilities/marketplace.utility";
 import RestaurantInfoModel from "./restaurantInfo.model";
 
+// Create new Restaurant
 export const postRestaurantInfo = async (data: IRestaurantInfo) => {
     try {
         const result = await RestaurantInfoModel.create(data)
@@ -53,8 +55,20 @@ export async function restaurantsConsideringModeCuisineSearchTerm(mode: string, 
         }
 
         if (finalQuery) {
-            const result = await RestaurantInfoModel.find(finalQuery);
-            return result;
+            const restaurantInfosResult: IRatingAddedRestaurantInterface[] = await RestaurantInfoModel.find(finalQuery);
+
+            if (restaurantInfosResult) {
+                const restaurantIdsArray: number[] = restaurantInfosResult.map((restaurant) => restaurant.restaurantId)
+                const ratingInfosOfRestaurants = await getMultipleRestaurantRatingInfoFromReview(restaurantIdsArray)
+
+                ratingInfosOfRestaurants.forEach((singleRestaurantRating: any) => {
+                    const matchingRestaurant = restaurantInfosResult.find((r) => r.restaurantId === singleRestaurantRating.restaurantId)
+                    if (matchingRestaurant) {
+                        matchingRestaurant.rating = singleRestaurantRating
+                    }
+                })
+                return restaurantInfosResult;
+            }
         }
 
     } catch (error) {
@@ -79,8 +93,23 @@ export async function restaurantsConsideringModeCuisine(mode: string, cuisine: s
         }
 
         if (finalQuery) {
-            const result = await RestaurantInfoModel.find(finalQuery)
-            return result
+            const restaurantInfosResult: IRatingAddedRestaurantInterface[] = await RestaurantInfoModel.find(finalQuery)
+
+            const restaurantIdsArray: number[] = restaurantInfosResult.map((restaurant) => restaurant.restaurantId)
+            const ratingInfosOfRestaurants = await getMultipleRestaurantRatingInfoFromReview(restaurantIdsArray)
+
+            if (ratingInfosOfRestaurants) {
+
+                ratingInfosOfRestaurants.forEach((singleRestaurantRating: any) => {
+                    const matchingRestaurant = restaurantInfosResult.find((r) => r.restaurantId === singleRestaurantRating.restaurantId)
+                    if (matchingRestaurant) {
+                        matchingRestaurant.rating = singleRestaurantRating
+                    }
+                })
+                return restaurantInfosResult;
+            }
+
+
         }
 
     } catch (error) {
