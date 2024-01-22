@@ -71,6 +71,7 @@ export interface IPacking {
     restaurantId: number;
     createdAt: Date;
     updatedAt: Date;
+    quantity?: number;
 }
 
 export interface IItem {
