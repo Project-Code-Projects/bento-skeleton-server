@@ -17,17 +17,34 @@ export const postRestaurantInfo = async (data: IRestaurantInfo) => {
 // Restaurants based on mode Pickup/Delivery
 export async function restaurantsBasedOnMode(mode: string) {
     try {
-        let baseQuery;
+        let finalQuery;
         if (mode === 'delivery') {
-            baseQuery = { delivery: true }
+            finalQuery = { delivery: true }
         }
         else if (mode === 'pickup') {
-            baseQuery = { pickup: true }
+            finalQuery = { pickup: true }
         }
-        if (baseQuery) {
-            const result = await RestaurantInfoModel.find(baseQuery).select('restaurantName restaurantLogo')
-            return result;
+
+        if (finalQuery) {
+            const restaurantInfosResult: IRatingAddedRestaurantInterface[] = await RestaurantInfoModel.find(finalQuery)
+
+            const restaurantIdsArray: number[] = restaurantInfosResult.map((restaurant) => restaurant.restaurantId)
+
+            //Commenting this because Zerin Apu didnt make the route to get rating info of multiple restaturant yet.
+            /*            const ratingInfosOfRestaurants = await getMultipleRestaurantRatingInfoFromReview(restaurantIdsArray)
+                       if (ratingInfosOfRestaurants) {
+                           ratingInfosOfRestaurants.forEach((singleRestaurantRating: any) => {
+                               const matchingRestaurant = restaurantInfosResult.find((r) => r.restaurantId === singleRestaurantRating.restaurantId)
+                               if (matchingRestaurant) {
+                                   matchingRestaurant.rating = singleRestaurantRating
+                               }
+                           })
+                       } */
+
+            return restaurantInfosResult;
+
         }
+
     } catch (error) {
         console.log(error);
         throw new Error((error as Error).message)
@@ -57,18 +74,24 @@ export async function restaurantsConsideringModeCuisineSearchTerm(mode: string, 
         if (finalQuery) {
             const restaurantInfosResult: IRatingAddedRestaurantInterface[] = await RestaurantInfoModel.find(finalQuery);
 
-            if (restaurantInfosResult) {
-                const restaurantIdsArray: number[] = restaurantInfosResult.map((restaurant) => restaurant.restaurantId)
-                const ratingInfosOfRestaurants = await getMultipleRestaurantRatingInfoFromReview(restaurantIdsArray)
+            const restaurantIdsArray: number[] = restaurantInfosResult.map((restaurant) => restaurant.restaurantId)
 
-                ratingInfosOfRestaurants.forEach((singleRestaurantRating: any) => {
-                    const matchingRestaurant = restaurantInfosResult.find((r) => r.restaurantId === singleRestaurantRating.restaurantId)
-                    if (matchingRestaurant) {
-                        matchingRestaurant.rating = singleRestaurantRating
-                    }
-                })
-                return restaurantInfosResult;
-            }
+
+            //Commenting this because Zerin Apu didnt make the route to get rating info of multiple restaturant yet.
+            /*             const ratingInfosOfRestaurants = await getMultipleRestaurantRatingInfoFromReview(restaurantIdsArray)
+            
+                        if (ratingInfosOfRestaurants) {
+                            ratingInfosOfRestaurants.forEach((singleRestaurantRating: any) => {
+                                const matchingRestaurant = restaurantInfosResult.find((r) => r.restaurantId === singleRestaurantRating.restaurantId)
+                                if (matchingRestaurant) {
+                                    matchingRestaurant.rating = singleRestaurantRating
+                                }
+                            })
+                        }
+             */
+
+            return restaurantInfosResult;
+
         }
 
     } catch (error) {
@@ -96,19 +119,20 @@ export async function restaurantsConsideringModeCuisine(mode: string, cuisine: s
             const restaurantInfosResult: IRatingAddedRestaurantInterface[] = await RestaurantInfoModel.find(finalQuery)
 
             const restaurantIdsArray: number[] = restaurantInfosResult.map((restaurant) => restaurant.restaurantId)
-            const ratingInfosOfRestaurants = await getMultipleRestaurantRatingInfoFromReview(restaurantIdsArray)
 
-            if (ratingInfosOfRestaurants) {
+            //Commenting this because Zerin Apu didnt make the route to get rating info of multiple restaturant yet.
 
-                ratingInfosOfRestaurants.forEach((singleRestaurantRating: any) => {
-                    const matchingRestaurant = restaurantInfosResult.find((r) => r.restaurantId === singleRestaurantRating.restaurantId)
-                    if (matchingRestaurant) {
-                        matchingRestaurant.rating = singleRestaurantRating
-                    }
-                })
-                return restaurantInfosResult;
-            }
+            /*        const ratingInfosOfRestaurants = await getMultipleRestaurantRatingInfoFromReview(restaurantIdsArray)
+                   if (ratingInfosOfRestaurants) {
+                       ratingInfosOfRestaurants.forEach((singleRestaurantRating: any) => {
+                           const matchingRestaurant = restaurantInfosResult.find((r) => r.restaurantId === singleRestaurantRating.restaurantId)
+                           if (matchingRestaurant) {
+                               matchingRestaurant.rating = singleRestaurantRating
+                           }
+                       })
+                   } */
 
+            return restaurantInfosResult;
 
         }
 
@@ -137,8 +161,24 @@ export async function restaurantsConsideringModeSearchTerm(mode: string, searchT
         }
 
         if (finalQuery) {
-            const result = await RestaurantInfoModel.find(finalQuery)
-            return result;
+            const restaurantInfosResult: IRatingAddedRestaurantInterface[] = await RestaurantInfoModel.find(finalQuery)
+
+            const restaurantIdsArray: number[] = restaurantInfosResult.map((restaurant) => restaurant.restaurantId)
+
+
+            //Commenting this because Zerin Apu didnt make the route to get rating info of multiple restaturant yet.
+            /*         const ratingInfosOfRestaurants = await getMultipleRestaurantRatingInfoFromReview(restaurantIdsArray)
+                    if (ratingInfosOfRestaurants) {
+                        ratingInfosOfRestaurants.forEach((singleRestaurantRating: any) => {
+                            const matchingRestaurant = restaurantInfosResult.find((r) => r.restaurantId === singleRestaurantRating.restaurantId)
+                            if (matchingRestaurant) {
+                                matchingRestaurant.rating = singleRestaurantRating
+                            }
+                        })
+                    } */
+
+            return restaurantInfosResult;
+
         }
 
     } catch (error) {
