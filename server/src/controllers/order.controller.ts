@@ -1,7 +1,9 @@
 import { Response } from "express";
-import { posGetAllOrders, posUpdateOrderChef, posUpdateOrderStatus } from "../utilities/pos.utility";
+import { getOrderInfoUsingOrderId, posGetAllOrders, posUpdateOrderChef, posUpdateOrderStatus } from "../utilities/pos.utility";
 import { kdsPostIncomingOrder } from "../utilities/kds.utility";
 import { JwtReqInterface } from "../interfaces/JwtReqInterface";
+import { IOrder } from "../interfaces/NewOrderInterface";
+import { preparePlusRestructureOrderDataForInventory, sendDataToInventoryToReduce } from "../utilities/processOrder.utility";
 
 export async function getAllOrders(req: JwtReqInterface, res: Response) {
   try {
@@ -26,9 +28,12 @@ export async function updateOrderStatus(req: JwtReqInterface, res: Response) {
     const { status } = req.body;
     if (typeof orderId !== 'string' && typeof status !== 'string') return res.status(400).send({ message: 'Invalid data.' });
     if (status === 'preparing') {
-      // Get the order details from POS using orderId
-      // check if the current status is Pending. 
-      // If so Do the Inventory minus thing here
+      const fullOrder: IOrder = await getOrderInfoUsingOrderId(orderId)
+      if (fullOrder.status === 'pending') {
+        const restructuredOrderDataForInventory = preparePlusRestructureOrderDataForInventory(fullOrder)
+        const inventoryResponse = await sendDataToInventoryToReduce(restructuredOrderDataForInventory);
+      }
+
     }
     const updatedOrder = await posUpdateOrderStatus(user.token, orderId, status);
     res.send(updatedOrder);
@@ -38,15 +43,16 @@ export async function updateOrderStatus(req: JwtReqInterface, res: Response) {
   }
 }
 
-
+// 1. Send New Order To KDS To Process Order
 export async function incomingOrder(req: JwtReqInterface, res: Response) {
   try {
     const { user } = req;
     if (!user) return res.status(401).send({ message: 'Unauthorized.' });
 
-    const order = req.body;
+    const order: IOrder = req.body;
 
     await kdsPostIncomingOrder(user.token, order);
+
     res.send({ message: 'Success' });
   } catch (error) {
     console.log(error);

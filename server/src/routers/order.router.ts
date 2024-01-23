@@ -4,8 +4,11 @@ import { getAllOrders, incomingOrder, updateOrderChef, updateOrderStatus } from 
 const orderRouter = Router();
 
 orderRouter.get('/all', verifyJWTMiddleware, getAllOrders);
-orderRouter.put('/status/:orderId', verifyJWTMiddleware, updateOrderStatus);
 orderRouter.put('/chef/:orderId', verifyJWTMiddleware, updateOrderChef);
+
+orderRouter.put('/status/:orderId', verifyJWTMiddleware, updateOrderStatus);
+
+// Send New Order data from POS to KDS
 orderRouter.post('/incoming', verifyJWTMiddleware, incomingOrder);
 
 

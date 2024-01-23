@@ -33,9 +33,10 @@ export async function posUpdateOrderChef(token: string, orderId: string, chef: a
   }
 }
 
+// Get the full details of an Order using its orderId
 export async function getOrderInfoUsingOrderId(orderId: string) {
   try {
-    const res = await axios.get<any>(`${config.POS_BE_BASE_URL}/order-info/${orderId}`)
+    const res = await axios.get<any>(`${config.POS_BE_BASE_URL}/order/${orderId}`)
     return res.data;
 
   } catch (error) {
