@@ -127,14 +127,11 @@ export function removeDuplicatePackaging(packagingArray: IPacking[]) {
         if (foundIndex === -1) {
             resultingArray.push({ ...singlePackaging, quantity: 1 })
         }
-        else if (foundIndex != -1 && resultingArray[foundIndex] && resultingArray[foundIndex].quantity) {
-
-            // Talk to Apu regarding this error
-            // resultingArray[foundIndex].quantity++
-
-            // Potential Solution
-            resultingArray[foundIndex].quantity = (resultingArray[foundIndex].quantity || 1) + 1;
-
+        else {
+            const item = resultingArray[foundIndex];
+            if (foundIndex != -1 && item && item.quantity) {
+                item.quantity++;
+            }
         }
     });
 
