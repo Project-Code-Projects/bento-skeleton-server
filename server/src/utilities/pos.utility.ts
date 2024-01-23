@@ -90,4 +90,22 @@ export async function sendOrderIdWithFullOrderToKdsFromPosToMarkOrderAsServed(or
     throw new Error((error as AxiosError<{ message: string }>).response?.data.message)
   }
 }
-// { 'Authorization': 'Bearer ' + token }
+
+// Get hourly/weekday/monthly stats from POS
+export async function getStatsFromPos(timespan: string) {
+  try {
+    const res = await axios.get<any>(`${config.POS_BE_BASE_URL}/order/stats/${timespan}`)
+    return res.data
+  } catch (error) {
+    console.log(error);
+    throw new Error((error as AxiosError<{ message: string }>).response?.data.message)
+  }
+}
+
+
+// Get weekday stats from POS
+export async function getWeekDayStatsFromPos() { }
+
+
+// Get monthly stats from POS
+export async function getMonthlyStatsFromPos() { }

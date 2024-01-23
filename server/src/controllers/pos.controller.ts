@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { getAllReservationOfARestaurant, getOrderInfoUsingOrderId, getReservationOfARestaurantByDate, postNewReservationOfARestaurant, sendOrderIdWithFullOrderToKdsFromPosToMarkOrderAsServed } from "../utilities/pos.utility";
+import { getAllReservationOfARestaurant, getOrderInfoUsingOrderId, getReservationOfARestaurantByDate, getStatsFromPos, postNewReservationOfARestaurant, sendOrderIdWithFullOrderToKdsFromPosToMarkOrderAsServed } from "../utilities/pos.utility";
 import { JwtReqInterface } from "../interfaces/JwtReqInterface";
 
 const getOrderInfo = async (req: Request, res: Response) => {
@@ -68,14 +68,20 @@ export async function updateOrderStatusToServedInKds(req: JwtReqInterface, res: 
     }
 }
 
+// Get Hourly / Weekday / Monthly Order Stat from POS
 export async function orderStats(req: JwtReqInterface, res: Response) {
     try {
         if (!req.user) return res.status(501).json({ message: 'Unauthorized' })
-        if (req.params.timespan === 'hourly') {
 
-        } else if (req.params.timespan === 'weekday') {
+        const timespanInParams = req.params.timespan
 
-        } else if (req.params.timespan === 'monthly') { }
+        if (timespanInParams === 'hourly' || timespanInParams === 'weekday' || timespanInParams === 'monthly') {
+            const result = await getStatsFromPos(timespanInParams)
+            return res.status(200).send(result)
+        }
+        else {
+            return res.status(406).json({ message: 'Invalid Route' })
+        }
     } catch (error) {
         console.log(error);
         res.send(500).json((error as Error).message)
