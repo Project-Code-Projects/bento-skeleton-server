@@ -68,7 +68,21 @@ export async function updateOrderStatusToServedInKds(req: JwtReqInterface, res: 
     }
 }
 
-let posController = { getOrderInfo, getAllReservations, getReservationByDate, postNewReservation, updateOrderStatusToServedInKds }
+export async function orderStats(req: JwtReqInterface, res: Response) {
+    try {
+        if (!req.user) return res.status(501).json({ message: 'Unauthorized' })
+        if (req.params.timespan === 'hourly') {
+
+        } else if (req.params.timespan === 'weekday') {
+
+        } else if (req.params.timespan === 'monthly') { }
+    } catch (error) {
+        console.log(error);
+        res.send(500).json((error as Error).message)
+    }
+}
+
+let posController = { orderStats, getOrderInfo, getAllReservations, getReservationByDate, postNewReservation, updateOrderStatusToServedInKds }
 
 export default posController;
 
