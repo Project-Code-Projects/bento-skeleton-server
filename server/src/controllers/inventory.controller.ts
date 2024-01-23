@@ -1,34 +1,46 @@
-import { Request, Response } from "express";
-import axios, { AxiosResponse } from "axios";
+import { Response } from "express";
 import { IngredientResultInterface } from "../interfaces/IngredientInterface";
-import config from "../config";
 import { JwtReqInterface } from "../interfaces/JwtReqInterface";
-
-/* 
-*   This API call will be coming from Menu Builder to get all the  ingredients of that Restaurant from the  Inventory.
-
-*   Send get req to inventory. Get a response.
-*   send the response to Menu Builder.
+import { getDeliveryBoxInfo, getInventoryDataOfARestaurantFromInventory } from "../utilities/inventory.utility";
 
 
-*/
+
+
+
+//   This API call will be coming from Menu Builder to get all the  ingredients of that Restaurant from the  Inventory.
 async function getIngredientsFromInventory(req: JwtReqInterface, res: Response) {
   try {
     if (req.user?.id) {
-      const apiUrl = config.INVENTORY_BE_BASE_URL + `/v1/ingredient/restaurant/${req.user.restaurantId}`;
-      const response: AxiosResponse<IngredientResultInterface> = await axios.get<IngredientResultInterface>(apiUrl);
-      res.send(response.data);
+      const restaurantId = parseInt(req.params.restaurantId)
+      const allIngredientOfARestaurant = await getInventoryDataOfARestaurantFromInventory(restaurantId, req.user.token)
+      res.send(allIngredientOfARestaurant);
     } else {
       res.status(401).send({ message: "Unauthorized" });
     }
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: "Error fetching data from Inventory" });
+    res.status(500).json({ message: ((error as Error).message) })
   }
 }
 
+async function getDeliveryBoxInfoFromInventory(req: JwtReqInterface, res: Response) {
+  try {
+    if (!req.user) return res.status(501).json({ message: 'Unauthorized' })
+    const restaurantId = parseInt(req.params.restaurantId)
+    const allBoxInfo = await getDeliveryBoxInfo(restaurantId, req.user.token)
+    res.status(200).send(allBoxInfo)
+
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: (error as Error).message })
+  }
+}
+
+
+
 const inventoryController = {
   getIngredientsFromInventory,
+  getDeliveryBoxInfoFromInventory
 };
 
 export default inventoryController;
