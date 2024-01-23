@@ -2,6 +2,18 @@ import { IRatingAddedRestaurantInterface, IRestaurantInfo } from "../../interfac
 import { getMultipleRestaurantRatingInfoFromReview } from "../../utilities/marketplace.utility";
 import RestaurantInfoModel from "./restaurantInfo.model";
 
+// Get All Restaurant's All Info
+export async function getAllRestaurantInfo() {
+    try {
+        const data = await RestaurantInfoModel.find({})
+        return data;
+    } catch (error) {
+        console.log(error);
+        throw new Error((error as Error).message)
+    }
+}
+
+
 // Create new Restaurant
 export const postRestaurantInfo = async (data: IRestaurantInfo) => {
     try {

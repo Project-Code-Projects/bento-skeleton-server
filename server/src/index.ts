@@ -19,6 +19,7 @@ import menuRouter from "./routers/menu.router";
 import posRouter from "./routers/pos.router";
 import hrRouter from "./routers/hr.router";
 import marketplaceRouter from "./routers/marketplace.router";
+import restaurantsRouter from "./routers/restaurants.router";
 app.use(cookieParser());
 
 app.use(
@@ -68,7 +69,8 @@ app.use("/employee", employeeRouter);
 // All Marketplace related routes
 app.use('/marketplace', marketplaceRouter)
 
-
+// Get restaurant informations
+app.use('/restaurants', restaurantsRouter)
 
 
 

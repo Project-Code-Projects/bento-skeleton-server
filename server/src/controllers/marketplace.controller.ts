@@ -75,27 +75,6 @@ export async function findRestaurants(req: JwtReqInterface, res: Response) {
 
 
 
-/* if (mode === 'delivery') {
-    if (cuisine && searchTerm) {
-
-    } else if (cuisine && !searchTerm) { }
-    else if (!cuisine && searchTerm) { }
-}
-else if (mode === 'pickup') {
-    if (cuisine && searchTerm) {
-
-    } else if (cuisine && !searchTerm) {
-
-    } else if (!cuisine && searchTerm) {
-
-    }
-} */
-
-
-
-
-
-
 
 
 
