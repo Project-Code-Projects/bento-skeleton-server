@@ -76,7 +76,7 @@ export async function orderStats(req: JwtReqInterface, res: Response) {
         const timespanInParams = req.params.timespan
 
         if (timespanInParams === 'hourly' || timespanInParams === 'weekday' || timespanInParams === 'monthly') {
-            const result = await getStatsFromPos(timespanInParams)
+            const result = await getStatsFromPos(timespanInParams, req.user.token)
             return res.status(200).send(result)
         }
         else {
