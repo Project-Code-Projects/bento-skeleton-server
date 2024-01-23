@@ -10,7 +10,6 @@ import cookieParser from "cookie-parser";
 import config from "./config";
 import inventoryRouter from "./routers/inventory.router";
 import serviceAuthRouter from "./routers/serviceAuth.router";
-import orderStatusRouter from "./routers/orderStatus.router";
 import authRouter from "./routers/authRouter.router";
 import { getCorsOrigin } from "./utilities/cors.utility";
 import skeletonRouter from "./routers/skeleton.router";
@@ -40,12 +39,10 @@ app.use("/service-auth", serviceAuthRouter);
 //Request From Menu Builder to Inventory to  get all the ingredients.
 app.use("/inventory", inventoryRouter);
 
+// PUT req from KDS to Pos and Marketplace regarding food preparation status
 // Send New Order data from POS to KDS
 app.use("/orders", orderRouter);
 
-
-// Post req from KDS to Pos and Marketplace regarding food preparation status
-app.use("/order-prep-status", orderStatusRouter);
 
 // Post req from KDS to HR sending data about chef efficiency to prepare dishes
 // Post req from POS to HR sending data about waiter efficiency 

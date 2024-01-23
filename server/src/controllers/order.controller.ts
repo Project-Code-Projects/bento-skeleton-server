@@ -4,6 +4,7 @@ import { kdsPostIncomingOrder } from "../utilities/kds.utility";
 import { JwtReqInterface } from "../interfaces/JwtReqInterface";
 import { IOrder } from "../interfaces/NewOrderInterface";
 import { preparePlusRestructureOrderDataForInventory, sendDataToInventoryToReduce } from "../utilities/processOrder.utility";
+import { marketplaceUpdateOrderStatus } from "../utilities/marketplace.utility";
 
 export async function getAllOrders(req: JwtReqInterface, res: Response) {
   try {
@@ -25,18 +26,30 @@ export async function updateOrderStatus(req: JwtReqInterface, res: Response) {
     if (!user) return res.status(401).send({ message: 'Unauthorized.' });
 
     const { orderId } = req.params;
-    const { status } = req.body;
-    if (typeof orderId !== 'string' && typeof status !== 'string') return res.status(400).send({ message: 'Invalid data.' });
-    if (status === 'preparing') {
-      const fullOrder: IOrder = await getOrderInfoUsingOrderId(orderId)
-      if (fullOrder.status === 'pending') {
-        const restructuredOrderDataForInventory = preparePlusRestructureOrderDataForInventory(fullOrder)
-        const inventoryResponse = await sendDataToInventoryToReduce(restructuredOrderDataForInventory);
-      }
+    const { status, type } = req.body;
+    if (typeof status !== 'string' && typeof type !== 'string') return res.status(400).send({ message: 'Invalid data.' });
 
+    // If the order is a POS Order
+    if (type.toLowerCase().includes("in-house")) {
+
+      if (status === 'preparing') { // Sending data to Inventory
+        const fullOrder: IOrder = await getOrderInfoUsingOrderId(orderId)
+        if (fullOrder.status === 'pending') {
+          const restructuredOrderDataForInventory = preparePlusRestructureOrderDataForInventory(fullOrder)
+          const inventoryResponse = await sendDataToInventoryToReduce(restructuredOrderDataForInventory);
+        }
+      }
+      await posUpdateOrderStatus(user.token, orderId, status);
+      return res.json({ message: 'Successfully updated' });
     }
-    const updatedOrder = await posUpdateOrderStatus(user.token, orderId, status);
-    res.send(updatedOrder);
+
+    // If the order is a Marketplace Order
+    else if (type.toLowerCase().includes("pickup") || type.toLowerCase().includes("pickup")) {
+      await marketplaceUpdateOrderStatus(user.token, orderId, status)
+      return res.json({ message: 'Successfully updated' })
+    }
+
+
   } catch (error) {
     console.log(error);
     res.status(500).send({ message: (error as Error).message });
@@ -51,9 +64,16 @@ export async function incomingOrder(req: JwtReqInterface, res: Response) {
 
     const order: IOrder = req.body;
 
-    await kdsPostIncomingOrder(user.token, order);
+    if (order.type.toLowerCase().includes("in-house")) {
+      await kdsPostIncomingOrder(user.token, order);
+    }
+    else if (order.type.toLowerCase().includes("pickup") || order.type.toLowerCase().includes("pickup")) {
+      const restructuredOrderDataForInventory = preparePlusRestructureOrderDataForInventory(order)
+      await sendDataToInventoryToReduce(restructuredOrderDataForInventory);
+    }
 
-    res.send({ message: 'Success' });
+    res.status(201).send({ message: 'Success' });
+
   } catch (error) {
     console.log(error);
     res.status(500).send({ message: (error as Error).message });

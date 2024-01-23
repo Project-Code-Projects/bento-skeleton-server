@@ -47,6 +47,15 @@ export async function getMultipleRestaurantRatingInfoFromReview(restaurantIdArra
     }
 }
 
+// To send updated order STATUS to marketplace from POS
+export async function marketplaceUpdateOrderStatus(token: string, orderId: string, status: string) {
+    try {
+        await axios.put(`${config.MARKETPLACE_BE_BASE_URL}/order-status/${orderId}`, status, { headers: { 'Authorization': 'Bearer ' + token } })
+    } catch (error) {
+        console.log(error);
+        throw new Error((error as AxiosError<{ message: string }>).response?.data.message)
+    }
+}
 
 
 

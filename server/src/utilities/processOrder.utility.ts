@@ -141,8 +141,8 @@ export function removeDuplicatePackaging(packagingArray: IPacking[]) {
 // Sending data to Inventory
 export async function sendDataToInventoryToReduce(data: any) {
     try {
-        const res = await axios.post<any>(`${config.INVENTORY_BE_BASE_URL}/v1/consumptionLog/restaurant/${data.restaurantId}/deduct`, data)
-        return res.data
+        await axios.post<any>(`${config.INVENTORY_BE_BASE_URL}/v1/consumptionLog/restaurant/${data.restaurantId}/deduct`, data)
+
     } catch (error) {
         console.log(error);
         throw new Error((error as AxiosError<{ message: string }>).response?.data.message)

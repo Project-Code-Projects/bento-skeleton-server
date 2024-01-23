@@ -10,7 +10,8 @@ const config = {
   JWT_SECRET: process.env.JWT_SECRET ?? "secret",
 
   HR_BE_BASE_URL: process.env.HR_BE_BASE_URL ?? "http://localhost:4000",
-  HR_FE_BASE_URL: process.env.HR_FE_BASE_URL ?? "http://localhost:4001",
+  // HR_FE_BASE_URL: process.env.HR_FE_BASE_URL ?? "http://localhost:4001",
+  HR_FE_BASE_URL: "https://hr-bento.vercel.app",
 
   INVENTORY_BE_BASE_URL: process.env.INVENTORY_BE_BASE_URL ?? "http://localhost:4010",
   INVENTORY_FE_BASE_URL: process.env.INVENTORY_FE_BASE_URL ?? "http://localhost:4011", // Auth done
