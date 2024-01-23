@@ -94,7 +94,9 @@ export async function sendOrderIdWithFullOrderToKdsFromPosToMarkOrderAsServed(or
 // Get hourly/weekday/monthly stats from POS
 export async function getStatsFromPos(timespan: string, token: string) {
   try {
+    console.log("timespanInParams", timespan);
     const res = await axios.get<any>(`${config.POS_BE_BASE_URL}/order/stats/${timespan}`, { headers: { 'Authorization': 'Bearer ' + token } })
+    console.log("res.data", res.data);
     return res.data
   } catch (error) {
     console.log(error);
