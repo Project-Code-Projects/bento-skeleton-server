@@ -25,7 +25,11 @@ export async function updateOrderStatus(req: JwtReqInterface, res: Response) {
     const { orderId } = req.params;
     const { status } = req.body;
     if (typeof orderId !== 'string' && typeof status !== 'string') return res.status(400).send({ message: 'Invalid data.' });
-
+    if (status === 'preparing') {
+      // Get the order details from POS using orderId
+      // check if the current status is Pending. 
+      // If so Do the Inventory minus thing here
+    }
     const updatedOrder = await posUpdateOrderStatus(user.token, orderId, status);
     res.send(updatedOrder);
   } catch (error) {

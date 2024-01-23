@@ -121,7 +121,7 @@ export interface IRecipe {
 }
 
 export interface IOrder {
-    _id?: string;
+    _id: string;
     restaurantId: number;
     type: string;
     customerId?: number;
@@ -131,7 +131,7 @@ export interface IOrder {
     status: string;
     vipCustomer: boolean;
 
-    items?: IItem[];
+    items: IItem[];
 
     updatedAt: Date;
     createdAt: Date;

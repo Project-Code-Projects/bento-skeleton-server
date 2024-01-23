@@ -2,6 +2,9 @@ import { Router } from "express";
 import posController from "../controllers/pos.controller";
 const posRouter = Router();
 
+// POST req From POS to KDS updating the order status to Served
+posRouter.post('/order/served/:orderId', posController.updateOrderStatusToServedInKds)
+
 // Get req from Review to POS to get an Order Info using OrderId
 posRouter.get('/order-info/:orderId', posController.getOrderInfo)
 

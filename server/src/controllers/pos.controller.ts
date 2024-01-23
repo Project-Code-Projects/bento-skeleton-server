@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
-import { getAllReservationOfARestaurant, getOrderInfoUsingOrderId, getReservationOfARestaurantByDate, postNewReservationOfARestaurant } from "../utilities/pos.utility";
+import { getAllReservationOfARestaurant, getOrderInfoUsingOrderId, getReservationOfARestaurantByDate, postNewReservationOfARestaurant, sendOrderIdWithFullOrderToKdsFromPosToMarkOrderAsServed } from "../utilities/pos.utility";
+import { JwtReqInterface } from "../interfaces/JwtReqInterface";
 
 const getOrderInfo = async (req: Request, res: Response) => {
     try {
@@ -50,6 +51,24 @@ const postNewReservation = async (req: Request, res: Response) => {
 
 }
 
-let posController = { getOrderInfo, getAllReservations, getReservationByDate, postNewReservation }
+// Req From POS to KDS to update the status of an Order To SERVED. FULLY JWT SECURED
+export async function updateOrderStatusToServedInKds(req: JwtReqInterface, res: Response) {
+    try {
+        const user = req.user
+        if (!user) {
+            return res.status(401).send({ message: 'Unauthorized' })
+        }
+        const orderId = req.params.orderId;
+        const fullOrder = req.body
+        const result = await sendOrderIdWithFullOrderToKdsFromPosToMarkOrderAsServed(orderId, fullOrder, user.token)
+        res.status(200).send(result)
+    } catch (error) {
+        console.log(error);
+        res.status(500).json((error as Error).message)
+    }
+}
+
+let posController = { getOrderInfo, getAllReservations, getReservationByDate, postNewReservation, updateOrderStatusToServedInKds }
 
 export default posController;
+

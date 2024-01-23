@@ -1,5 +1,6 @@
 import axios, { AxiosError } from "axios";
 import config from "../config";
+import { IOrder } from "../interfaces/NewOrderInterface";
 
 export async function posGetAllOrders(token: string) {
   try {
@@ -76,3 +77,16 @@ export async function postNewReservationOfARestaurant(restaurantId: string, rese
   }
 
 }
+
+export async function sendOrderIdWithFullOrderToKdsFromPosToMarkOrderAsServed(orderId: string, fullOrder: IOrder, token: string) {
+  try {
+    const res = await axios.post<any>(`${config.KDS_BE_BASE_URL}/orders/served/${orderId}`, fullOrder,
+      { headers: { 'Authorization': 'Bearer ' + token } })
+
+    return res.data;
+  } catch (error) {
+    console.log(error);
+    throw new Error((error as AxiosError<{ message: string }>).response?.data.message)
+  }
+}
+// { 'Authorization': 'Bearer ' + token }

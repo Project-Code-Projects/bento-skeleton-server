@@ -59,6 +59,7 @@ app.use("/hr", hrRouter);
 // Get req from Review to POS to get all the reservations
 // Get req from Review to POS to get reservations of a day using date of that day
 // Post req from Review to POS for sending new reservations. (Websocket)
+// POST req From POS to KDS updating the order status to Served
 app.use("/pos", posRouter)
 
 // Request from POS and Marketplace for menu
