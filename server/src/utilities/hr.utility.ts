@@ -49,7 +49,9 @@ export async function hrServiceCheck(data: { userId: number; service: string }) 
 export async function hrServiceList(userId: number) {
   try {
     const res = await axios.get<{ services: string[] }>(config.HR_BE_BASE_URL + "/employee/access/service/" + userId);
+    console.log('from hr utility', res.data);
     return res.data;
+
   } catch (error) {
     console.log(error);
     throw new Error((error as AxiosError<{ message: string }>).response?.data.message);
@@ -142,7 +144,8 @@ export async function sendCheckInInfoToHr(data: { employeeId: number, checkInTim
   try {
     const res = await axios.post(`${config.HR_BE_BASE_URL}/attendance/${restaurantId}/restaurant/${data.employeeId}`, { isCheckedIn: true })
     console.log('hr utility check in -----', res.data);
-    return res.data
+    const attendanceIdObj = { attendanceId: res.data.id }
+    return attendanceIdObj
   } catch (error) {
     console.log('error from check in utility', error);
     throw new Error((error as AxiosError<{ message: string }>).response?.data.message)
@@ -160,16 +163,6 @@ export async function sendCheckOutInfoToHr(data: { employeeId: number, checkInTi
   }
 }
 
-// Get the Data from HR about if an employee is currently checked in or not
-export async function getIsCheckInDataFromHR(employeeId: number, token: string) {
-  try {
-    const res = await axios.get<{ id: number, isCheckedIn: boolean }>(`${config.HR_BE_BASE_URL}/check-if-checked-in/${employeeId}`, { headers: { 'Authorization': 'Bearer ' + token } })
-    return res.data
-  } catch (error) {
-    console.log(error);
-    throw new Error((error as AxiosError<{ message: string }>).response?.data.message)
-  }
-}
 
 
 

@@ -19,8 +19,9 @@ const getOneRestaurantMenu = async (req: JwtReqInterface, res: Response) => {
 
 const getAllMenuCatagories = async (req: JwtReqInterface, res: Response) => {
     try {
-        if (req.user?.restaurantId) {
-            const catagoryData = await getMenuCatagories(req.user.restaurantId)
+        if (req.user) {
+            const restaurantId = parseInt(req.params.restaurantId)
+            const catagoryData = await getMenuCatagories(restaurantId)
             res.status(200).send(catagoryData);
         }
     } catch (error) {

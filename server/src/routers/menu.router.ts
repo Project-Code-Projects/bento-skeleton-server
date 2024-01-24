@@ -7,6 +7,6 @@ const menuRouter = Router();
 menuRouter.get('/one-restaurant-menu/:restaurantId', verifyJWTMiddleware, menuController.getOneRestaurantMenu)
 
 // To get all categories from Menu Builder
-menuRouter.get('/all-menu-categories', verifyJWTMiddleware, menuController.getAllMenuCatagories)
+menuRouter.get('/all-menu-categories/:restaurantId', verifyJWTMiddleware, menuController.getAllMenuCatagories)
 
 export default menuRouter;

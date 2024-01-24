@@ -1,15 +1,13 @@
 import { Response } from "express";
 import { chefCheckIn, chefCheckOut } from "../utilities/kds.utility";
-import { getIsCheckInDataFromHR, hrActiveChefs, hrActiveWaiters, sendCheckInInfoToHr, sendCheckOutInfoToHr } from "../utilities/hr.utility";
+import { hrActiveChefs, hrActiveWaiters, sendCheckInInfoToHr, sendCheckOutInfoToHr } from "../utilities/hr.utility";
 import { JwtReqInterface } from "../interfaces/JwtReqInterface";
 
 export const employeeCheckIn = async (req: JwtReqInterface, res: Response) => {
   try {
     if (!req.user) return res.status(401).send({ message: 'Unauthorized.' });
 
-    const userData: {
-      employeeId: number, checkInTime: Date
-    } = req.body
+    const userData: { employeeId: number, checkInTime: Date } = req.body
 
     if (req.user.restaurantId) {
       // Implement functionality to send checked in user to HR
@@ -76,14 +74,3 @@ export const getActiveWaiters = async (req: JwtReqInterface, res: Response) => {
   }
 };
 
-// Get the Data from HR about if an employee is currently checked in or not
-export async function checkIfEmployeeCheckedIn(req: JwtReqInterface, res: Response) {
-  try {
-    if (!req.user) return res.status(501).json({ message: 'Unauthorized' })
-    const result = await getIsCheckInDataFromHR(req.user?.id, req.user?.token)
-    return res.status(200).send(result)
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ message: (error as Error).message })
-  }
-}

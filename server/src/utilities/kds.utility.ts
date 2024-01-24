@@ -7,7 +7,7 @@ export async function chefCheckIn(token: string) {
     const res = await axios.post(config.KDS_BE_BASE_URL + '/chef/check-in', {}, { headers: { 'Authorization': 'Bearer ' + token } });
     return res;
   } catch (error) {
-    console.log(error);
+    console.log('error from kds utility', error);
     throw new Error((error as AxiosError<{ message: string }>).response?.data.message);
   }
 }

@@ -10,7 +10,6 @@ export async function redirectToService(req: JwtReqInterface, res: Response) {
   try {
     const user = req.user;
     const service = req.params.service;
-    console.log("service-name", service);
 
     if (user && validateService(service)) {
       const checkAccess = await hrServiceCheck({ userId: user.id, service: service.toUpperCase() });
