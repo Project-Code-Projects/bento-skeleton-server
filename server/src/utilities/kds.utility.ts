@@ -25,7 +25,6 @@ export async function chefCheckOut(token: string) {
 export async function kdsPostIncomingOrder(token: string, order: any) {
   try {
     const res = await axios.post(config.KDS_BE_BASE_URL + '/orders/incoming', order, { headers: { 'Authorization': 'Bearer ' + token } });
-    console.log('kds utility', res.status, res.data);
     return res.data;
 
   } catch (error) {

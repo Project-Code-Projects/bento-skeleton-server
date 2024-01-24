@@ -65,6 +65,7 @@ export async function incomingOrder(req: JwtReqInterface, res: Response) {
     const order: IOrder = req.body;
 
     if (order.type.toLowerCase().includes("in-house")) {
+      console.log('before sending to utility -----------------------------------------------');
       await kdsPostIncomingOrder(user.token, order);
     }
     else if (order.type.toLowerCase().includes("pickup") || order.type.toLowerCase().includes("pickup")) {
@@ -75,7 +76,7 @@ export async function incomingOrder(req: JwtReqInterface, res: Response) {
     res.status(201).send({ message: 'Success' });
 
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     res.status(500).send({ message: (error as Error).message });
   }
 }
