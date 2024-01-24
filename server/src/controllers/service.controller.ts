@@ -50,10 +50,7 @@ export async function getUserInfoByToken(req: JwtReqInterface, res: Response) {
     if (!user) return res.send({ message: 'Unauthorized.' });
 
     const userData = await hrUserInfo(user.id);
-    const result = {
-      user: { ...userData.message },
-    };
-    res.send(result);
+    res.send(userData);
   } catch (error) {
     console.log(error);
     res.status(500).send({ message: (error as Error).message });

@@ -136,3 +136,42 @@ export async function hrPostOrderReview(data: any, restaurantId: string) {
     throw new Error((error as AxiosError<{ message: string }>).response?.data.message);
   }
 }
+
+// Send Employee info to HR for Check In
+export async function sendCheckInInfoToHr(data: { employeeId: number, checkInTime: Date }, restaurantId: number) {
+  try {
+    const res = await axios.post(`${config.HR_BE_BASE_URL}/attendance/${restaurantId}/restaurant/${data.employeeId}`, data)
+    console.log('hr utility check in -----', res.data);
+    return res.data
+  } catch (error) {
+    console.log('error from check in utility', error);
+    throw new Error((error as AxiosError<{ message: string }>).response?.data.message)
+  }
+}
+
+// Send Employee info to HR for Check Out
+export async function sendCheckOutInfoToHr(data: { employeeId: number, checkInTime: Date }, restaurantId: number) {
+  try {
+    const res = await axios.put(`${config.HR_BE_BASE_URL}/checkout`, data)
+    return res.data
+  } catch (error) {
+    console.log(error);
+    throw new Error((error as AxiosError<{ message: string }>).response?.data.message)
+  }
+}
+
+// Get the Data from HR about if an employee is currently checked in or not
+export async function getIsCheckInDataFromHR(employeeId: number, token: string) {
+  try {
+    const res = await axios.get<{ id: number, isCheckedIn: boolean }>(`${config.HR_BE_BASE_URL}/check-if-checked-in/${employeeId}`, { headers: { 'Authorization': 'Bearer ' + token } })
+    return res.data
+  } catch (error) {
+    console.log(error);
+    throw new Error((error as AxiosError<{ message: string }>).response?.data.message)
+  }
+}
+
+
+
+
+

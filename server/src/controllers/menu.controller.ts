@@ -6,9 +6,9 @@ import { Jwt } from "jsonwebtoken";
 // POS --> MENU
 const getOneRestaurantMenu = async (req: JwtReqInterface, res: Response) => {
     try {
-        if (req.user?.restaurantId) {
-            console.log('from controller', req.user.restaurantId);
-            const menuData = await getMenuWithRestaurantId(req.user?.restaurantId)
+        if (req.user) {
+            const restaurantId = parseInt(req.params.restaurantId)
+            const menuData = await getMenuWithRestaurantId(restaurantId)
             res.status(200).send(menuData)
         }
     } catch (error) {
