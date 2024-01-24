@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { getAllReservationOfARestaurant, getOrderInfoUsingOrderId, getReservationOfARestaurantByDate, getStatsFromPos, postNewReservationOfARestaurant, sendOrderIdWithFullOrderToKdsFromPosToMarkOrderAsServed } from "../utilities/pos.utility";
+import { getAllReservationOfARestaurant, getAllTableOfAllRestaurantFromPos, getOrderInfoUsingOrderId, getReservationOfARestaurantByDate, getStatsFromPos, postNewReservationOfARestaurant, sendOrderIdWithFullOrderToKdsFromPosToMarkOrderAsServed } from "../utilities/pos.utility";
 import { JwtReqInterface } from "../interfaces/JwtReqInterface";
 
 const getOrderInfo = async (req: Request, res: Response) => {
@@ -71,7 +71,7 @@ export async function updateOrderStatusToServedInKds(req: JwtReqInterface, res: 
 // Get Hourly / Weekday / Monthly Order Stat from POS
 export async function orderStats(req: JwtReqInterface, res: Response) {
     try {
-        if (!req.user) return res.status(501).json({ message: 'Unauthorized' })
+        if (!req.user) return res.status(401).json({ message: 'Unauthorized' })
 
         const timespanInParams = req.params.timespan
 
@@ -88,7 +88,18 @@ export async function orderStats(req: JwtReqInterface, res: Response) {
     }
 }
 
-let posController = { orderStats, getOrderInfo, getAllReservations, getReservationByDate, postNewReservation, updateOrderStatusToServedInKds }
+export async function allTableAllRestaurantInfo(req: JwtReqInterface, res: Response) {
+    try {
+        if (!req.user?.token) return res.status(401).json({ message: 'Unauthorized' })
+        const result = await getAllTableOfAllRestaurantFromPos(req.user?.token)
+        res.status(200).send(result);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: (error as Error).message })
+    }
+}
+
+let posController = { orderStats, getOrderInfo, getAllReservations, getReservationByDate, postNewReservation, updateOrderStatusToServedInKds, allTableAllRestaurantInfo }
 
 export default posController;
 

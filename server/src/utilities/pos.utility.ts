@@ -105,9 +105,12 @@ export async function getStatsFromPos(timespan: string, token: string) {
 }
 
 
-// Get weekday stats from POS
-export async function getWeekDayStatsFromPos() { }
-
-
-// Get monthly stats from POS
-export async function getMonthlyStatsFromPos() { }
+export async function getAllTableOfAllRestaurantFromPos(token: string) {
+  try {
+    const res = await axios.get<any>(config.POS_BE_BASE_URL + "/table/all-restaurant-tables", { headers: { 'Authorization': 'Bearer ' + token } })
+    return res.data
+  } catch (error) {
+    console.log(error);
+    throw new Error((error as AxiosError<{ message: string }>).response?.data.message)
+  }
+}

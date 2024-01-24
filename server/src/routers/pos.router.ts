@@ -18,6 +18,12 @@ posRouter.get('/reservation-by-date', posController.getReservationByDate)
 // Post req from Review to POS for sending new reservations. (Websocket)
 posRouter.post('/send-new-reservation/:restaurantId', posController.postNewReservation)
 
+// Order stats
 posRouter.get('/order-stats/:timespan', verifyJWTMiddleware, posController.orderStats)
+
+
+// Get req from review to get all table infos of all restaurant from POS
+posRouter.get('/all-tables-all-restaurants', verifyJWTMiddleware, posController.allTableAllRestaurantInfo)
+
 
 export default posRouter;

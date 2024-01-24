@@ -140,7 +140,7 @@ export async function hrPostOrderReview(data: any, restaurantId: string) {
 // Send Employee info to HR for Check In
 export async function sendCheckInInfoToHr(data: { employeeId: number, checkInTime: Date }, restaurantId: number) {
   try {
-    const res = await axios.post(`${config.HR_BE_BASE_URL}/attendance/${restaurantId}/restaurant/${data.employeeId}`, data)
+    const res = await axios.post(`${config.HR_BE_BASE_URL}/attendance/${restaurantId}/restaurant/${data.employeeId}`, { isCheckedIn: true })
     console.log('hr utility check in -----', res.data);
     return res.data
   } catch (error) {
@@ -150,9 +150,9 @@ export async function sendCheckInInfoToHr(data: { employeeId: number, checkInTim
 }
 
 // Send Employee info to HR for Check Out
-export async function sendCheckOutInfoToHr(data: { employeeId: number, checkInTime: Date }, restaurantId: number) {
+export async function sendCheckOutInfoToHr(data: { employeeId: number, checkInTime: Date, attendanceId: number }, restaurantId: number) {
   try {
-    const res = await axios.put(`${config.HR_BE_BASE_URL}/checkout`, data)
+    const res = await axios.put(`${config.HR_BE_BASE_URL}/${data.employeeId}/restaurant/${data.attendanceId}`, { isCheckedIn: false })
     return res.data
   } catch (error) {
     console.log(error);

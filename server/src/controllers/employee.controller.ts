@@ -18,7 +18,7 @@ export const employeeCheckIn = async (req: JwtReqInterface, res: Response) => {
       // Send checked in user to KDS
       await chefCheckIn(req.user.token);  // WHY IS THIS HAPPENING HERE ????
 
-      res.status(201).send({ status: "Success" });
+      res.status(201).send(hrRes);
     }
   } catch (error) {
     console.log(error);
@@ -33,7 +33,7 @@ export const employeeCheckOut = async (req: JwtReqInterface, res: Response) => {
 
     // Implement functionality to send checked out user to HR
     const userData: {
-      employeeId: number, checkInTime: Date
+      employeeId: number, checkInTime: Date, attendanceId: number
     } = req.body
 
     if (req.user.restaurantId) {
