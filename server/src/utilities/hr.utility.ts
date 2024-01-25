@@ -84,7 +84,7 @@ export async function sendOwnerInfoToHR(data: { restaurantId: number, name: stri
 // Gets the active chefs in a restaurant
 export async function hrActiveChefs(restaurantId: number, token: string) {
   try {
-    const res = await axios.get(config.HR_BE_BASE_URL + "/position/" + restaurantId + "/chefs", { headers: { 'Authorization': 'Bearer ' + token } });
+    const res = await axios.get(config.HR_BE_BASE_URL + "/chef/active/" + restaurantId, { headers: { 'Authorization': 'Bearer ' + token } });
     return res.data;
   } catch (error) {
     console.log(error);
@@ -140,9 +140,9 @@ export async function hrPostOrderReview(data: any, restaurantId: string) {
 }
 
 // Send Employee info to HR for Check In
-export async function sendCheckInInfoToHr(data: { employeeId: number, checkInTime: Date }, restaurantId: number) {
+export async function sendCheckInInfoToHr(employeeId: number, restaurantId: number) {
   try {
-    const res = await axios.post(`${config.HR_BE_BASE_URL}/attendance/${restaurantId}/restaurant/${data.employeeId}`, { isCheckedIn: true })
+    const res = await axios.post(`${config.HR_BE_BASE_URL}/attendance/${restaurantId}/restaurant/${employeeId}`, { isCheckedIn: true })
     // console.log('hr utility check in -----', res.data);
     const attendanceIdObj = { attendanceId: res.data.id }
     return attendanceIdObj

@@ -33,10 +33,10 @@ export async function updateOrderStatus(req: JwtReqInterface, res: Response) {
     if (type.toLowerCase().includes("in-house")) {
 
       if (status === 'preparing') { // Sending data to Inventory
-        const fullOrder: IOrder = await getOrderInfoUsingOrderId(orderId)
+        const fullOrder: IOrder = await getOrderInfoUsingOrderId(orderId, user.token)
         if (fullOrder.status === 'pending') {
           const restructuredOrderDataForInventory = preparePlusRestructureOrderDataForInventory(fullOrder)
-          const inventoryResponse = await sendDataToInventoryToReduce(restructuredOrderDataForInventory);
+          const inventoryResponse = await sendDataToInventoryToReduce(restructuredOrderDataForInventory, user.token);
         }
       }
       await posUpdateOrderStatus(user.token, orderId, status);
@@ -72,7 +72,7 @@ export async function incomingOrder(req: JwtReqInterface, res: Response) {
     }
     else if (order.type === "pickup" || order.type === "delivery") {
       const restructuredOrderDataForInventory = preparePlusRestructureOrderDataForInventory(order)
-      result = await sendDataToInventoryToReduce(restructuredOrderDataForInventory);
+      result = await sendDataToInventoryToReduce(restructuredOrderDataForInventory, user.token);
     }
     else {
       console.log('Else Block ----------------------------------------');

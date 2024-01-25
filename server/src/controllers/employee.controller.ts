@@ -7,14 +7,16 @@ export const employeeCheckIn = async (req: JwtReqInterface, res: Response) => {
   try {
     if (!req.user) return res.status(401).send({ message: 'Unauthorized.' });
 
-    const userData: { employeeId: number, checkInTime: Date } = req.body
+    const userData: { employeeId: number, position: string } = req.body
 
     if (req.user.restaurantId) {
       // Implement functionality to send checked in user to HR
-      const hrRes = await sendCheckInInfoToHr(userData, req.user.restaurantId)
+      const hrRes = await sendCheckInInfoToHr(userData.employeeId, req.user.restaurantId)
 
-      // Send checked in user to KDS
-      await chefCheckIn(req.user.token);  // WHY IS THIS HAPPENING HERE ????
+      if (userData.position.toLowerCase() == 'chef') {
+        // Send checked in CHEF to KDS
+        await chefCheckIn(req.user.token);  // 
+      }
 
       res.status(201).send(hrRes);
     }
@@ -30,13 +32,16 @@ export const employeeCheckOut = async (req: JwtReqInterface, res: Response) => {
     if (!req.user) return res.status(401).send({ message: 'Unauthorized.' });
 
     // Implement functionality to send checked out user to HR
-    const userData: { employeeId: number, attendanceId: number } = req.body
+    const userData: { employeeId: number, attendanceId: number, position: string } = req.body
 
     if (req.user.restaurantId) {
       const hrRes = await sendCheckOutInfoToHr(userData)
 
-      // Send checked out user to KDS
-      await chefCheckOut(req.user.token); // WHY IS THIS HAPPENING HERE ????
+      // Send checked out CHEF to KDS
+      if (userData.position.toLowerCase() == 'chef') {
+        await chefCheckOut(req.user.token);
+      }
+
 
       res.send({ status: "Success", data: hrRes });
 

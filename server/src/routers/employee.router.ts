@@ -9,6 +9,7 @@ employeeRouter.post('/check-out', verifyJWTMiddleware, employeeCheckOut);
 
 
 employeeRouter.get('/position/chef/active', verifyJWTMiddleware, getActiveChefs);
+
 employeeRouter.get('/position/waiter/active', verifyJWTMiddleware, getActiveWaiters);
 
 export default employeeRouter;
