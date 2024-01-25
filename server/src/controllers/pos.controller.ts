@@ -2,10 +2,11 @@ import { Request, Response } from "express";
 import { getAllReservationOfARestaurant, getAllTableOfAllRestaurantFromPos, getOrderInfoUsingOrderId, getReservationOfARestaurantByDate, getStatsFromPos, postNewReservationOfARestaurant, sendOrderIdWithFullOrderToKdsFromPosToMarkOrderAsServed } from "../utilities/pos.utility";
 import { JwtReqInterface } from "../interfaces/JwtReqInterface";
 
-const getOrderInfo = async (req: Request, res: Response) => {
+const getOrderInfo = async (req: JwtReqInterface, res: Response) => {
     try {
+        if (!req.user?.token) return res.status(401).json({ message: 'Unauthorized' })
         const orderId = req.params.orderId;
-        const result = await getOrderInfoUsingOrderId(orderId);
+        const result = await getOrderInfoUsingOrderId(orderId, req.user?.token);
         res.send(result);
     } catch (error) {
         res.status(500).send({ message: (error as Error).message });

@@ -7,7 +7,7 @@ const posRouter = Router();
 posRouter.post('/order/served/:orderId', verifyJWTMiddleware, posController.updateOrderStatusToServedInKds)
 
 // Get req from Review to POS to get an Order Info using OrderId
-posRouter.get('/order-info/:orderId', posController.getOrderInfo)
+posRouter.get('/order-info/:orderId', verifyJWTMiddleware, posController.getOrderInfo)
 
 // Get req from Review to POS to get all the reservations
 posRouter.get('/all-reservations/:restaurantId', posController.getAllReservations)
