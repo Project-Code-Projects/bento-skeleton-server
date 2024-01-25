@@ -60,20 +60,25 @@ export async function updateOrderStatus(req: JwtReqInterface, res: Response) {
 export async function incomingOrder(req: JwtReqInterface, res: Response) {
   try {
     const { user } = req;
+
     if (!user) return res.status(401).send({ message: 'Unauthorized.' });
 
-    const order: IOrder = req.body;
+    const order: IOrder = req.body.order;
 
-    if (order.type.toLowerCase().includes("in-house")) {
-      console.log('before sending to utility -----------------------------------------------');
-      await kdsPostIncomingOrder(user.token, order);
+    let result;
+
+    if (order.type == "in-house") {
+      result = await kdsPostIncomingOrder(user.token, order);
     }
-    else if (order.type.toLowerCase().includes("pickup") || order.type.toLowerCase().includes("pickup")) {
+    else if (order.type === "pickup" || order.type === "delivery") {
       const restructuredOrderDataForInventory = preparePlusRestructureOrderDataForInventory(order)
-      await sendDataToInventoryToReduce(restructuredOrderDataForInventory);
+      result = await sendDataToInventoryToReduce(restructuredOrderDataForInventory);
+    }
+    else {
+      console.log('Else Block ----------------------------------------');
     }
 
-    res.status(201).send({ message: 'Success' });
+    res.status(201).send({ message: 'Success', data: result });
 
   } catch (error) {
     // console.log(error);

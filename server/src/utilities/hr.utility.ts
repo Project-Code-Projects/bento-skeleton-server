@@ -49,7 +49,7 @@ export async function hrServiceCheck(data: { userId: number; service: string }) 
 export async function hrServiceList(userId: number) {
   try {
     const res = await axios.get<{ services: string[] }>(config.HR_BE_BASE_URL + "/employee/access/service/" + userId);
-    console.log('from hr utility', res.data);
+    // console.log('from hr utility', res.data);
     return res.data;
 
   } catch (error) {
@@ -143,7 +143,7 @@ export async function hrPostOrderReview(data: any, restaurantId: string) {
 export async function sendCheckInInfoToHr(data: { employeeId: number, checkInTime: Date }, restaurantId: number) {
   try {
     const res = await axios.post(`${config.HR_BE_BASE_URL}/attendance/${restaurantId}/restaurant/${data.employeeId}`, { isCheckedIn: true })
-    console.log('hr utility check in -----', res.data);
+    // console.log('hr utility check in -----', res.data);
     const attendanceIdObj = { attendanceId: res.data.id }
     return attendanceIdObj
   } catch (error) {
@@ -153,12 +153,12 @@ export async function sendCheckInInfoToHr(data: { employeeId: number, checkInTim
 }
 
 // Send Employee info to HR for Check Out
-export async function sendCheckOutInfoToHr(data: { employeeId: number, checkInTime: Date, attendanceId: number }, restaurantId: number) {
+export async function sendCheckOutInfoToHr(data: { employeeId: number, attendanceId: number }) {
   try {
-    const res = await axios.put(`${config.HR_BE_BASE_URL}/${data.employeeId}/restaurant/${data.attendanceId}`, { isCheckedIn: false })
+    const res = await axios.put(`${config.HR_BE_BASE_URL}/attendance/${data.employeeId}/restaurant/${data.attendanceId}`, { isCheckedIn: false })
     return res.data
   } catch (error) {
-    console.log(error);
+    console.log('Error from HR Utility sendCheckOutInfoToHr --------------------', error);
     throw new Error((error as AxiosError<{ message: string }>).response?.data.message)
   }
 }

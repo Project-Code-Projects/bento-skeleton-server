@@ -30,17 +30,15 @@ export const employeeCheckOut = async (req: JwtReqInterface, res: Response) => {
     if (!req.user) return res.status(401).send({ message: 'Unauthorized.' });
 
     // Implement functionality to send checked out user to HR
-    const userData: {
-      employeeId: number, checkInTime: Date, attendanceId: number
-    } = req.body
+    const userData: { employeeId: number, attendanceId: number } = req.body
 
     if (req.user.restaurantId) {
-      const hrRes = await sendCheckOutInfoToHr(userData, req.user.restaurantId)
+      const hrRes = await sendCheckOutInfoToHr(userData)
 
       // Send checked out user to KDS
       await chefCheckOut(req.user.token); // WHY IS THIS HAPPENING HERE ????
 
-      res.send({ status: "Success" });
+      res.send({ status: "Success", data: hrRes });
 
     }
 

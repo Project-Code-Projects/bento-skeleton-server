@@ -19,8 +19,8 @@ const verifyJWTMiddleware = (req: JwtReqInterface, res: Response, next: NextFunc
     }
 
     req.user = user;
-    console.log("hello darkness =====", authHeaders);
-    console.log('req.user', req.user);
+    // console.log("hello darkness =====", authHeaders);
+    // console.log('from jwt middleware', req.user);
     next();
   } else {
     res.status(401).send({ message: "Unauthorized" });
