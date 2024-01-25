@@ -1,4 +1,4 @@
-import express, { Express } from "express";
+import express, { Express, Response } from "express";
 const app: Express = express();
 import cors from "cors";
 import dotenv from "dotenv";
@@ -20,6 +20,9 @@ import posRouter from "./routers/pos.router";
 import hrRouter from "./routers/hr.router";
 import marketplaceRouter from "./routers/marketplace.router";
 import restaurantsRouter from "./routers/restaurants.router";
+import verifyJWTMiddleware from "./middlewares/verifyJWT.middleware";
+import { JwtReqInterface } from "./interfaces/JwtReqInterface";
+import { preparePlusRestructureOrderDataForInventory } from "./utilities/processOrder.utility";
 app.use(cookieParser());
 
 app.use(
@@ -32,6 +35,16 @@ app.use(
 );
 
 app.use(express.json());
+
+// app.get('/restructure-data', (req: JwtReqInterface, res: Response) => {
+//   try {
+//     const orderdata = req.body;
+//     const result = preparePlusRestructureOrderDataForInventory(orderdata)
+//     res.send(result);
+//   } catch (error) {
+//     console.log(error);
+//   }
+// })
 
 // Auth api's
 app.use("/auth", authRouter);
