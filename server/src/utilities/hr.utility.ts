@@ -118,7 +118,7 @@ export async function hrPostChefEfficiency(data: any, token: string) {
 // Post waiter efficiency to HR
 export async function hrPostWaiterEfficiency(data: any, token: string) {
   try {
-    const res = await axios.post(`${config.HR_BE_BASE_URL}/waiter-efficiency`, data, { headers: { 'Authorization': 'Bearer ' + token } })
+    const res = await axios.post(`${config.HR_BE_BASE_URL}/waiter/efficiency`, data, { headers: { 'Authorization': 'Bearer ' + token } })
     return res.data
   } catch (error) {
     console.log(error);
