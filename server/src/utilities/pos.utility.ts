@@ -16,7 +16,7 @@ export async function posGetAllOrders(token: string) {
 // Send updated order STATUS to POS from KDS
 export async function posUpdateOrderStatus(token: string, orderId: string, status: string) {
   try {
-    await axios.put<any>(config.POS_BE_BASE_URL + "/order/status/" + orderId, { status }, { headers: { 'Authorization': 'Bearer ' + token } });
+    await axios.post<any>(config.POS_BE_BASE_URL + "/order/status/" + orderId, { status }, { headers: { 'Authorization': 'Bearer ' + token } });
   } catch (error) {
     console.log(error);
     throw new Error((error as AxiosError<{ message: string }>).response?.data.message);
