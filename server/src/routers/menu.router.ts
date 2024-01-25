@@ -9,4 +9,7 @@ menuRouter.get('/one-restaurant-menu/:restaurantId', verifyJWTMiddleware, menuCo
 // To get all categories from Menu Builder
 menuRouter.get('/all-menu-categories/:restaurantId', verifyJWTMiddleware, menuController.getAllMenuCatagories)
 
+menuRouter.get('/menu-item-details/:itemId', verifyJWTMiddleware, menuController.menuItemDetails)
+
+
 export default menuRouter;

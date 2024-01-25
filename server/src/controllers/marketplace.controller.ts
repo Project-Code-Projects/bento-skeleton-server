@@ -17,6 +17,7 @@ export async function getRestaurantDetails(req: JwtReqInterface, res: Response) 
 }
 
 
+
 // Get all the cuisine's name and image
 export async function getAllCuisineInfos(req: JwtReqInterface, res: Response) {
     try {

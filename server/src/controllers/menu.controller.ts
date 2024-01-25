@@ -1,6 +1,6 @@
 import { Response } from "express";
 import { JwtReqInterface } from "../interfaces/JwtReqInterface";
-import { getMenuCatagories, getMenuWithRestaurantId } from "../utilities/menu.utility";
+import { getMenuCatagories, getMenuItemDetails, getMenuWithRestaurantId } from "../utilities/menu.utility";
 import { Jwt } from "jsonwebtoken";
 
 // POS --> MENU
@@ -8,7 +8,7 @@ const getOneRestaurantMenu = async (req: JwtReqInterface, res: Response) => {
     try {
         if (req.user) {
             const restaurantId = parseInt(req.params.restaurantId)
-            const menuData = await getMenuWithRestaurantId(restaurantId)
+            const menuData = await getMenuWithRestaurantId(restaurantId, req.user.token)
             res.status(200).send(menuData)
         }
     } catch (error) {
@@ -21,7 +21,7 @@ const getAllMenuCatagories = async (req: JwtReqInterface, res: Response) => {
     try {
         if (req.user) {
             const restaurantId = parseInt(req.params.restaurantId)
-            const catagoryData = await getMenuCatagories(restaurantId)
+            const catagoryData = await getMenuCatagories(restaurantId, req.user.token)
             res.status(200).send(catagoryData);
         }
     } catch (error) {
@@ -30,5 +30,19 @@ const getAllMenuCatagories = async (req: JwtReqInterface, res: Response) => {
     }
 }
 
-let menuController = { getOneRestaurantMenu, getAllMenuCatagories }
+// Get one menu-item's details using the item-id
+export async function menuItemDetails(req: JwtReqInterface, res: Response) {
+    try {
+        if (!req.user) return res.status(401).json({ message: "Unauthorized" })
+        const menuItemId = req.params.itemId;
+        const result = await getMenuItemDetails(menuItemId, req.user.token)
+        res.status(200).send(result)
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: (error as Error).message })
+    }
+}
+
+
+let menuController = { getOneRestaurantMenu, getAllMenuCatagories, menuItemDetails }
 export default menuController;

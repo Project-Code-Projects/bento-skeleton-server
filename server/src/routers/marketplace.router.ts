@@ -19,4 +19,5 @@ marketplaceRouter.get('/all-cuisines', verifyJWTMiddleware, getAllCuisineInfos)
 
 
 
+
 export default marketplaceRouter;
