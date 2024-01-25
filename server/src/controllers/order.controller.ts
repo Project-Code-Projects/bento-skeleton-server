@@ -32,14 +32,14 @@ export async function updateOrderStatus(req: JwtReqInterface, res: Response) {
     // If the order is a POS Order
     if (type.toLowerCase().includes("in-house")) {
 
-      /*     if (status === 'preparing') { // Sending data to Inventory
-            const fullOrder: IOrder = await getOrderInfoUsingOrderId(orderId, user.token)
-            if (fullOrder.status === 'pending') {
-              const restructuredOrderDataForInventory = preparePlusRestructureOrderDataForInventory(fullOrder)
-              const inventoryResponse = await sendDataToInventoryToReduce(restructuredOrderDataForInventory, user.token);
+      /*       if (status === 'preparing') { // Sending data to Inventory
+              const fullOrder: IOrder = await getOrderInfoUsingOrderId(orderId, user.token)
+              if (fullOrder.status === 'pending') {
+                const restructuredOrderDataForInventory = preparePlusRestructureOrderDataForInventory(fullOrder)
+                const inventoryResponse = await sendDataToInventoryToReduce(restructuredOrderDataForInventory, user.token);
+              }
             }
-          } */
-
+       */
 
       await posUpdateOrderStatus(user.token, orderId, status);
       return res.json({ message: 'Successfully updated' });
