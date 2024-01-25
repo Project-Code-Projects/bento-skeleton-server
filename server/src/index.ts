@@ -64,9 +64,12 @@ app.use("/orders", orderRouter);
 app.use("/hr", hrRouter);
 
 // Get req from Review to POS to get an Order Info using OrderId
-// Get req from Review to POS to get all the reservations
-// Get req from Review to POS to get reservations of a day using date of that day
-// Post req from Review to POS for sending new reservations. (Websocket)
+
+// Get req from  POS to REVIEW to get all the reservations  ///////
+// Get req from Review  POS to get reservations of a day using date of that day
+// Post req from    Review to POS for sending new reservations. (Websocket)
+
+
 // POST req From POS to KDS updating the order status to Served
 // GET all table data of all restaurant from POS for Review to user for reservations
 app.use("/pos", posRouter)
