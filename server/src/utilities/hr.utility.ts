@@ -92,7 +92,7 @@ export async function hrActiveChefs(restaurantId: number, token: string) {
   }
 }
 
-// Gets the active chefs in a restaurant
+// Gets the active waiters in a restaurant . NOT NEEDED IN POS. NEEDS FIX IN HR SIDE
 export async function hrActiveWaiters(restaurantId: number, token: string) {
   try {
     const res = await axios.get(config.HR_BE_BASE_URL + "/position/" + restaurantId + "/waiters", { headers: { 'Authorization': 'Bearer ' + token } });

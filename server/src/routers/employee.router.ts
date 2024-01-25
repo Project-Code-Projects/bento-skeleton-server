@@ -10,6 +10,7 @@ employeeRouter.post('/check-out', verifyJWTMiddleware, employeeCheckOut);
 
 employeeRouter.get('/position/chef/active', verifyJWTMiddleware, getActiveChefs);
 
+// NOT NEEDED IN POS.NEEDS FIX IN HR SIDE
 employeeRouter.get('/position/waiter/active', verifyJWTMiddleware, getActiveWaiters);
 
 export default employeeRouter;
