@@ -7,6 +7,7 @@ const verifyJWTMiddleware = (req: JwtReqInterface, res: Response, next: NextFunc
   const authHeaders = req.headers["authorization"];
   if (!authHeaders) return res.status(401).send({ message: "Unauthorized" });
   const token = authHeaders.split(" ")[1];
+  console.log('Token From JWT MIdleware =======================', token);
 
   const data = jwt.verify(token, config.JWT_SECRET) as { id: number; service: string; restaurantId: number };
 
@@ -19,7 +20,7 @@ const verifyJWTMiddleware = (req: JwtReqInterface, res: Response, next: NextFunc
     }
 
     req.user = user;
-    // console.log("hello darkness =====", authHeaders);
+    console.log("From JWT ,req.user  ================================ ", req.user, '========================================================================');
     // console.log('from jwt middleware', req.user);
     next();
   } else {

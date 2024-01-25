@@ -144,7 +144,7 @@ export async function sendDataToInventoryToReduce(data: any, token: string) {
         await axios.post<any>(`${config.INVENTORY_BE_BASE_URL}/v1/consumptionLog/restaurant/${data.restaurantId}/deduct`, data, { headers: { 'Authorization': 'Bearer ' + token } })
 
     } catch (error) {
-        console.log(error);
+        console.log('error from sendDataToInventoryToReduce utility ', error);
         throw new Error((error as AxiosError<{ message: string }>).response?.data.message)
     }
 }

@@ -36,6 +36,7 @@ export async function updateOrderStatus(req: JwtReqInterface, res: Response) {
         const fullOrder: IOrder = await getOrderInfoUsingOrderId(orderId, user.token)
         if (fullOrder.status === 'pending') {
           const restructuredOrderDataForInventory = preparePlusRestructureOrderDataForInventory(fullOrder)
+          console.log('restructuredOrderDataForInventory', restructuredOrderDataForInventory);
           const inventoryResponse = await sendDataToInventoryToReduce(restructuredOrderDataForInventory, user.token);
         }
       }
