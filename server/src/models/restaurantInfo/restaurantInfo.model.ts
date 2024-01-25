@@ -18,6 +18,10 @@ const restaurantInfo = new Schema<IRestaurantInfo>({
         type: Object,
         required: true,
     },
+
+
+
+
     halal: {
         type: Boolean,
         required: true,
