@@ -10,6 +10,6 @@ export async function getNextSequenceValue(sequenceName: string) {
 
         return sequenceDocument.sequence_value;
     } catch (error) {
-        console.log(error);
+        console.log('😭😭😭😭😭😭😭😭😭😭', error);
     }
 }

@@ -14,7 +14,7 @@ export async function getAllOrders(req: JwtReqInterface, res: Response) {
     const orders = await posGetAllOrders(user.token);
     res.send(orders);
   } catch (error) {
-    console.log(error);
+    console.log('😭😭😭😭😭😭😭😭😭😭', error);
     res.status(500).send({ message: (error as Error).message });
   }
 }
@@ -54,7 +54,7 @@ export async function updateOrderStatus(req: JwtReqInterface, res: Response) {
 
 
   } catch (error) {
-    console.log(error);
+    console.log('😭😭😭😭😭😭😭😭😭😭', error);
     res.status(500).send({ message: (error as Error).message });
   }
 }
@@ -84,7 +84,7 @@ export async function incomingOrder(req: JwtReqInterface, res: Response) {
     res.status(201).send({ message: 'Success', data: result });
 
   } catch (error) {
-    // console.log(error);
+    // console.log('😭😭😭😭😭😭😭😭😭😭' , error);
     res.status(500).send({ message: (error as Error).message });
   }
 }
@@ -102,7 +102,7 @@ export async function updateOrderChef(req: JwtReqInterface, res: Response) {
     const updatedOrder = await posUpdateOrderChef(user.token, orderId, chef);
     res.send(updatedOrder);
   } catch (error) {
-    console.log(error);
+    console.log('😭😭😭😭😭😭😭😭😭😭', error);
     res.status(500).send({ message: (error as Error).message });
   }
 }

@@ -6,7 +6,7 @@ export async function getMenuWithRestaurantId(id: number, token: string) {
         const res = await axios.get(`${config.MENU_BE_BASE_URL}/menuItem/restaurant/${id}`, { headers: { 'Authorization': 'Bearer ' + token } })
         return res.data;
     } catch (error) {
-        console.log(error);
+        console.log('😭😭😭😭😭😭😭😭😭😭', error);
         throw new Error((error as AxiosError<{ message: string }>).response?.data.message);
     }
 }
@@ -16,7 +16,7 @@ export async function getMenuCatagories(restaurantId: number, token: string) {
         const res = await axios.get<any>(`${config.MENU_BE_BASE_URL}/category/restaurant/${restaurantId}`, { headers: { 'Authorization': 'Bearer ' + token } })
         return res.data
     } catch (error) {
-        console.log(error);
+        console.log('😭😭😭😭😭😭😭😭😭😭', error);
         throw new Error((error as AxiosError<{ message: string }>).response?.data.message);
     }
 }
@@ -28,7 +28,7 @@ export async function getMenuItemDetails(menuItemId: string, token: string) {
         return res.data
 
     } catch (error) {
-        console.log(error);
+        console.log('😭😭😭😭😭😭😭😭😭😭', error);
         throw new Error((error as AxiosError<{ message: string }>).response?.data.message)
     }
 }

@@ -11,7 +11,7 @@ export async function getRestaurantDetails(req: JwtReqInterface, res: Response) 
         const restaurantDetails = await getRestaurantDetailsFromDB(restaurantId)
         res.status(200).send(restaurantDetails);
     } catch (error) {
-        console.log(error);
+        console.log('😭😭😭😭😭😭😭😭😭😭', error);
         res.status(500).json({ message: (error as Error).message })
     }
 }
@@ -24,7 +24,7 @@ export async function getAllCuisineInfos(req: JwtReqInterface, res: Response) {
         const cuisineData = await getAllCuisines();
         res.status(200).send(cuisineData);
     } catch (error) {
-        console.log(error);
+        console.log('😭😭😭😭😭😭😭😭😭😭', error);
         res.status(500).json({ message: (error as Error).message })
     }
 }
@@ -60,7 +60,7 @@ export async function findRestaurants(req: JwtReqInterface, res: Response) {
 
 
     } catch (error) {
-        console.log(error);
+        console.log('😭😭😭😭😭😭😭😭😭😭', error);
         res.status(500).json({ message: (error as Error).message })
 
     }
@@ -93,7 +93,7 @@ export async function testingError(req: JwtReqInterface, res: Response) {
         const isEven = await testDummy(num);
         res.send(isEven);
     } catch (error) {
-        console.log(error);
+        console.log('😭😭😭😭😭😭😭😭😭😭', error);
         // res.status(500).json({ message: (error as Error).message });
         res.status(500).json({ message: (error as Error).message })
     }

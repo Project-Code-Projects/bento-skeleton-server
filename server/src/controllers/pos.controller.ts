@@ -20,7 +20,7 @@ const getAllReservations = async (req: Request, res: Response) => {
         const result = await getAllReservationOfARestaurant(restaurantId)
         res.status(200).send(result);
     } catch (error) {
-        console.log(error);
+        console.log('😭😭😭😭😭😭😭😭😭😭', error);
         res.status(500).send({ message: (error as Error).message });
     }
 
@@ -33,7 +33,7 @@ const getReservationByDate = async (req: Request, res: Response) => {
         const result = await getReservationOfARestaurantByDate(restaurantId, date);
         res.status(200).send(result)
     } catch (error) {
-        console.log(error);
+        console.log('😭😭😭😭😭😭😭😭😭😭', error);
         res.status(500).send({ message: (error as Error).message });
     }
 };
@@ -45,7 +45,7 @@ const postNewReservation = async (req: Request, res: Response) => {
         const result = await postNewReservationOfARestaurant(restaurantId, reservationData)
         res.status(201).send(result)
     } catch (error) {
-        console.log(error);
+        console.log('😭😭😭😭😭😭😭😭😭😭', error);
         res.status(500).send({ message: (error as Error).message });
     }
 
@@ -64,7 +64,7 @@ export async function updateOrderStatusToServedInKds(req: JwtReqInterface, res: 
         const result = await sendOrderIdWithFullOrderToKdsFromPosToMarkOrderAsServed(orderId, fullOrder, user.token)
         res.status(200).send(result)
     } catch (error) {
-        console.log(error);
+        console.log('😭😭😭😭😭😭😭😭😭😭', error);
         res.status(500).json((error as Error).message)
     }
 }
@@ -84,7 +84,7 @@ export async function orderStats(req: JwtReqInterface, res: Response) {
             return res.status(406).json({ message: 'Invalid Route' })
         }
     } catch (error) {
-        console.log(error);
+        console.log('😭😭😭😭😭😭😭😭😭😭', error);
         res.send(500).json((error as Error).message)
     }
 }
@@ -95,7 +95,7 @@ export async function allTableAllRestaurantInfo(req: JwtReqInterface, res: Respo
         const result = await getAllTableOfAllRestaurantFromPos(req.user?.token)
         res.status(200).send(result);
     } catch (error) {
-        console.log(error);
+        console.log('😭😭😭😭😭😭😭😭😭😭', error);
         res.status(500).json({ message: (error as Error).message })
     }
 }

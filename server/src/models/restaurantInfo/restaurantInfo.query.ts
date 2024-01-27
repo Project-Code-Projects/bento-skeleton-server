@@ -8,7 +8,7 @@ export async function getAllRestaurantInfo() {
         const data = await RestaurantInfoModel.find({})
         return data;
     } catch (error) {
-        console.log(error);
+        console.log('😭😭😭😭😭😭😭😭😭😭', error);
         throw new Error((error as Error).message)
     }
 }
@@ -58,7 +58,7 @@ export async function restaurantsBasedOnMode(mode: string) {
         }
 
     } catch (error) {
-        console.log(error);
+        console.log('😭😭😭😭😭😭😭😭😭😭', error);
         throw new Error((error as Error).message)
     }
 }
@@ -107,7 +107,7 @@ export async function restaurantsConsideringModeCuisineSearchTerm(mode: string, 
         }
 
     } catch (error) {
-        console.log(error);
+        console.log('😭😭😭😭😭😭😭😭😭😭', error);
         throw new Error((error as Error).message)
     }
 }
@@ -149,7 +149,7 @@ export async function restaurantsConsideringModeCuisine(mode: string, cuisine: s
         }
 
     } catch (error) {
-        console.log(error);
+        console.log('😭😭😭😭😭😭😭😭😭😭', error);
         throw new Error((error as Error).message)
     }
 }
@@ -194,7 +194,7 @@ export async function restaurantsConsideringModeSearchTerm(mode: string, searchT
         }
 
     } catch (error) {
-        console.log(error);
+        console.log('😭😭😭😭😭😭😭😭😭😭', error);
         throw new Error((error as Error).message)
     }
 }

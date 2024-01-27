@@ -21,7 +21,7 @@ export async function login(req: Request, res: Response) {
       res.status(400).send({ message: "Invalid data." });
     }
   } catch (error) {
-    console.log(error);
+    console.log('😭😭😭😭😭😭😭😭😭😭', error);
     res.status(500).send({ message: (error as Error).message });
   }
 }
@@ -35,7 +35,7 @@ export async function getServices(req: JwtReqInterface, res: Response) {
       res.send(data);
     } else res.status(403).send({ auth: false });
   } catch (error) {
-    console.log(error);
+    console.log('😭😭😭😭😭😭😭😭😭😭', error);
     res.status(500).send({ message: (error as Error).message });
   }
 }
@@ -60,7 +60,7 @@ export async function checkServiceAccess(req: JwtReqInterface, res: Response) {
     }
 
   } catch (error) {
-    console.log(error);
+    console.log('😭😭😭😭😭😭😭😭😭😭', error);
     res.status(500).send({ message: (error as Error).message });
   }
 }

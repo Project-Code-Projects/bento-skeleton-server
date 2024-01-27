@@ -6,6 +6,6 @@ export async function getAllCountry() {
     const countries: CountryInterface[] = await countryModel.find({});
     return countries;
   } catch (error) {
-    console.log(error);
+    console.log('😭😭😭😭😭😭😭😭😭😭', error);
   }
 }

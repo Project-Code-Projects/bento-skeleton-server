@@ -6,7 +6,7 @@ export const getAllCountryController = async (req: Request, res: Response) => {
     const allCountryList = await getAllCountry();
     res.send(allCountryList);
   } catch (error) {
-    console.log(error);
+    console.log('😭😭😭😭😭😭😭😭😭😭', error);
     res.status(500).send({ message: (error as Error).message });
   }
 };

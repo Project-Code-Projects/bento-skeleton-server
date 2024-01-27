@@ -42,7 +42,7 @@ app.use(express.json());
 //     const result = preparePlusRestructureOrderDataForInventory(orderdata)
 //     res.send(result);
 //   } catch (error) {
-//     console.log(error);
+//     console.log('😭😭😭😭😭😭😭😭😭😭' , error);
 //   }
 // })
 

@@ -25,7 +25,7 @@ const getAllMenuCatagories = async (req: JwtReqInterface, res: Response) => {
             res.status(200).send(catagoryData);
         }
     } catch (error) {
-        console.log(error);
+        console.log('😭😭😭😭😭😭😭😭😭😭', error);
         res.status(500).json({ error: "Internal Server Error " });
     }
 }
@@ -38,7 +38,7 @@ export async function menuItemDetails(req: JwtReqInterface, res: Response) {
         const result = await getMenuItemDetails(menuItemId, req.user.token)
         res.status(200).send(result)
     } catch (error) {
-        console.log(error);
+        console.log('😭😭😭😭😭😭😭😭😭😭', error);
         res.status(500).json({ message: (error as Error).message })
     }
 }

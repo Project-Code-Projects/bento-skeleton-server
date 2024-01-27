@@ -17,7 +17,7 @@ export async function getRestaurantDetailsFromDB(restaurantId: string) {
         return dataFromSkeletonDB;
 
     } catch (error) {
-        console.log(error);
+        console.log('😭😭😭😭😭😭😭😭😭😭', error);
         throw new Error((error as Error).message)
     }
 }
@@ -29,7 +29,7 @@ export async function getOneRestaurantRatingFromReview(restaurantId: Number) {
         const ratingDataFromReview = await axios.get<any>(`${config.REVIEW_BE_BASE_URL}/one-restaurant-rating/${restaurantId}`)
         return ratingDataFromReview.data;
     } catch (error) {
-        console.log(error);
+        console.log('😭😭😭😭😭😭😭😭😭😭', error);
         throw new Error((error as AxiosError<{ message: string }>).response?.data.message)
 
     }
@@ -42,7 +42,7 @@ export async function getMultipleRestaurantRatingInfoFromReview(restaurantIdArra
         const res = await axios.post<any>(`${config.REVIEW_FE_BASE_URL}/multiple-restaurant-rating`, restaurantIdArray)
         return res.data;
     } catch (error) {
-        console.log(error);
+        console.log('😭😭😭😭😭😭😭😭😭😭', error);
         throw new Error((error as AxiosError<{ message: string }>).response?.data.message)
     }
 }
@@ -52,7 +52,7 @@ export async function marketplaceUpdateOrderStatus(token: string, orderId: strin
     try {
         await axios.put(`${config.MARKETPLACE_BE_BASE_URL}/order-status/${orderId}`, status, { headers: { 'Authorization': 'Bearer ' + token } })
     } catch (error) {
-        console.log(error);
+        console.log('😭😭😭😭😭😭😭😭😭😭', error);
         throw new Error((error as AxiosError<{ message: string }>).response?.data.message)
     }
 }
@@ -137,7 +137,7 @@ export async function dummy() {
         const res = await axios.get('url');
         return res.data;
     } catch (error) {
-        console.log(error);
+        console.log('😭😭😭😭😭😭😭😭😭😭', error);
         throw new Error((error as AxiosError<{ message: string }>).response?.data.message);
     }
 }

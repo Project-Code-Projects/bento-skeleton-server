@@ -7,7 +7,7 @@ export async function posGetAllOrders(token: string) {
     const res = await axios.get<any>(config.POS_BE_BASE_URL + "/order/all", { headers: { 'Authorization': 'Bearer ' + token } });
     return res.data;
   } catch (error) {
-    console.log(error);
+    console.log('😭😭😭😭😭😭😭😭😭😭', error);
     throw new Error((error as AxiosError<{ message: string }>).response?.data.message);
   }
 }
@@ -18,7 +18,7 @@ export async function posUpdateOrderStatus(token: string, orderId: string, statu
   try {
     await axios.post<any>(config.POS_BE_BASE_URL + "/order/status/" + orderId, { status }, { headers: { 'Authorization': 'Bearer ' + token } });
   } catch (error) {
-    console.log(error);
+    console.log('😭😭😭😭😭😭😭😭😭😭', error);
     throw new Error((error as AxiosError<{ message: string }>).response?.data.message);
   }
 }
@@ -28,7 +28,7 @@ export async function posUpdateOrderChef(token: string, orderId: string, chef: a
     const res = await axios.put<any>(config.POS_BE_BASE_URL + "/order/chef/" + orderId, { chef }, { headers: { 'Authorization': 'Bearer ' + token } });
     return res.data;
   } catch (error) {
-    console.log(error);
+    console.log('😭😭😭😭😭😭😭😭😭😭', error);
     throw new Error((error as AxiosError<{ message: string }>).response?.data.message);
   }
 }
@@ -40,7 +40,7 @@ export async function getOrderInfoUsingOrderId(orderId: string, token: string) {
     return res.data;
 
   } catch (error) {
-    console.log(error);
+    console.log('😭😭😭😭😭😭😭😭😭😭', error);
     throw new Error((error as AxiosError<{ message: string }>).response?.data.message);
   }
 }
@@ -51,7 +51,7 @@ export async function getAllReservationOfARestaurant(restaurantId: string) {
     const res = await axios.get<any>(`${config.POS_BE_BASE_URL}/get-all-reservation/${restaurantId}`)
     return res.data
   } catch (error) {
-    console.log(error);
+    console.log('😭😭😭😭😭😭😭😭😭😭', error);
     throw new Error((error as AxiosError<{ message: string }>).response?.data.message);
   }
 }
@@ -62,7 +62,7 @@ export async function getReservationOfARestaurantByDate(restaurantId: string, da
       (`${config.POS_BE_BASE_URL}/get-oneday-reservation?restaurantId=${restaurantId}&date=${date}`);
     return res.data;
   } catch (error) {
-    console.log(error);
+    console.log('😭😭😭😭😭😭😭😭😭😭', error);
     throw new Error((error as AxiosError<{ message: string }>).response?.data.message);
 
   }
@@ -73,7 +73,7 @@ export async function postNewReservationOfARestaurant(restaurantId: string, rese
     const res = await axios.post<any>(`${config.POS_BE_BASE_URL}/save-new-reservation/${restaurantId}`, reservationData)
     return res.data;
   } catch (error) {
-    console.log(error);
+    console.log('😭😭😭😭😭😭😭😭😭😭', error);
     throw new Error((error as AxiosError<{ message: string }>).response?.data.message);
   }
 
@@ -86,7 +86,7 @@ export async function sendOrderIdWithFullOrderToKdsFromPosToMarkOrderAsServed(or
 
     return res.data;
   } catch (error) {
-    console.log(error);
+    console.log('😭😭😭😭😭😭😭😭😭😭', error);
     throw new Error((error as AxiosError<{ message: string }>).response?.data.message)
   }
 }
@@ -99,7 +99,7 @@ export async function getStatsFromPos(timespan: string, token: string) {
     console.log("res.data", res.data);
     return res.data
   } catch (error) {
-    console.log(error);
+    console.log('😭😭😭😭😭😭😭😭😭😭', error);
     throw new Error((error as AxiosError<{ message: string }>).response?.data.message)
   }
 }
@@ -110,7 +110,7 @@ export async function getAllTableOfAllRestaurantFromPos(token: string) {
     const res = await axios.get<any>(config.POS_BE_BASE_URL + "/table/all-restaurant-tables", { headers: { 'Authorization': 'Bearer ' + token } })
     return res.data
   } catch (error) {
-    console.log(error);
+    console.log('😭😭😭😭😭😭😭😭😭😭', error);
     throw new Error((error as AxiosError<{ message: string }>).response?.data.message)
   }
 }

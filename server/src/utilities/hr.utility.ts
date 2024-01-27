@@ -29,7 +29,7 @@ export async function hrLogin(data: LoginDataInterface) {
     const res = await axios.post<any>(config.HR_BE_BASE_URL + "/employee/login", data);
     return res.data;
   } catch (error) {
-    console.log(error);
+    console.log('😭😭😭😭😭😭😭😭😭😭', error);
     throw new Error((error as AxiosError<{ message: string }>).response?.data.message);
   }
 }
@@ -40,7 +40,7 @@ export async function hrServiceCheck(data: { userId: number; service: string }) 
     const res = await axios.post<{ status: string; auth: boolean }>(config.HR_BE_BASE_URL + "/employee/access/check", data);
     return res.data;
   } catch (error) {
-    console.log(error);
+    console.log('😭😭😭😭😭😭😭😭😭😭', error);
     throw new Error((error as AxiosError<{ message: string }>).response?.data.message);
   }
 }
@@ -53,7 +53,7 @@ export async function hrServiceList(userId: number) {
     return res.data;
 
   } catch (error) {
-    console.log(error);
+    console.log('😭😭😭😭😭😭😭😭😭😭', error);
     throw new Error((error as AxiosError<{ message: string }>).response?.data.message);
   }
 }
@@ -64,7 +64,7 @@ export async function hrUserInfo(userId: any) {
     const res = await axios.get(config.HR_BE_BASE_URL + "/employee/userInfo/" + userId);
     return res.data;
   } catch (error) {
-    console.log(error);
+    console.log('😭😭😭😭😭😭😭😭😭😭', error);
     throw new Error((error as AxiosError<{ message: string }>).response?.data.message);
   }
 }
@@ -76,7 +76,7 @@ export async function sendOwnerInfoToHR(data: { restaurantId: number, name: stri
     // console.log('HRDATA', res.data);
     return res.data;
   } catch (error) {
-    console.log(error);
+    console.log('😭😭😭😭😭😭😭😭😭😭', error);
     throw new Error((error as AxiosError<{ message: string }>).response?.data.message);
   }
 }
@@ -87,7 +87,7 @@ export async function hrActiveChefs(restaurantId: number, token: string) {
     const res = await axios.get(config.HR_BE_BASE_URL + "/chef/active/" + restaurantId, { headers: { 'Authorization': 'Bearer ' + token } });
     return res.data;
   } catch (error) {
-    console.log(error);
+    console.log('😭😭😭😭😭😭😭😭😭😭', error);
     throw new Error((error as AxiosError<{ message: string }>).response?.data.message);
   }
 }
@@ -98,7 +98,7 @@ export async function hrActiveWaiters(restaurantId: number, token: string) {
     const res = await axios.get(config.HR_BE_BASE_URL + "/position/" + restaurantId + "/waiters", { headers: { 'Authorization': 'Bearer ' + token } });
     return res.data;
   } catch (error) {
-    console.log(error);
+    console.log('😭😭😭😭😭😭😭😭😭😭', error);
     throw new Error((error as AxiosError<{ message: string }>).response?.data.message);
   }
 }
@@ -110,7 +110,7 @@ export async function hrPostChefEfficiency(data: any, token: string) {
     const res = await axios.post(`${config.HR_BE_BASE_URL}/chef/efficiency`, data, { headers: { 'Authorization': 'Bearer ' + token } });
     return res.data;
   } catch (error) {
-    console.log(error);
+    console.log('😭😭😭😭😭😭😭😭😭😭', error);
     throw new Error((error as AxiosError<{ message: string }>).response?.data.message);
   }
 }
@@ -121,7 +121,7 @@ export async function hrPostWaiterEfficiency(data: any, token: string) {
     const res = await axios.post(`${config.HR_BE_BASE_URL}/waiter/efficiency`, data, { headers: { 'Authorization': 'Bearer ' + token } })
     return res.data
   } catch (error) {
-    console.log(error);
+    console.log('😭😭😭😭😭😭😭😭😭😭', error);
     throw new Error((error as AxiosError<{ message: string }>).response?.data.message);
   }
 
@@ -134,7 +134,7 @@ export async function hrPostOrderReview(data: any, restaurantId: string) {
       return res.data;
     }
   } catch (error) {
-    console.log(error);
+    console.log('😭😭😭😭😭😭😭😭😭😭', error);
     throw new Error((error as AxiosError<{ message: string }>).response?.data.message);
   }
 }

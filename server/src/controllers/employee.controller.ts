@@ -21,7 +21,7 @@ export const employeeCheckIn = async (req: JwtReqInterface, res: Response) => {
       res.status(201).send(hrRes);
     }
   } catch (error) {
-    console.log(error);
+    console.log('😭😭😭😭😭😭😭😭😭😭', error);
     res.status(500).send({ message: (error as Error).message });
   }
 };
@@ -48,7 +48,7 @@ export const employeeCheckOut = async (req: JwtReqInterface, res: Response) => {
     }
 
   } catch (error) {
-    console.log(error);
+    console.log('😭😭😭😭😭😭😭😭😭😭', error);
     res.status(500).send({ message: (error as Error).message });
   }
 };
@@ -60,7 +60,7 @@ export const getActiveChefs = async (req: JwtReqInterface, res: Response) => {
     const response = await hrActiveChefs(req.user.restaurantId, req.user.token);
     res.send(response);
   } catch (error) {
-    console.log(error);
+    console.log('😭😭😭😭😭😭😭😭😭😭', error);
     res.status(500).send({ message: (error as Error).message });
   }
 };
@@ -72,7 +72,7 @@ export const getActiveWaiters = async (req: JwtReqInterface, res: Response) => {
     const response = await hrActiveWaiters(req.user.restaurantId, req.user.token);
     res.send(response);
   } catch (error) {
-    console.log(error);
+    console.log('😭😭😭😭😭😭😭😭😭😭', error);
     res.status(500).send({ message: (error as Error).message });
   }
 };

@@ -24,7 +24,7 @@ export async function redirectToService(req: JwtReqInterface, res: Response) {
       } else res.status(403).send({ message: "User does not have access to this service." });
     } else res.status(400).send({ message: "Invalid service." });
   } catch (error) {
-    console.log(error);
+    console.log('😭😭😭😭😭😭😭😭😭😭', error);
     res.status(500).send({ message: (error as Error).message });
   }
 }
@@ -38,7 +38,7 @@ export async function getTokenFromStore(req: Request, res: Response) {
       res.send({ status: "success", auth: true });
     } else res.status(401).send({ status: "fail", auth: false });
   } catch (error) {
-    console.log(error);
+    console.log('😭😭😭😭😭😭😭😭😭😭', error);
     res.status(500).send({ message: (error as Error).message });
   }
 }
@@ -51,7 +51,7 @@ export async function getUserInfoByToken(req: JwtReqInterface, res: Response) {
     const userData = await hrUserInfo(user.id);
     res.send(userData);
   } catch (error) {
-    console.log(error);
+    console.log('😭😭😭😭😭😭😭😭😭😭', error);
     res.status(500).send({ message: (error as Error).message });
   }
 }

@@ -17,7 +17,7 @@ export async function chefCheckOut(token: string) {
     const res = await axios.post(config.KDS_BE_BASE_URL + '/chef/check-out', {}, { headers: { 'Authorization': 'Bearer ' + token } });
     return res;
   } catch (error) {
-    console.log(error);
+    console.log('😭😭😭😭😭😭😭😭😭😭', error);
     throw new Error((error as AxiosError<{ message: string }>).response?.data.message);
   }
 }
@@ -39,7 +39,7 @@ export async function newOrder(newOrder: IOrder) {
   try {
     const result = await axios.post(`${config.KDS_BE_BASE_URL}/`, newOrder)
   } catch (error) {
-    console.log(error);
+    console.log('😭😭😭😭😭😭😭😭😭😭', error);
     throw new Error((error as AxiosError<{ message: string }>).response?.data.message)
   }
 }

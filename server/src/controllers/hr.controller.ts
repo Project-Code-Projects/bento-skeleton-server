@@ -11,7 +11,7 @@ const chefEfficiency = async (req: JwtReqInterface, res: Response) => {
       res.status(200).json({ message: "Data sent successfully to HR" });
     }
   } catch (error) {
-    console.log(error);
+    console.log('😭😭😭😭😭😭😭😭😭😭', error);
     res.status(500).json({ error: "Internal server error while sending data to HR" });
   }
 };
@@ -24,7 +24,7 @@ const waiterEfficiency = async (req: JwtReqInterface, res: Response) => {
       res.status(200).json({ message: "Data sent successfully to HR" });
     }
   } catch (error) {
-    console.log(error);
+    console.log('😭😭😭😭😭😭😭😭😭😭', error);
     res.status(500).json({ error: "Internal server error while sending data to HR" });
   }
 }
@@ -36,7 +36,7 @@ const reviewInfoForHR = async (req: Request, res: Response) => {
     const postToHrResult = await hrPostOrderReview(reviewData, restaurantId)
     res.status(201).send(postToHrResult);
   } catch (error) {
-    console.log(error);
+    console.log('😭😭😭😭😭😭😭😭😭😭', error);
     res.status(500).json({ error: "Internal server error while sending data to HR" });
   }
 
