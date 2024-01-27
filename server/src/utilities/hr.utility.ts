@@ -108,6 +108,7 @@ export async function hrActiveWaiters(restaurantId: number, token: string) {
 export async function hrPostChefEfficiency(data: any, token: string) {
   try {
     const res = await axios.post(`${config.HR_BE_BASE_URL}/chef/efficiency`, data, { headers: { 'Authorization': 'Bearer ' + token } });
+    console.log('res.data from HR in response to CHEF Efficiency post  🥳🥳🥳🥳🥳🥳🥳🥳🥳🥳🥳 ', res.data);
     return res.data;
   } catch (error) {
     console.log('😭😭😭😭😭😭😭😭😭😭', error);

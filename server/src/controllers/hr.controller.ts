@@ -7,6 +7,7 @@ const chefEfficiency = async (req: JwtReqInterface, res: Response) => {
   try {
     if (req.user) {
       const efficiencyData = req.body;
+      console.log('efficiency data coming from kDS to Go to HR 🤩🤩🤩🤩🤩🤩🤩', efficiencyData);
       await hrPostChefEfficiency(efficiencyData, req.user.token);
       res.status(200).json({ message: "Data sent successfully to HR" });
     }
