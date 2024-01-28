@@ -19,7 +19,7 @@ const verifyJWTMiddleware = (req: JwtReqInterface, res: Response, next: NextFunc
     }
 
     req.user = user;
-    // console.log('JWT Info From Middleware 🥳🥳🥳🥳🥳🥳🥳🥳🥳🥳🥳', req.user);
+    console.log('JWT Info From Middleware 🥳🥳🥳🥳🥳🥳🥳🥳🥳🥳🥳', req.user);
     next();
   } else {
     res.status(401).send({ message: "Unauthorized" });

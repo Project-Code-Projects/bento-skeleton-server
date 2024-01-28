@@ -8,3 +8,4 @@ hrRouter.post('/waiter-efficiency', verifyJWTMiddleware, hrController.waiterEffi
 hrRouter.post('/review-info/:restaurantId', hrController.reviewInfoForHR)
 
 export default hrRouter;
+

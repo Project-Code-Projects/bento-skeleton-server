@@ -68,20 +68,28 @@ export async function incomingOrder(req: JwtReqInterface, res: Response) {
 
     const order: IOrder = req.body.order;
 
+    console.log('Body 😭😭😭😭', order);
+
     let result;
 
     if (order.type == "in-house") {
       result = await kdsPostIncomingOrder(user.token, order);
     }
     else if (order.type === "pickup" || order.type === "delivery") {
-      const restructuredOrderDataForInventory = preparePlusRestructureOrderDataForInventory(order)
-      result = await sendDataToInventoryToReduce(restructuredOrderDataForInventory, user.token);
+      result = await kdsPostIncomingOrder(user.token, order);
+
+      // const restructuredOrderDataForInventory = preparePlusRestructureOrderDataForInventory(order)
+      // if (result) {
+      //   await sendDataToInventoryToReduce(restructuredOrderDataForInventory, user.token);
+      //   console.log('all good');
+      // }
+
     }
     else {
       console.log('Else Block ----------------------------------------');
     }
 
-    res.status(201).send({ message: 'Success', data: result });
+    res.status(201).send({ message: 'Successfully sent to KDS', data: result });
 
   } catch (error) {
     // console.log('😭😭😭😭😭😭😭😭😭😭' , error);

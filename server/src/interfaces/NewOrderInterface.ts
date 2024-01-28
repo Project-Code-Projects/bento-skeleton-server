@@ -133,8 +133,8 @@ export interface IOrder {
 
     items: IItem[];
 
-    updatedAt: Date;
-    createdAt: Date;
+    updatedAt?: Date;
+    createdAt?: Date;
     orderPosted?: Date;
     orderUpdatedAt?: Date;
     preparingTimestamp?: Date;

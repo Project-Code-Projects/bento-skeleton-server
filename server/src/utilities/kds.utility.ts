@@ -29,7 +29,7 @@ export async function kdsPostIncomingOrder(token: string, order: IOrder) {
     return res.data;
 
   } catch (error) {
-    console.log('error from KDS utility ', error);
+    console.log('error from KDS utility 😭😭😭😭😭😭😭😭😭😭', error);
     throw new Error((error as AxiosError<{ message: string }>).response?.data.message);
   }
 }
