@@ -68,7 +68,6 @@ export async function incomingOrder(req: JwtReqInterface, res: Response) {
 
     const order: IOrder = req.body.order;
 
-    console.log('Body 😭😭😭😭', order);
 
     let result;
 
@@ -81,13 +80,12 @@ export async function incomingOrder(req: JwtReqInterface, res: Response) {
       const restructuredOrderDataForInventory = preparePlusRestructureOrderDataForInventory(order)
       if (result) {
         let inventoryResult = await sendDataToInventoryToReduce(restructuredOrderDataForInventory, user.token);
-        // console.log('all good');
         return res.send(inventoryResult)
       }
 
     }
     else {
-      console.log('Else Block ----------------------------------------');
+
     }
 
     res.status(201).send({ message: 'Successfully sent to KDS', data: result });
