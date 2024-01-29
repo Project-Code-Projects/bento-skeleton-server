@@ -59,7 +59,9 @@ export async function getAllReservationOfARestaurant(restaurantId: string) {
 export async function getReservationOfARestaurantByDate(restaurantId: string, date: any) {
   try {
     const res = await axios.get<any>(`${config.REVIEW_BE_BASE_URL}/allReservations/restaurant/${restaurantId}/date/${date}`);
+    console.log('Response from Zerin Apu', res.data);
     return res.data;
+
   } catch (error) {
     console.log('😭😭😭😭😭😭😭😭😭😭', error);
     throw new Error((error as AxiosError<{ message: string }>).response?.data.message);

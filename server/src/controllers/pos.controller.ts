@@ -30,6 +30,7 @@ const getReservationByDate = async (req: Request, res: Response) => {
     try {
         const restaurantId = req.params.restaurantId
         const date = req.params.date;
+        console.log('restaurantId and data', restaurantId, date);
         const result = await getReservationOfARestaurantByDate(restaurantId, date);
         res.status(200).send(result)
     } catch (error) {
