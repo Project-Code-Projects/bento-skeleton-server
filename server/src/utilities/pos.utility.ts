@@ -126,3 +126,23 @@ export async function changeReservationStatusInReview(reservationId: string, sta
     throw new Error((error as AxiosError<{ message: string }>).response?.data.message)
   }
 }
+
+export async function getTablesUsingTableCapacity(tableCapacity: string) {
+  try {
+    const res = await axios.get(`${config.POS_BE_BASE_URL}/table/all-restaurant-tables/${tableCapacity}`)
+    return res.data
+  } catch (error) {
+    console.log(error);
+    throw new Error((error as AxiosError<{ message: string }>).response?.data.message)
+  }
+}
+
+export async function getTableUsingRestaurantIdAndTableCapacity(restaurantId: string, tableCapacity: string) {
+  try {
+    const res = await axios.get(`${config.POS_BE_BASE_URL}/table/all-restaurant-tables/restaurant/${restaurantId}/table-capacity/${restaurantId}`)
+    return res.data
+  } catch (error) {
+    console.log(error);
+    throw new Error((error as AxiosError<{ message: string }>).response?.data.message)
+  }
+}

@@ -36,4 +36,12 @@ posRouter.get('/order-stats/:timespan', verifyJWTMiddleware, posController.order
 
 
 
+
+
+// Get Req from Review to POS to get Tables using table capacity
+posRouter.get('/all-restaurant-table/:tableCapacity', verifyJWTMiddleware, posController.allTableUsingTableCapacity)
+
+// Get req from Review to POS to get all tables by Restaurant and Table Capacity
+posRouter.get('/all-restaurant/:restaurantId/:tableCapacity', verifyJWTMiddleware, posController.allTableUsingTableCapacityAndRestaurantId)
+
 export default posRouter;

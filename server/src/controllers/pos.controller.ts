@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { changeReservationStatusInReview, getAllReservationOfARestaurant, getAllTableOfAllRestaurantFromPos, getOrderInfoUsingOrderId, getReservationOfARestaurantByDate, getStatsFromPos, postNewReservationOfARestaurant, sendOrderIdWithFullOrderToKdsFromPosToMarkOrderAsServed } from "../utilities/pos.utility";
+import { changeReservationStatusInReview, getAllReservationOfARestaurant, getAllTableOfAllRestaurantFromPos, getOrderInfoUsingOrderId, getReservationOfARestaurantByDate, getStatsFromPos, getTableUsingRestaurantIdAndTableCapacity, getTablesUsingTableCapacity, postNewReservationOfARestaurant, sendOrderIdWithFullOrderToKdsFromPosToMarkOrderAsServed } from "../utilities/pos.utility";
 import { JwtReqInterface } from "../interfaces/JwtReqInterface";
 
 const getOrderInfo = async (req: JwtReqInterface, res: Response) => {
@@ -112,8 +112,31 @@ export async function reservationStatusChange(req: Request, res: Response) {
         res.status(500).json({ message: (error as Error).message })
     }
 }
+export async function allTableUsingTableCapacity(req: JwtReqInterface, res: Response) {
+    try {
+        const tableCapacity = req.params.tableCapacity
+        const result = await getTablesUsingTableCapacity(tableCapacity)
+        return result
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: (error as Error).message })
+    }
+}
 
-let posController = { orderStats, getOrderInfo, getAllReservations, getReservationByDate, postNewReservation, updateOrderStatusToServedInKds, reservationStatusChange, allTableAllRestaurantInfo }
+export async function allTableUsingTableCapacityAndRestaurantId(req: JwtReqInterface, res: Response) {
+    try {
+        const restaurantId = req.params.restaurantId
+        const tableCapacity = req.params.tableCapacity
+        const result = await getTableUsingRestaurantIdAndTableCapacity(restaurantId, tableCapacity)
+        res.send(result)
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: (error as Error).message })
+    }
+}
+
+
+let posController = { orderStats, getOrderInfo, getAllReservations, getReservationByDate, postNewReservation, updateOrderStatusToServedInKds, reservationStatusChange, allTableAllRestaurantInfo, allTableUsingTableCapacity, allTableUsingTableCapacityAndRestaurantId }
 
 export default posController;
 

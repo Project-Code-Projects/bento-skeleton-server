@@ -36,15 +36,6 @@ app.use(
 
 app.use(express.json());
 
-// app.get('/restructure-data', (req: JwtReqInterface, res: Response) => {
-//   try {
-//     const orderdata = req.body;
-//     const result = preparePlusRestructureOrderDataForInventory(orderdata)
-//     res.send(result);
-//   } catch (error) {
-//     console.log('😭😭😭😭😭😭😭😭😭😭' , error);
-//   }
-// })
 
 // Auth api's
 app.use("/auth", authRouter);
@@ -72,6 +63,8 @@ app.use("/hr", hrRouter);
 
 // POST req From POS to KDS updating the order status to Served
 // GET all table data of all restaurant from POS for Review to user for reservations
+// GET req from Review to POS to get Tables Using Table Capacity
+// Get req from Review to POS to get all tables by Restaurant and Table Capacity
 app.use("/pos", posRouter)
 
 // Request from POS and Marketplace for menu
