@@ -48,7 +48,7 @@ export async function getOrderInfoUsingOrderId(orderId: string, token: string) {
 
 export async function getAllReservationOfARestaurant(restaurantId: string) {
   try {
-    const res = await axios.get<any>(`${config.POS_BE_BASE_URL}/get-all-reservation/${restaurantId}`)
+    const res = await axios.get<any>(`${config.REVIEW_BE_BASE_URL}/allReservations/${restaurantId}`)
     return res.data
   } catch (error) {
     console.log('😭😭😭😭😭😭😭😭😭😭', error);
@@ -58,8 +58,7 @@ export async function getAllReservationOfARestaurant(restaurantId: string) {
 
 export async function getReservationOfARestaurantByDate(restaurantId: string, date: any) {
   try {
-    const res = await axios.get<any>
-      (`${config.POS_BE_BASE_URL}/get-oneday-reservation?restaurantId=${restaurantId}&date=${date}`);
+    const res = await axios.get<any>(`${config.REVIEW_BE_BASE_URL}/allReservations/restaurant/${restaurantId}/date/${date}`);
     return res.data;
   } catch (error) {
     console.log('😭😭😭😭😭😭😭😭😭😭', error);
@@ -108,6 +107,17 @@ export async function getStatsFromPos(timespan: string, token: string) {
 export async function getAllTableOfAllRestaurantFromPos(token: string) {
   try {
     const res = await axios.get<any>(config.POS_BE_BASE_URL + "/table/all-restaurant-tables", { headers: { 'Authorization': 'Bearer ' + token } })
+    return res.data
+  } catch (error) {
+    console.log('😭😭😭😭😭😭😭😭😭😭', error);
+    throw new Error((error as AxiosError<{ message: string }>).response?.data.message)
+  }
+}
+
+
+export async function changeReservationStatusInReview(reservationId: string, status: string) {
+  try {
+    const res = await axios.post(`${config.REVIEW_BE_BASE_URL}/change-status/reservation/${reservationId}/status/${status}`)
     return res.data
   } catch (error) {
     console.log('😭😭😭😭😭😭😭😭😭😭', error);

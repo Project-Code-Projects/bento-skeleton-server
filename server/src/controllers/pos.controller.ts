@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { getAllReservationOfARestaurant, getAllTableOfAllRestaurantFromPos, getOrderInfoUsingOrderId, getReservationOfARestaurantByDate, getStatsFromPos, postNewReservationOfARestaurant, sendOrderIdWithFullOrderToKdsFromPosToMarkOrderAsServed } from "../utilities/pos.utility";
+import { changeReservationStatusInReview, getAllReservationOfARestaurant, getAllTableOfAllRestaurantFromPos, getOrderInfoUsingOrderId, getReservationOfARestaurantByDate, getStatsFromPos, postNewReservationOfARestaurant, sendOrderIdWithFullOrderToKdsFromPosToMarkOrderAsServed } from "../utilities/pos.utility";
 import { JwtReqInterface } from "../interfaces/JwtReqInterface";
 
 const getOrderInfo = async (req: JwtReqInterface, res: Response) => {
@@ -28,8 +28,8 @@ const getAllReservations = async (req: Request, res: Response) => {
 
 const getReservationByDate = async (req: Request, res: Response) => {
     try {
-        const restaurantId = req.query.restaurantId as string;
-        const date = req.query.date;
+        const restaurantId = req.params.restaurantId
+        const date = req.params.date;
         const result = await getReservationOfARestaurantByDate(restaurantId, date);
         res.status(200).send(result)
     } catch (error) {
@@ -100,7 +100,19 @@ export async function allTableAllRestaurantInfo(req: JwtReqInterface, res: Respo
     }
 }
 
-let posController = { orderStats, getOrderInfo, getAllReservations, getReservationByDate, postNewReservation, updateOrderStatusToServedInKds, allTableAllRestaurantInfo }
+export async function reservationStatusChange(req: Request, res: Response) {
+    try {
+        const reservationId = req.params.reservationId
+        const status = req.params.status
+        const result = await changeReservationStatusInReview(reservationId, status)
+        res.status(201).send(result)
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: (error as Error).message })
+    }
+}
+
+let posController = { orderStats, getOrderInfo, getAllReservations, getReservationByDate, postNewReservation, updateOrderStatusToServedInKds, reservationStatusChange, allTableAllRestaurantInfo }
 
 export default posController;
 

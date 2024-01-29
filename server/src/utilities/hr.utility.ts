@@ -72,7 +72,7 @@ export async function hrUserInfo(userId: any) {
 
 export async function sendOwnerInfoToHR(data: { restaurantId: number | Number | undefined, name: string, password: string, email: string }) {
   try {
-    const res = await axios.post<any>(config.HR_BE_BASE_URL + "/employee/signup", data);
+    const res = await axios.post<any>(config.HR_BE_BASE_URL + "/restaurant/new", data);
     console.log('HRDATA', res.data);
     return res.data;
   } catch (error) {

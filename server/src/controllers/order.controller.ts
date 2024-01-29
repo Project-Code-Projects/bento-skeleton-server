@@ -76,12 +76,14 @@ export async function incomingOrder(req: JwtReqInterface, res: Response) {
     }
     else if (order.type === "pickup" || order.type === "delivery") {
       result = await kdsPostIncomingOrder(user.token, order);
+      console.log('Result from KDS');
 
       const restructuredOrderDataForInventory = preparePlusRestructureOrderDataForInventory(order)
-      if (result) {
-        let inventoryResult = await sendDataToInventoryToReduce(restructuredOrderDataForInventory, user.token);
-        return res.send(inventoryResult)
-      }
+      console.log('restructured Order Data For Inventory', restructuredOrderDataForInventory);
+      // if (result) {
+      //   let inventoryResult = await sendDataToInventoryToReduce(restructuredOrderDataForInventory, user.token);
+      //   return res.send(inventoryResult)
+      // }
 
     }
     else {
