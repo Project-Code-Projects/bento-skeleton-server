@@ -127,9 +127,9 @@ export async function changeReservationStatusInReview(reservationId: string, sta
   }
 }
 
-export async function getTablesUsingTableCapacity(tableCapacity: string) {
+export async function getTablesUsingTableCapacity(tableCapacity: string, token: string) {
   try {
-    const res = await axios.get(`${config.POS_BE_BASE_URL}/table/all-restaurant-tables/${tableCapacity}`)
+    const res = await axios.get(`${config.POS_BE_BASE_URL}/table/all-restaurant-tables/${tableCapacity}`, { headers: { 'Authorization': 'Bearer ' + token } })
     return res.data
   } catch (error) {
     console.log(error);
@@ -137,9 +137,9 @@ export async function getTablesUsingTableCapacity(tableCapacity: string) {
   }
 }
 
-export async function getTableUsingRestaurantIdAndTableCapacity(restaurantId: string, tableCapacity: string) {
+export async function getTableUsingRestaurantIdAndTableCapacity(restaurantId: string, tableCapacity: string, token: string) {
   try {
-    const res = await axios.get(`${config.POS_BE_BASE_URL}/table/all-restaurant-tables/restaurant/${restaurantId}/table-capacity/${restaurantId}`)
+    const res = await axios.get(`${config.POS_BE_BASE_URL}/table/all-restaurant-tables/restaurant/${restaurantId}/table-capacity/${tableCapacity}`, { headers: { 'Authorization': 'Bearer ' + token } })
     return res.data
   } catch (error) {
     console.log(error);

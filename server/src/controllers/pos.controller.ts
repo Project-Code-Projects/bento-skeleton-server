@@ -114,8 +114,9 @@ export async function reservationStatusChange(req: Request, res: Response) {
 }
 export async function allTableUsingTableCapacity(req: JwtReqInterface, res: Response) {
     try {
+        if (!req.user?.token) return res.status(401)
         const tableCapacity = req.params.tableCapacity
-        const result = await getTablesUsingTableCapacity(tableCapacity)
+        const result = await getTablesUsingTableCapacity(tableCapacity, req.user.token)
         return result
     } catch (error) {
         console.log(error);
@@ -125,9 +126,10 @@ export async function allTableUsingTableCapacity(req: JwtReqInterface, res: Resp
 
 export async function allTableUsingTableCapacityAndRestaurantId(req: JwtReqInterface, res: Response) {
     try {
+        if (!req.user?.token) return res.status(401)
         const restaurantId = req.params.restaurantId
         const tableCapacity = req.params.tableCapacity
-        const result = await getTableUsingRestaurantIdAndTableCapacity(restaurantId, tableCapacity)
+        const result = await getTableUsingRestaurantIdAndTableCapacity(restaurantId, tableCapacity, req.user?.token)
         res.send(result)
     } catch (error) {
         console.log(error);
