@@ -117,7 +117,7 @@ export async function allTableUsingTableCapacity(req: JwtReqInterface, res: Resp
         if (!req.user?.token) return res.status(401)
         const tableCapacity = req.params.tableCapacity
         const result = await getTablesUsingTableCapacity(tableCapacity, req.user.token)
-        return result
+        return res.send(result)
     } catch (error) {
         console.log(error);
         res.status(500).json({ message: (error as Error).message })
