@@ -14,9 +14,9 @@ export const restaurantRegistration = async (req: Request, res: Response) => {
         let restaurantInfo: IRestaurantInfo = req.body.restaurantInfo
 
         // Cloudinary
-        let imgBase64 = restaurantInfo.restaurantLogo
-        const cloudinaryResult = await cloudinary.uploader.upload(imgBase64)
-        restaurantInfo.restaurantLogo = cloudinaryResult.url
+        // let imgBase64 = restaurantInfo.restaurantLogo
+        // const cloudinaryResult = await cloudinary.uploader.upload(imgBase64)
+        // restaurantInfo.restaurantLogo = cloudinaryResult.url
 
         // Save Restaurant Infos to DB
         const incrementalrestaurantId = await getNextSequenceValue('restaurantId')
