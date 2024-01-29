@@ -2,6 +2,23 @@ import { Schema, model } from "mongoose";
 import { IRestaurantInfo } from "../../interfaces/RestaurantInfoInterface";
 
 const restaurantInfo = new Schema<IRestaurantInfo>({
+
+    allAmbianceImages: {
+        type: [String],
+        required: true,
+    },
+    restaurantCoverPhoto: {
+        type: String,
+        required: true,
+    },
+    currency: {
+        type: String,
+        required: true,
+    },
+    restaurantDetails: {
+        type: String,
+        required: true,
+    },
     restaurantId: {
         type: Number,
         unique: true

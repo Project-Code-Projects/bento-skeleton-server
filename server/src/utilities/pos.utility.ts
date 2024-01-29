@@ -117,7 +117,7 @@ export async function getAllTableOfAllRestaurantFromPos(token: string) {
 
 export async function changeReservationStatusInReview(reservationId: string, status: string) {
   try {
-    const res = await axios.post(`${config.REVIEW_BE_BASE_URL}/change-status/reservation/${reservationId}/status/${status}`)
+    const res = await axios.put(`${config.REVIEW_BE_BASE_URL}/change-status/reservation/${reservationId}/status/${status}`)
     return res.data
   } catch (error) {
     console.log('😭😭😭😭😭😭😭😭😭😭', error);

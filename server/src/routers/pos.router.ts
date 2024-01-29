@@ -19,7 +19,7 @@ posRouter.get('/all-reservations/:restaurantId', posController.getAllReservation
 posRouter.get('/reservation-by-date/restaurant/:restaurantId/date/:date', posController.getReservationByDate)
 
 
-//  POST req from POS to Review to change status of a reservation using reservation id
+//  POST req from POS to Review to change status of a reservation using reservation id DONE
 posRouter.post('/reservation-status-change/reservation/:reservationId/status/:status', posController.reservationStatusChange)
 
 // Post req from Review to POS for sending new reservations. (Websocket)

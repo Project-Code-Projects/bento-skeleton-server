@@ -1,5 +1,10 @@
 export interface IRestaurantInfo {
-    restaurantId: number
+    allAmbianceImages: string[];
+    restaurantCoverPhoto: string;
+    currency: string;
+    restaurantDetails: string;
+
+    restaurantId: number;
     restaurantName: string;
     location: string;
     country: object;
