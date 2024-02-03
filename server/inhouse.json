@@ -1,338 +1,75 @@
 {
-    "_id": "65b0f47c3757ae97cbe5ba1e",
+    "_id": "fe2ff32460c5a22bd010b796",
     "restaurantId": 1,
-    "type": "in-house",
-    "waiterId": 6,
-    "bill": 0,
-    "unit": "USD",
-    "status": "pending",
-    "vipCustomer": false,
-    "items": [
-        {
-            "item": {
-                "ingredients": {
-                    "rawIngredients": [
-                        {
-                            "id": 1,
-                            "ingredientName": "",
-                            "unitOfStock": "",
-                            "quantity": null,
-                            "costPerUnit": 0.559,
-                            "caloriesPerUnit": 0.333,
-                            "_id": "65ae297f1cdaeddaf8849ec8"
-                        }
-                    ],
-                    "recipes": []
-                },
-                "_id": "65ae297f1cdaeddaf8849ec7",
-                "itemId": 27,
-                "itemName": "test 1",
-                "itemQuantity": 3,
-                "itemPreparationTime": null,
-                "itemPackingType": [],
-                "itemLastingTime": null,
-                "options": {
-                    "add": [
-                        {
-                            "id": 1,
-                            "ingredientName": "",
-                            "unitOfStock": "",
-                            "quantity": null,
-                            "costPerUnit": 0.559,
-                            "caloriesPerUnit": 0.333,
-                            "price": "0",
-                            "_id": "65ae297f1cdaeddaf8849ec9"
-                        }
-                    ],
-                    "no": [
-                        {
-                            "id": 1,
-                            "ingredientName": "",
-                            "unitOfStock": "",
-                            "quantity": null,
-                            "costPerUnit": 0.559,
-                            "caloriesPerUnit": 0.333,
-                            "price": "0",
-                            "_id": "65ae297f1cdaeddaf8849eca"
-                        }
-                    ],
-                    "_id": "65b0f6dcacb025ffd36cd32d"
-                },
-                "chosenOptions": {
-                    "add": [
-                        {
-                            "id": 1,
-                            "ingredientName": "",
-                            "unitOfStock": "",
-                            "quantity": null,
-                            "costPerUnit": 0.559,
-                            "caloriesPerUnit": 0.333,
-                            "price": "0",
-                            "_id": "65ae297f1cdaeddaf8849ec9"
-                        }
-                    ],
-                    "no": [],
-                    "_id": "65b0f6dcacb025ffd36cd32e"
-                },
-                "optionalNotes": "sgvd",
-                "itemPrice": 12,
-                "itemCalories": null,
-                "timeOfDay": [
-                    "BreakFast",
-                    "Lunch"
-                ],
-                "itemProfileTastyTags": [],
-                "typeOfFoods": [],
-                "servingTemperature": null,
-                "itemDietaryRestrictions": [],
-                "itemPackingDimension": []
-            },
-            "_id": "65ae297f1cdaeddaf8849ec6",
-            "restaurantId": 1,
-            "mealTimeId": 1
+    "categoryId": "65a8fd9501fd660bbcae33ad",
+    "mealTimeId": 1,
+    "item": {
+        "ingredients": {
+            "rawIngredients": [
+                {
+                    "_id": "097aa0e260c5a22bd010b797",
+                    "ingredientName": "Chicken",
+                    "unitOfStock": "kg",
+                    "quantity": 7,
+                    "costPerUnit": 0.176,
+                    "caloriesPerUnit": 200,
+                    "id": 3
+                }
+            ],
+            "recipes": []
         },
-        {
-            "item": {
-                "ingredients": {
-                    "rawIngredients": [
-                        {
-                            "id": 111,
-                            "ingredientName": "Cheese",
-                            "unitOfStock": "gm",
-                            "quantity": 2,
-                            "costPerUnit": 200,
-                            "caloriesPerUnit": 150,
-                            "_id": "65acfb8bc03f3f321477972f"
-                        },
-                        {
-                            "id": 2,
-                            "ingredientName": "Parmesan Cheese",
-                            "unitOfStock": "gm",
-                            "quantity": 4,
-                            "costPerUnit": 0.3904761904761905,
-                            "caloriesPerUnit": 80,
-                            "_id": "65acfb8bc03f3f3214779730"
-                        },
-                        {
-                            "id": 5,
-                            "ingredientName": "Butter",
-                            "unitOfStock": "ml",
-                            "quantity": 2,
-                            "costPerUnit": 0.25,
-                            "caloriesPerUnit": 102,
-                            "_id": "65acfb8bc03f3f3214779731"
-                        }
-                    ],
-                    "recipes": []
-                },
-                "_id": "65acfb8bc03f3f321477972e",
-                "itemId": 25,
-                "itemName": "Soup 1 ",
-                "itemImage": "http://res.cloudinary.com/dkfnaltqp/image/upload/v1705835265/dkfnaltqp_1705835265553_soup.jpg",
-                "itemDescription": "soup is good",
-                "itemQuantity": 1,
-                "itemPreparationTime": 20,
-                "itemPackingType": [
-                    {
-                        "id": 1,
-                        "boxName": "Medium Box",
-                        "currentStockQuantity": 200,
-                        "unitOfPrice": "cents",
-                        "costPerUnit": 0.755,
-                        "reorderPoint": 232,
-                        "unitOfDimentions": "cm",
-                        "dimensions": "30 X 30 X 30",
-                        "weightLimit": 3,
-                        "temperatureLimit": 54,
-                        "waterproof": "No",
-                        "expectedStockForToday": 0,
-                        "expectedStockForTomorrow": 0,
-                        "restaurantId": 1,
-                        "createdAt": "2024-01-18T12:30:45.603Z",
-                        "updatedAt": "2024-01-20T05:34:52.220Z",
-                        "_id": "65b0f6dcacb025ffd36cd32f"
-                    }
-                ],
-                "itemLastingTime": 30,
-                "itemPortionSize": "Large",
-                "options": {
-                    "add": [
-                        {
-                            "id": 3,
-                            "ingredientName": "Heavy Cream",
-                            "unitOfStock": "gm",
-                            "quantity": 2,
-                            "costPerUnit": 0.5,
-                            "caloriesPerUnit": 150,
-                            "price": "0",
-                            "_id": "65acfb8bc03f3f3214779732"
-                        }
-                    ],
-                    "no": [
-                        {
-                            "id": 3,
-                            "ingredientName": "Heavy Cream",
-                            "unitOfStock": "gm",
-                            "quantity": 2,
-                            "costPerUnit": 0.5,
-                            "caloriesPerUnit": 150,
-                            "price": "0",
-                            "_id": "65acfb8bc03f3f3214779733"
-                        }
-                    ],
-                    "_id": "65b0f6dcacb025ffd36cd330"
-                },
-                "optionalNotes": "",
-                "itemPrice": 12,
-                "itemCalories": 500,
-                "timeOfDay": [],
-                "itemProfileTastyTags": [
-                    "Sweet",
-                    "Rich",
-                    "Salty"
-                ],
-                "typeOfFoods": [
-                    "Eat Only"
-                ],
-                "servingTemperature": 30,
-                "itemDietaryRestrictions": [
-                    "Eggs",
-                    "Celery",
-                    "Lupin"
-                ],
-                "itemPackingDimension": []
-            },
-            "_id": "65acfb8bc03f3f321477972d",
-            "restaurantId": 1,
-            "categoryId": "65a92341e134e63d02e09be5",
-            "mealTimeId": 1
+        "options": {
+            "add": [
+                {
+                    "_id": "aba720c860c5a22bd010b798",
+                    "ingredientName": "Fruit and Nut Bread",
+                    "unitOfStock": "gm",
+                    "quantity": 5,
+                    "costPerUnit": 0,
+                    "caloriesPerUnit": 190,
+                    "id": 45
+                }
+            ],
+            "no": [
+                {
+                    "_id": "988771a860c5a22bd010b79b",
+                    "ingredientName": "Chicken",
+                    "unitOfStock": "kg",
+                    "quantity": 4,
+                    "costPerUnit": 0.176,
+                    "caloriesPerUnit": 200,
+                    "id": 3
+                }
+            ]
         },
-        {
-            "item": {
-                "ingredients": {
-                    "rawIngredients": [
-                        {
-                            "id": 111,
-                            "ingredientName": "Cheese",
-                            "unitOfStock": "gm",
-                            "quantity": 2,
-                            "costPerUnit": 200,
-                            "caloriesPerUnit": 150,
-                            "_id": "65acfadfc03f3f3214779681"
-                        },
-                        {
-                            "id": 2,
-                            "ingredientName": "Parmesan Cheese",
-                            "unitOfStock": "gm",
-                            "quantity": 4,
-                            "costPerUnit": 0.3904761904761905,
-                            "caloriesPerUnit": 80,
-                            "_id": "65acfadfc03f3f3214779682"
-                        }
-                    ],
-                    "recipes": []
-                },
-                "_id": "65acfadfc03f3f3214779680",
-                "itemId": 24,
-                "itemName": "Alfredo pasta 2",
-                "itemImage": "http://res.cloudinary.com/dkfnaltqp/image/upload/v1705834961/dkfnaltqp_1705834959115_alfredo.jpg",
-                "itemDescription": "Test pasta",
-                "itemQuantity": 2,
-                "itemPreparationTime": 20,
-                "itemPackingType": [
-                    {
-                        "id": 1,
-                        "boxName": "Medium Box",
-                        "currentStockQuantity": 200,
-                        "unitOfPrice": "cents",
-                        "costPerUnit": 0.755,
-                        "reorderPoint": 232,
-                        "unitOfDimentions": "cm",
-                        "dimensions": "30 X 30 X 30",
-                        "weightLimit": 3,
-                        "temperatureLimit": 54,
-                        "waterproof": "No",
-                        "expectedStockForToday": 0,
-                        "expectedStockForTomorrow": 0,
-                        "restaurantId": 1,
-                        "createdAt": "2024-01-18T12:30:45.603Z",
-                        "updatedAt": "2024-01-20T05:34:52.220Z",
-                        "_id": "65b0f6dcacb025ffd36cd331"
-                    }
-                ],
-                "itemLastingTime": 240,
-                "itemPortionSize": "Small",
-                "options": {
-                    "add": [
-                        {
-                            "id": 2222,
-                            "ingredientName": "Cheese Cream",
-                            "unitOfStock": "gm",
-                            "quantity": 4,
-                            "costPerUnit": 300,
-                            "caloriesPerUnit": 250,
-                            "price": "0",
-                            "_id": "65acfadfc03f3f3214779683"
-                        }
-                    ],
-                    "no": [
-                        {
-                            "id": 2222,
-                            "ingredientName": "Cheese Cream",
-                            "unitOfStock": "gm",
-                            "quantity": 4,
-                            "costPerUnit": 300,
-                            "caloriesPerUnit": 250,
-                            "price": "0",
-                            "_id": "65acfadfc03f3f3214779684"
-                        }
-                    ],
-                    "_id": "65b0f6dcacb025ffd36cd332"
-                },
-                "chosenOptions": {
-                    "add": [
-                        {
-                            "id": 2222,
-                            "ingredientName": "Cheese Cream",
-                            "unitOfStock": "gm",
-                            "quantity": 4,
-                            "costPerUnit": 300,
-                            "caloriesPerUnit": 250,
-                            "price": "0",
-                            "_id": "65acfadfc03f3f3214779683"
-                        }
-                    ],
-                    "no": [],
-                    "_id": "65b0f6dcacb025ffd36cd333"
-                },
-                "optionalNotes": "sdfaf",
-                "itemPrice": 5,
-                "itemCalories": 400,
-                "timeOfDay": [],
-                "itemProfileTastyTags": [
-                    "Spicy",
-                    "Sweet",
-                    "Sour"
-                ],
-                "typeOfFoods": [
-                    "Delivey Only"
-                ],
-                "servingTemperature": 30,
-                "itemDietaryRestrictions": [
-                    "Milk",
-                    "Eggs"
-                ],
-                "itemPackingDimension": []
-            },
-            "_id": "65acfadfc03f3f321477967f",
-            "restaurantId": 1,
-            "categoryId": "65a8fd9501fd660bbcae33ad",
-            "mealTimeId": 1
-        }
-    ],
-    "createdAt": 1706095740273,
-    "updatedAt": 1706096348283,
+        "itemName": "Alfredo Pasta",
+        "itemImage": "https://foodish-js.netlify.app/assets/images/Pasta/Pasta27.jpg",
+        "itemDescription": "Substantia tero adiuvo maiores tonsor bestia curvo conor usus attonbitus.",
+        "itemPrice": 23,
+        "itemCalories": 162,
+        "timeOfDay": [
+            "Breakfast",
+            "Lunch"
+        ],
+        "itemProfileTastyTags": [
+            "Bitter",
+            "Zesty"
+        ],
+        "itemPortionSize": "Large",
+        "itemPreparationTime": 36,
+        "itemLastingTime": 561,
+        "typeOfFoods": [
+            "Pickup only"
+        ],
+        "itemPackingType": [],
+        "servingTemperature": 57,
+        "itemDietaryRestrictions": [
+            "Celery",
+            "Lupin"
+        ],
+        "_id": "5d8f7d7e60c5a22bd010b79d",
+        "itemId": 66
+    },
     "__v": 0,
-    "orderPosted": "2024-01-24T11:29:45.314Z",
-    "orderUpdatedAt": "2024-01-24T11:39:08.281Z"
+    "categoryName": "Pasta"
 }

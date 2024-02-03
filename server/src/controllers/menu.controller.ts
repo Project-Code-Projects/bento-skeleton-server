@@ -3,12 +3,12 @@ import { JwtReqInterface } from "../interfaces/JwtReqInterface";
 import { getMenuCatagories, getMenuItemDetails, getMenuWithRestaurantId } from "../utilities/menu.utility";
 import { Jwt } from "jsonwebtoken";
 
-// POS --> MENU
+//  + Marketplace --> MENU 
 const getOneRestaurantMenu = async (req: JwtReqInterface, res: Response) => {
     try {
         if (req.user) {
-            const restaurantId = parseInt(req.params.restaurantId)
-            const menuData = await getMenuWithRestaurantId(restaurantId, req.user.token)
+            const restaurantId = parseInt(req.params.restaurantId) // Not using anymore since menu getting the restaurantId from token
+            const menuData = await getMenuWithRestaurantId(req.user.token)
             res.status(200).send(menuData)
         }
     } catch (error) {
@@ -16,6 +16,37 @@ const getOneRestaurantMenu = async (req: JwtReqInterface, res: Response) => {
 
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 const getAllMenuCatagories = async (req: JwtReqInterface, res: Response) => {
     try {
