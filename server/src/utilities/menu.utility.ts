@@ -1,9 +1,19 @@
 import axios, { AxiosError } from "axios";
 import config from "../config";
 
-export async function getMenuWithRestaurantId(token: string) {
+export async function getMenuFromToken(token: string) {
     try {
         const res = await axios.get(`${config.MENU_BE_BASE_URL}/menuItem/restaurant`, { headers: { 'Authorization': 'Bearer ' + token } })
+        return res.data;
+    } catch (error) {
+        console.log('😭😭😭😭😭😭😭😭😭😭', error);
+        throw new Error((error as AxiosError<{ message: string }>).response?.data.message);
+    }
+}
+
+export async function getMenuWithRestaurantId(id: string, token: string) {
+    try {
+        const res = await axios.get(`${config.MENU_BE_BASE_URL}/menuItem/restaurant/${id}`, { headers: { 'Authorization': 'Bearer ' + token } })
         return res.data;
     } catch (error) {
         console.log('😭😭😭😭😭😭😭😭😭😭', error);
