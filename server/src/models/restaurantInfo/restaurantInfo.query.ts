@@ -1,4 +1,4 @@
-import { IRatingAddedRestaurantInterface, IRestaurantInfo } from "../../interfaces/RestaurantInfoInterface";
+import { IRatingAddedRestaurantInterface, IRestaurantInfoFromFrontend } from "../../interfaces/RestaurantInfoInterface";
 import { getMultipleRestaurantRatingInfoFromReview } from "../../utilities/marketplace.utility";
 import RestaurantInfoModel from "./restaurantInfo.model";
 
@@ -15,7 +15,7 @@ export async function getAllRestaurantInfo() {
 
 
 // Create new Restaurant
-export const postRestaurantInfo = async (data: IRestaurantInfo) => {
+export const postRestaurantInfo = async (data: IRestaurantInfoFromFrontend) => {
     try {
         const result = await RestaurantInfoModel.create(data)
         return result;

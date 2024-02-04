@@ -1,8 +1,10 @@
-export interface IRestaurantInfo {
+export interface IRestaurantInfoFromFrontend {
     allAmbianceImages: string[];
     restaurantCoverPhoto: string;
     currency: string;
     restaurantDetails: string;
+    restaurantLatitude: number;
+    restaurantLongitude: number;
 
     restaurantId: number;
     restaurantName: string;
@@ -64,6 +66,7 @@ export interface IRestaurantInfo {
     bankAccountRoutingNumber: number;
 }
 
-export interface IRatingAddedRestaurantInterface extends IRestaurantInfo {
-    rating?: any // FIX here after taking interface from zerin apu
+export interface IRestaurantInfoForDB extends IRestaurantInfoFromFrontend {
+    rating: number // FIX here after taking interface from zerin apu
+    priceRange?: string // Will be decided on from Menu Builder
 }

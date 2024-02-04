@@ -1,6 +1,5 @@
-import { IRestaurantInfo } from './../interfaces/RestaurantInfoInterface';
+import { IRestaurantInfoFromFrontend } from './../interfaces/RestaurantInfoInterface';
 import { Request, Response } from "express";
-import { v2 as cloudinary } from 'cloudinary';
 import { IRestaurantRep } from "../interfaces/RestaurantRepInterface";
 import { postRestaurantInfo } from '../models/restaurantInfo/restaurantInfo.query';
 import { getNextSequenceValue } from '../models/incrementalRestaurantId/incrementalRestaurantId.query';
@@ -11,14 +10,8 @@ export const restaurantRegistration = async (req: Request, res: Response) => {
     try {
 
         let restaurantRep: IRestaurantRep = req.body.restaurantRep
-        let restaurantInfo: IRestaurantInfo = req.body.restaurantInfo
+        let restaurantInfo: IRestaurantInfoFromFrontend = req.body.restaurantInfo
 
-        // Cloudinary
-        // let imgBase64 = restaurantInfo.restaurantLogo
-        // const cloudinaryResult = await cloudinary.uploader.upload(imgBase64)
-        // restaurantInfo.restaurantLogo = cloudinaryResult.url
-
-        // Save Restaurant Infos to DB
         const incrementalrestaurantId = await getNextSequenceValue('restaurantId')
 
         if (incrementalrestaurantId) {

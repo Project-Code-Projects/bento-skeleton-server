@@ -1,7 +1,7 @@
 import { Schema, model } from "mongoose";
-import { IRestaurantInfo } from "../../interfaces/RestaurantInfoInterface";
+import { IRestaurantInfoForDB } from "../../interfaces/RestaurantInfoInterface";
 
-const restaurantInfo = new Schema<IRestaurantInfo>({
+const restaurantInfo = new Schema<IRestaurantInfoForDB>({
 
     allAmbianceImages: {
         type: [String],
@@ -19,6 +19,26 @@ const restaurantInfo = new Schema<IRestaurantInfo>({
         type: String,
         required: true,
     },
+    restaurantLatitude: {
+        type: Number,
+        required: true,
+    },
+    restaurantLongitude: {
+        type: Number,
+        required: true,
+    },
+    rating: {
+        type: Number,
+        default: 0
+    },
+    priceRange: {
+        type: String,
+        default: "$$$"
+    },
+
+
+
+
     restaurantId: {
         type: Number,
         unique: true
