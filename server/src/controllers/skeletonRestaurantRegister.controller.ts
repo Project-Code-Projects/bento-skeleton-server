@@ -7,7 +7,7 @@ import { saveRestaurantRep } from '../models/restaurantRepInfo/restaurantRepInfo
 import { sendOwnerInfoToHR } from '../utilities/hr.utility';
 import { JwtReqInterface } from '../interfaces/JwtReqInterface';
 
-export const restaurantRegistration = async (req: JwtReqInterface, res: Response) => {
+export const restaurantRegistration = async (req: Request, res: Response) => {
     try {
 
         let restaurantRep: IRestaurantRep = req.body.restaurantRep

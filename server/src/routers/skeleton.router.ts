@@ -8,7 +8,7 @@ const skeletonRouter = Router();
 
 skeletonRouter.get("/get-all-countries", getAllCountryController); // Obsolete
 
-skeletonRouter.post('/restaurant-register', verifyJWTMiddleware, restaurantRegistration)
+skeletonRouter.post('/restaurant-register', restaurantRegistration)
 
 skeletonRouter.put('/update-restaurant-rating/:restaurantId', verifyJWTMiddleware, updateRestaurantRating)
 

@@ -20,8 +20,9 @@ export async function updateRestaurantRating(req: JwtReqInterface, res: Response
 
         const restaurantId = Number(req.params.restaurantId)
         const newRating = Number(req.body.rating)
+        console.log('id and rating', restaurantId, newRating);
+        const updatedRestaurantInfo = await updateRestaurantRatingUsingId(restaurantId, newRating)
 
-        const updatedRestaurantInfo = updateRestaurantRatingUsingId(restaurantId, newRating)
         res.status(201).json({ message: 'Rating Updated Successfully', data: updatedRestaurantInfo })
 
     } catch (error) {
