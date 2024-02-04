@@ -5,8 +5,9 @@ import { postRestaurantInfo } from '../models/restaurantInfo/restaurantInfo.quer
 import { getNextSequenceValue } from '../models/incrementalRestaurantId/incrementalRestaurantId.query';
 import { saveRestaurantRep } from '../models/restaurantRepInfo/restaurantRepInfo.query';
 import { sendOwnerInfoToHR } from '../utilities/hr.utility';
+import { JwtReqInterface } from '../interfaces/JwtReqInterface';
 
-export const restaurantRegistration = async (req: Request, res: Response) => {
+export const restaurantRegistration = async (req: JwtReqInterface, res: Response) => {
     try {
 
         let restaurantRep: IRestaurantRep = req.body.restaurantRep

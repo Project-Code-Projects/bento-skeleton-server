@@ -47,7 +47,7 @@ export async function updateOrderStatus(req: JwtReqInterface, res: Response) {
     }
 
     // If the order is a Marketplace Order
-    else if (type.toLowerCase().includes("pickup") || type.toLowerCase().includes("pickup")) {
+    else if (type.toLowerCase().includes("pickup") || type.toLowerCase().includes("delivery")) {
       await marketplaceUpdateOrderStatus(user.token, orderId, status)
       return res.json({ message: 'Successfully updated' })
     }
@@ -80,10 +80,10 @@ export async function incomingOrder(req: JwtReqInterface, res: Response) {
 
       const restructuredOrderDataForInventory = preparePlusRestructureOrderDataForInventory(order)
       console.log('restructured Order Data For Inventory', restructuredOrderDataForInventory);
-      // if (result) {
-      //   let inventoryResult = await sendDataToInventoryToReduce(restructuredOrderDataForInventory, user.token);
-      //   return res.send(inventoryResult)
-      // }
+      if (result) {
+        let inventoryResult = await sendDataToInventoryToReduce(restructuredOrderDataForInventory, user.token);
+        return res.send(inventoryResult)
+      }
 
     }
     else {

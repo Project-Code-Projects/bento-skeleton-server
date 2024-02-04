@@ -47,10 +47,7 @@ const restaurantInfo = new Schema<IRestaurantInfoForDB>({
         type: String,
         required: true,
     },
-    location: {
-        type: String,
-        required: true,
-    },
+
     country: {
         type: Object,
         required: true,

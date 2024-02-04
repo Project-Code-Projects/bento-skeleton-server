@@ -8,7 +8,6 @@ export interface IRestaurantInfoFromFrontend {
 
     restaurantId: number;
     restaurantName: string;
-    location: string;
     country: object;
     halal: boolean;
     billPerClient: number;

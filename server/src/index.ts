@@ -84,6 +84,7 @@ app.use('/restaurants', restaurantsRouter)
 
 
 
+
 async function main() {
   try {
     const uri = `mongodb+srv://${config.DB_USER}:${config.DB_PASS}@cluster0.f3aocvj.mongodb.net/?retryWrites=true&w=majority`;
