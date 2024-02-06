@@ -1,13 +1,13 @@
 import RestaurantUtilization from "./restaurantUtilization.model";
 
-export async function setRestaurantUtilization (restaurantId: number, utilizationRate: number) {
+export async function setRestaurantUtilization (restaurantId: number, utilization: number) {
   try {
-    const utilization = await RestaurantUtilization.findOne({ restaurantId });
-    if (utilization) {
-      const updatedUtilization = await RestaurantUtilization.findByIdAndUpdate(utilization._id, { $set: { utilizationRate, updatedAt: new Date()}});
+    const existingUtilization = await RestaurantUtilization.findOne({ restaurantId });
+    if (existingUtilization) {
+      const updatedUtilization = await RestaurantUtilization.findByIdAndUpdate(existingUtilization._id, { $set: { utilization, updatedAt: new Date()}});
       return updatedUtilization;
     } else {
-      const newRestaurant = await RestaurantUtilization.create({ restaurantId, utilizationRate, updatedAt: new Date()});
+      const newRestaurant = await RestaurantUtilization.create({ restaurantId, utilization, updatedAt: new Date()});
       return newRestaurant;
     }
   } catch (error) {

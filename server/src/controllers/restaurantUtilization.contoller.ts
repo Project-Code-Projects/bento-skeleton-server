@@ -1,6 +1,7 @@
 import { Response } from "express";
 import { JwtReqInterface } from "../interfaces/JwtReqInterface";
 import { setRestaurantUtilization } from "../models/restaurantUtilization/restaurantUtilization.query";
+import { addUtilizationLog } from "../models/restaurantUtilizationLog/restaurantUtilizationLog.query";
 
 export async function postRestaurantUtilization (req: JwtReqInterface, res: Response) {
   try {
@@ -13,6 +14,7 @@ export async function postRestaurantUtilization (req: JwtReqInterface, res: Resp
     if (!restaurantId|| isNaN(utilization)) return res.status(400).send({ message: 'Invalid utilization data.'});
 
     const result = await setRestaurantUtilization(restaurantId, utilization);
+    await addUtilizationLog(restaurantId, utilization);
     if (result) return res.send({ status: 'Success' });
     else return res.status(404).send({ message: 'Restaurant not found.'});
   } catch (error) {

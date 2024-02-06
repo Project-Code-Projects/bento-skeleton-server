@@ -1,5 +1,5 @@
 export interface IRestaurantUtilization {
   restaurantId: number;
-  utilizationRate: number;
+  utilization: number;
   updatedAt: Date
 }
