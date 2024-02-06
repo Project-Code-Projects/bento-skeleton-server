@@ -6,6 +6,7 @@ import { getNextSequenceValue } from '../models/incrementalRestaurantId/incremen
 import { saveRestaurantRep } from '../models/restaurantRepInfo/restaurantRepInfo.query';
 import { sendOwnerInfoToHR } from '../utilities/hr.utility';
 import { JwtReqInterface } from '../interfaces/JwtReqInterface';
+import { setRestaurantUtilization } from '../models/restaurantUtilization/restaurantUtilization.query';
 
 export const restaurantRegistration = async (req: Request, res: Response) => {
     try {
@@ -30,6 +31,8 @@ export const restaurantRegistration = async (req: Request, res: Response) => {
                         email: restaurantRepDbResult.email,
                         password: restaurantRepDbResult.password
                     };
+
+                    await setRestaurantUtilization(restaurantInfoDbResult.restaurantId, 0);
 
                     let hrResponse = await sendOwnerInfoToHR(dataForHR) // Gotta uncomment this when HR API is Ready
 
