@@ -7,7 +7,7 @@ const restuarantUtilizationSchema = new Schema<IRestaurantUtilization>({
     required: true,
     unique: true
   },
-  utilizationRate: {
+  utilization: {
     type: Number,
     min: 0
   },

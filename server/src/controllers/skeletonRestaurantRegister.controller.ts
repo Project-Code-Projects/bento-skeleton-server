@@ -7,6 +7,7 @@ import { saveRestaurantRep } from '../models/restaurantRepInfo/restaurantRepInfo
 import { sendOwnerInfoToHR } from '../utilities/hr.utility';
 import { JwtReqInterface } from '../interfaces/JwtReqInterface';
 import { setRestaurantUtilization } from '../models/restaurantUtilization/restaurantUtilization.query';
+import { addUtilizationLog } from '../models/restaurantUtilizationLog/restaurantUtilizationLog.query';
 
 export const restaurantRegistration = async (req: Request, res: Response) => {
     try {
@@ -33,6 +34,7 @@ export const restaurantRegistration = async (req: Request, res: Response) => {
                     };
 
                     await setRestaurantUtilization(restaurantInfoDbResult.restaurantId, 0);
+                    await addUtilizationLog(restaurantInfoDbResult.restaurantId, 0);
 
                     let hrResponse = await sendOwnerInfoToHR(dataForHR) // Gotta uncomment this when HR API is Ready
 
