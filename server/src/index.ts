@@ -23,6 +23,7 @@ import restaurantsRouter from "./routers/restaurants.router";
 import verifyJWTMiddleware from "./middlewares/verifyJWT.middleware";
 import { JwtReqInterface } from "./interfaces/JwtReqInterface";
 import { preparePlusRestructureOrderDataForInventory } from "./utilities/processOrder.utility";
+import utilizationRouter from "./routers/restaurantUtilization.router";
 app.use(cookieParser());
 
 app.use(
@@ -81,6 +82,8 @@ app.use('/marketplace', marketplaceRouter)
 
 // Get restaurant informations
 app.use('/restaurants', restaurantsRouter)
+
+app.use('/utilization', utilizationRouter);
 
 
 
