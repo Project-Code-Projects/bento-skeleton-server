@@ -75,6 +75,7 @@ export async function incomingOrder(req: JwtReqInterface, res: Response) {
       result = await kdsPostIncomingOrder(user.token, order);
     }
     else if (order.type === "pickup" || order.type === "delivery") {
+
       result = await kdsPostIncomingOrder(user.token, order);
       console.log('Result from KDS');
 
