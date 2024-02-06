@@ -18,7 +18,7 @@ const restaurantRep = new Schema<IRestaurantRep>({
     },
 
     phone: {
-        type: Number,
+        type: String,
         required: true,
     },
 

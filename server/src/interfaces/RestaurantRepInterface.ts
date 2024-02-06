@@ -2,7 +2,8 @@ export interface IRestaurantRep {
     firstName: string;
     lastName: string;
     email: string;
-    phone: number;
+    phone: string;
     restaurantId?: Number;
     password: string;
 }
+

@@ -5,4 +5,5 @@ const restaurantsRouter = Router()
 
 restaurantsRouter.get('/all-restaurants', verifyJWTMiddleware, allRestaurantsData)
 
+
 export default restaurantsRouter;

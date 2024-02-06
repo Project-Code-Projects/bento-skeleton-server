@@ -35,10 +35,6 @@ const restaurantInfo = new Schema<IRestaurantInfoForDB>({
         type: String,
         default: "$$$"
     },
-
-
-
-
     restaurantId: {
         type: Number,
         unique: true
@@ -69,7 +65,7 @@ const restaurantInfo = new Schema<IRestaurantInfoForDB>({
         required: true,
     },
     restaurantPhone: {
-        type: Number,
+        type: String,
         required: true,
     },
     veganFriendly: {
