@@ -8,6 +8,7 @@ import { sendOwnerInfoToHR } from '../utilities/hr.utility';
 import { JwtReqInterface } from '../interfaces/JwtReqInterface';
 import { setRestaurantUtilization } from '../models/restaurantUtilization/restaurantUtilization.query';
 import { addUtilizationLog } from '../models/restaurantUtilizationLog/restaurantUtilizationLog.query';
+import { findBoroughFromPoint } from '../utilities/borough.utility';
 
 export const restaurantRegistration = async (req: Request, res: Response) => {
     try {
@@ -15,10 +16,12 @@ export const restaurantRegistration = async (req: Request, res: Response) => {
         let restaurantRep: IRestaurantRep = req.body.restaurantRep
         let restaurantInfo: IRestaurantInfoFromFrontend = req.body.restaurantInfo
 
-        const incrementalrestaurantId = await getNextSequenceValue('restaurantId')
+        const incrementalrestaurantId = await getNextSequenceValue('restaurantId');
+        const borough = await findBoroughFromPoint([restaurantInfo.restaurantLongitude, restaurantInfo.restaurantLatitude]);
 
         if (incrementalrestaurantId) {
             restaurantInfo.restaurantId = incrementalrestaurantId;
+            if (borough) restaurantInfo.boroughId = borough._id;
             const restaurantInfoDbResult = await postRestaurantInfo(restaurantInfo);
             if (restaurantInfoDbResult) {
                 console.log('restaurantInfoDbResult', restaurantInfoDbResult);
