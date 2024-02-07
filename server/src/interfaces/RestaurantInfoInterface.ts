@@ -12,7 +12,7 @@ export interface IRestaurantInfoFromFrontend {
     halal: boolean;
     billPerClient: number;
     website: string;
-    restaurantPhone: number;
+    restaurantPhone: string;
     veganFriendly: boolean;
     sellsAlcohol: boolean;
     monthlyOrders: string;
