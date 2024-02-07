@@ -1,7 +1,7 @@
 import { Response } from "express";
 import { JwtReqInterface } from "../interfaces/JwtReqInterface";
 import { setRestaurantUtilization } from "../models/restaurantUtilization/restaurantUtilization.query";
-import { addUtilizationLog } from "../models/restaurantUtilizationLog/restaurantUtilizationLog.query";
+import { addUtilizationLog, getAllRestaurantCurrentUtilization } from "../models/restaurantUtilizationLog/restaurantUtilizationLog.query";
 
 export async function postRestaurantUtilization (req: JwtReqInterface, res: Response) {
   try {
@@ -19,6 +19,20 @@ export async function postRestaurantUtilization (req: JwtReqInterface, res: Resp
     else return res.status(404).send({ message: 'Restaurant not found.'});
   } catch (error) {
     console.log('Error posting utilization ⚠️ 📉', error);
+    res.status(500).json({ message: (error as Error).message });
+  }
+}
+
+
+export async function getAllCurrentUtilization (req: JwtReqInterface, res: Response) {
+  try {
+    // const { user } = req;
+    // if (!user) return res.status(401).send({ message: 'Unauthorized' });
+
+    const utilizations = await getAllRestaurantCurrentUtilization();
+    res.send({ data: utilizations });
+  } catch (error) {
+    console.log('Error getting utilization ⚠️ 📉', error);
     res.status(500).json({ message: (error as Error).message });
   }
 }
