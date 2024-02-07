@@ -10,7 +10,7 @@ export async function addUtilizationLog (restaurantId: number, utilization: numb
   }
 }
 
-export async function getAllRestaurantCurrentUtilization () {
+export async function getAllRestaurantLatestUtilization () {
   try {
     const latestUtilizations = await UtilizationLog.aggregate([
       {

@@ -1,7 +1,7 @@
 import { Response } from "express";
 import { JwtReqInterface } from "../interfaces/JwtReqInterface";
-import { setRestaurantUtilization } from "../models/restaurantUtilization/restaurantUtilization.query";
-import { addUtilizationLog, getAllRestaurantCurrentUtilization } from "../models/restaurantUtilizationLog/restaurantUtilizationLog.query";
+import { findAllRestaurantCurrentUtilization, findSingleRestaurantUtilization, setRestaurantUtilization } from "../models/restaurantUtilization/restaurantUtilization.query";
+import { addUtilizationLog } from "../models/restaurantUtilizationLog/restaurantUtilizationLog.query";
 
 export async function postRestaurantUtilization (req: JwtReqInterface, res: Response) {
   try {
@@ -14,9 +14,10 @@ export async function postRestaurantUtilization (req: JwtReqInterface, res: Resp
     if (!restaurantId|| isNaN(utilization)) return res.status(400).send({ message: 'Invalid utilization data.'});
 
     const result = await setRestaurantUtilization(restaurantId, utilization);
-    await addUtilizationLog(restaurantId, utilization);
-    if (result) return res.send({ status: 'Success' });
-    else return res.status(404).send({ message: 'Restaurant not found.'});
+    if (result) {
+      await addUtilizationLog(restaurantId, utilization);
+      return res.send({ status: 'Success' })
+    } else return res.status(404).send({ message: 'Restaurant not found.'});
   } catch (error) {
     console.log('Error posting utilization ⚠️ 📉', error);
     res.status(500).json({ message: (error as Error).message });
@@ -29,8 +30,25 @@ export async function getAllCurrentUtilization (req: JwtReqInterface, res: Respo
     // const { user } = req;
     // if (!user) return res.status(401).send({ message: 'Unauthorized' });
 
-    const utilizations = await getAllRestaurantCurrentUtilization();
+    const utilizations = await findAllRestaurantCurrentUtilization();
     res.send({ data: utilizations });
+  } catch (error) {
+    console.log('Error getting utilization ⚠️ 📉', error);
+    res.status(500).json({ message: (error as Error).message });
+  }
+}
+
+
+export async function getCurrentUtilizationByRestaurantId (req: JwtReqInterface, res: Response) {
+  try {
+    // const { user } = req;
+    // if (!user) return res.status(401).send({ message: 'Unauthorized' });
+
+    const { id } = req.params;
+    const restaurantId = Number(id);
+    const utilization = await findSingleRestaurantUtilization(restaurantId);
+    if (utilization) res.send(utilization);
+    else res.status(404).send({ message: 'Restaurant utilization not found.'});
   } catch (error) {
     console.log('Error getting utilization ⚠️ 📉', error);
     res.status(500).json({ message: (error as Error).message });

@@ -15,3 +15,23 @@ export async function setRestaurantUtilization (restaurantId: number, utilizatio
     throw new Error('Error setting restaurant utilization.');
   }
 }
+
+export async function findSingleRestaurantUtilization (restaurantId: number) {
+  try {
+    const utilization = await RestaurantUtilization.findOne({ restaurantId });
+    return utilization;
+  } catch (error) {
+    console.log(error);
+    throw new Error('Error setting restaurant utilization.');
+  }
+}
+
+export async function findAllRestaurantCurrentUtilization () {
+  try {
+    const utilizations = await RestaurantUtilization.find();
+    return utilizations;
+  } catch (error) {
+    console.log(error);
+    throw new Error('Error setting restaurant utilization.');
+  }
+}
