@@ -1,4 +1,4 @@
-import express, { Express, Request, Response } from "express";
+import express, { Express } from "express";
 const app: Express = express();
 import cors from "cors";
 import dotenv from "dotenv";
@@ -20,9 +20,6 @@ import posRouter from "./routers/pos.router";
 import hrRouter from "./routers/hr.router";
 import marketplaceRouter from "./routers/marketplace.router";
 import restaurantsRouter from "./routers/restaurants.router";
-import verifyJWTMiddleware from "./middlewares/verifyJWT.middleware";
-import { JwtReqInterface } from "./interfaces/JwtReqInterface";
-import { preparePlusRestructureOrderDataForInventory } from "./utilities/processOrder.utility";
 import utilizationRouter from "./routers/restaurantUtilization.router";
 app.use(cookieParser());
 
