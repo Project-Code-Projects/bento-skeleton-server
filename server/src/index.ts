@@ -76,7 +76,7 @@ app.use("/employee", employeeRouter);
 // All Marketplace related routes
 app.use('/marketplace', marketplaceRouter)
 
-// Get restaurant informations
+// Get restaurant information
 app.use('/restaurants', restaurantsRouter)
 
 app.use('/utilization', utilizationRouter);

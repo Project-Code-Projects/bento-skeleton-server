@@ -68,25 +68,30 @@ export async function incomingOrder(req: JwtReqInterface, res: Response) {
 
     const order: IOrder = req.body.order;
 
-    if (order.type !== "in-house" && order.type !== "delivery" && order.type !== "pickup")
-      return res.status(400).send({ error: 'Invalid order type.'});
 
-    const result = await kdsPostIncomingOrder(user.token, order);
-    console.log('Result from KDS');
-    
-    if (order.type === "pickup" || order.type === "delivery") {
+    let result;
+
+    if (order.type == "in-house") {
+      result = await kdsPostIncomingOrder(user.token, order);
+    }
+    // Working here --------------------
+    else if (order.type === "pickup" || order.type === "delivery") {
+
+      result = await kdsPostIncomingOrder(user.token, order);
+      await console.log('Result from KDS');
+
       const restructuredOrderDataForInventory = preparePlusRestructureOrderDataForInventory(order)
-      console.log('restructured Order Data For Inventory', restructuredOrderDataForInventory);
       if (result) {
         let inventoryResult = await sendDataToInventoryToReduce(restructuredOrderDataForInventory, user.token);
         return res.send(inventoryResult)
       }
+
     }
 
     res.status(201).send({ message: 'Successfully sent to KDS', data: result });
 
   } catch (error) {
-    console.log('😭😭😭😭😭😭😭😭😭😭' , error);
+    // console.log('😭😭😭😭😭😭😭😭😭😭' , error);
     res.status(500).send({ message: (error as Error).message });
   }
 }
