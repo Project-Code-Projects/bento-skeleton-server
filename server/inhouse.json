@@ -1,75 +1,36 @@
 {
-    "_id": "fe2ff32460c5a22bd010b796",
-    "restaurantId": 1,
-    "categoryId": "65a8fd9501fd660bbcae33ad",
-    "mealTimeId": 1,
-    "item": {
-        "ingredients": {
-            "rawIngredients": [
-                {
-                    "_id": "097aa0e260c5a22bd010b797",
-                    "ingredientName": "Chicken",
-                    "unitOfStock": "kg",
-                    "quantity": 7,
-                    "costPerUnit": 0.176,
-                    "caloriesPerUnit": 200,
-                    "id": 3
-                }
-            ],
-            "recipes": []
-        },
-        "options": {
-            "add": [
-                {
-                    "_id": "aba720c860c5a22bd010b798",
-                    "ingredientName": "Fruit and Nut Bread",
-                    "unitOfStock": "gm",
-                    "quantity": 5,
-                    "costPerUnit": 0,
-                    "caloriesPerUnit": 190,
-                    "id": 45
-                }
-            ],
-            "no": [
-                {
-                    "_id": "988771a860c5a22bd010b79b",
-                    "ingredientName": "Chicken",
-                    "unitOfStock": "kg",
-                    "quantity": 4,
-                    "costPerUnit": 0.176,
-                    "caloriesPerUnit": 200,
-                    "id": 3
-                }
-            ]
-        },
-        "itemName": "Alfredo Pasta",
-        "itemImage": "https://foodish-js.netlify.app/assets/images/Pasta/Pasta27.jpg",
-        "itemDescription": "Substantia tero adiuvo maiores tonsor bestia curvo conor usus attonbitus.",
-        "itemPrice": 23,
-        "itemCalories": 162,
-        "timeOfDay": [
-            "Breakfast",
-            "Lunch"
-        ],
-        "itemProfileTastyTags": [
-            "Bitter",
-            "Zesty"
-        ],
-        "itemPortionSize": "Large",
-        "itemPreparationTime": 36,
-        "itemLastingTime": 561,
-        "typeOfFoods": [
-            "Pickup only"
-        ],
-        "itemPackingType": [],
-        "servingTemperature": 57,
-        "itemDietaryRestrictions": [
-            "Celery",
-            "Lupin"
-        ],
-        "_id": "5d8f7d7e60c5a22bd010b79d",
-        "itemId": 66
-    },
-    "__v": 0,
-    "categoryName": "Pasta"
+    "user": {
+        "positionId": 34,
+        "employeeInformation": {
+            "id": 0,
+            "restaurantId": 0,
+            "name": "super admin",
+            "email": "admin@gmail.com",
+            "experience": [],
+            "phoneNumber": 1624752189,
+            "address": "Tongi",
+            "skillTags": [],
+            "hourlyRate": 25,
+            "efficiency": "",
+            "createdAt": "2024-01-24T09:02:40.687Z",
+            "updatedAt": "2024-01-24T09:13:14.571Z",
+            "applicantId": null,
+            "position": {
+                "id": 34,
+                "position": "Manager",
+                "employeeId": 32,
+                "restaurantId": 1,
+                "services": [
+                    "INVENTORY",
+                    "MENU-BUILDER",
+                    "KDS",
+                    "POS",
+                    "MARKETPLACE",
+                    "HR"
+                ],
+                "createdAt": "2024-01-24T09:03:00.902Z",
+                "updatedAt": "2024-01-24T09:13:14.401Z"
+            }
+        }
+    }
 }

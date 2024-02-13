@@ -74,10 +74,11 @@ export async function incomingOrder(req: JwtReqInterface, res: Response) {
     if (order.type == "in-house") {
       result = await kdsPostIncomingOrder(user.token, order);
     }
+    // Working here --------------------
     else if (order.type === "pickup" || order.type === "delivery") {
 
       result = await kdsPostIncomingOrder(user.token, order);
-      console.log('Result from KDS');
+      await console.log('Result from KDS');
 
       const restructuredOrderDataForInventory = preparePlusRestructureOrderDataForInventory(order)
       console.log('restructured Order Data For Inventory', restructuredOrderDataForInventory);
