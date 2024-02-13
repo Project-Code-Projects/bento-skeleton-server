@@ -81,14 +81,10 @@ export async function incomingOrder(req: JwtReqInterface, res: Response) {
       await console.log('Result from KDS');
 
       const restructuredOrderDataForInventory = preparePlusRestructureOrderDataForInventory(order)
-      console.log('restructured Order Data For Inventory', restructuredOrderDataForInventory);
       if (result) {
         let inventoryResult = await sendDataToInventoryToReduce(restructuredOrderDataForInventory, user.token);
         return res.send(inventoryResult)
       }
-
-    }
-    else {
 
     }
 
