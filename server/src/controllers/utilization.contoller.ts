@@ -12,6 +12,8 @@ export async function postRestaurantUtilization (req: JwtReqInterface, res: Resp
     const { restaurantId } = user;
     const { utilization } = req.body;
 
+    console.log('Setting utilization data:', { restaurantId, utilization });
+
     if (!restaurantId|| isNaN(utilization)) return res.status(400).send({ message: 'Invalid utilization data.'});
 
     const result = await setRestaurantUtilization(restaurantId, utilization);
