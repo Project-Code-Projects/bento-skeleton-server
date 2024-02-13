@@ -149,3 +149,25 @@ export async function updateRestaurantRatingUsingId(restaurantId: number, rating
         throw new Error((error as Error).message)
     }
 }
+
+
+export async function findRestaurantsInRadius ({ longitude, latitude }: { longitude: number; latitude: number }, radius: number) {
+    try {
+        const restaurants = await RestaurantInfoModel.find({ 
+            location: {
+                $near: {
+                    $geometry: {
+                        type: "Point",
+                        coordinates: [longitude, latitude],
+                      },
+                    $maxDistance: radius,
+                },
+            }
+        });
+
+        return restaurants;
+    } catch (error) {
+        console.log(error);
+        throw new Error("Error while getting restaurants in radius.");
+    }
+}

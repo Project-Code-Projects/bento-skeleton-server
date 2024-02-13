@@ -48,6 +48,10 @@ const restaurantInfo = new Schema<IRestaurantInfoForDB>({
         type: Object,
         required: true,
     },
+    boroughId: {
+        type: Schema.ObjectId,
+        ref: 'borough'
+    },
 
 
 
@@ -236,6 +240,15 @@ const restaurantInfo = new Schema<IRestaurantInfoForDB>({
     },
 
 });
+
+restaurantInfo.virtual('location').get(function() {
+    return {
+        type: "Point",
+        coordinates: [this.restaurantLongitude, this.restaurantLatitude]
+    };
+});
+
+restaurantInfo.index({ location: '2dsphere' });
 
 const RestaurantInfoModel = model("restaurantInfo", restaurantInfo);
 

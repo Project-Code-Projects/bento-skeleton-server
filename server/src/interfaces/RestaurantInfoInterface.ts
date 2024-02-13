@@ -1,3 +1,5 @@
+import { Types } from "mongoose";
+
 export interface IRestaurantInfoFromFrontend {
     allAmbianceImages: string[];
     restaurantCoverPhoto: string;
@@ -5,6 +7,7 @@ export interface IRestaurantInfoFromFrontend {
     restaurantDetails: string;
     restaurantLatitude: number;
     restaurantLongitude: number;
+    boroughId?: Types.ObjectId
 
     restaurantId: number;
     restaurantName: string;

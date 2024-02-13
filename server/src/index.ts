@@ -1,4 +1,4 @@
-import express, { Express, Response } from "express";
+import express, { Express } from "express";
 const app: Express = express();
 import cors from "cors";
 import dotenv from "dotenv";
@@ -33,7 +33,6 @@ app.use(
 );
 
 app.use(express.json());
-
 
 // Auth api's
 app.use("/auth", authRouter);
