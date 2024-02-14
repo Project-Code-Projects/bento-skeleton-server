@@ -54,8 +54,6 @@ const restaurantInfo = new Schema<IRestaurantInfoForDB>({
     },
 
 
-
-
     halal: {
         type: Boolean,
         required: true,
@@ -241,7 +239,7 @@ const restaurantInfo = new Schema<IRestaurantInfoForDB>({
 
 });
 
-restaurantInfo.virtual('location').get(function() {
+restaurantInfo.virtual('location').get(function () {
     return {
         type: "Point",
         coordinates: [this.restaurantLongitude, this.restaurantLatitude]

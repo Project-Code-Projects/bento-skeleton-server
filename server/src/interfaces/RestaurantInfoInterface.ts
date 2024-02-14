@@ -66,6 +66,7 @@ export interface IRestaurantInfoFromFrontend {
     bankAccountHolder: string;
     bankAccountNumber: number;
     bankAccountRoutingNumber: number;
+
 }
 
 export interface IRestaurantInfoForDB extends IRestaurantInfoFromFrontend {
