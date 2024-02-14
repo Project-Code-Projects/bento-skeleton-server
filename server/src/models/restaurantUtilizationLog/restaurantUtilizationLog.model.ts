@@ -5,7 +5,6 @@ const utilizationLogSchema = new Schema<IRestaurantUtilizationLog>({
   restaurantId: {
     type: Number,
     required: true,
-    unique: true
   },
   utilization: {
     type: Number,
