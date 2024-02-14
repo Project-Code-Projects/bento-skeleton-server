@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { JwtReqInterface } from "../interfaces/JwtReqInterface";
-import { findRestaurantsInRadius, getAllRestaurantInfo, postRestaurantInfo, updateRestaurantRatingUsingId } from "../models/restaurantInfo/restaurantInfo.query";
+import { findRestaurantsInRadius, getAllRestaurantInfo, getOneRestaurantInfoUsingId, postRestaurantInfo, updateRestaurantRatingUsingId } from "../models/restaurantInfo/restaurantInfo.query";
 import RestaurantInfoModel from "../models/restaurantInfo/restaurantInfo.model";
 import { IRestaurantRep } from "../interfaces/RestaurantRepInterface";
 import { IRestaurantInfoFromFrontend } from "../interfaces/RestaurantInfoInterface";
@@ -10,6 +10,22 @@ import { getNextSequenceValue } from "../models/incrementalRestaurantId/incremen
 import { saveRestaurantRep } from "../models/restaurantRepInfo/restaurantRepInfo.query";
 import RestaurantRepModel from "../models/restaurantRepInfo/restaurantRepInfo.model";
 import { validateCoordinates, validateRadius } from "../utilities/location.utility";
+
+// GET one restaurant's full info's using its restaurantId 
+export async function oneRestaurantInfo(req: Request, res: Response) {
+    try {
+        const restaurantId = Number(req.params.restaurantId)
+        const restaurantInfo = await getOneRestaurantInfoUsingId(restaurantId)
+        res.status(200).send(restaurantInfo)
+
+    } catch (error) {
+        console.log('😭😭😭😭😭😭😭😭😭😭', error);
+        res.status(500).json({ message: (error as Error).message })
+    }
+}
+
+
+
 
 export async function allRestaurantsData(req: JwtReqInterface, res: Response) {
     try {

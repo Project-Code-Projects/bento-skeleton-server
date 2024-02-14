@@ -2,6 +2,18 @@ import { IRestaurantInfoForDB, IRestaurantInfoFromFrontend } from "../../interfa
 import { getMultipleRestaurantRatingInfoFromReview } from "../../utilities/marketplace.utility";
 import RestaurantInfoModel from "./restaurantInfo.model";
 
+// GET Info of one restaurant using its restaurantId
+export async function getOneRestaurantInfoUsingId(restaurantId: number) {
+    try {
+        const data = await RestaurantInfoModel.find({ restaurantId })
+        return data;
+    } catch (error) {
+        console.log(error);
+        throw new Error((error as Error).message)
+    }
+}
+
+
 // Get All Restaurant's All Info
 export async function getAllRestaurantInfo() {
     try {
@@ -151,15 +163,15 @@ export async function updateRestaurantRatingUsingId(restaurantId: number, rating
 }
 
 
-export async function findRestaurantsInRadius ({ longitude, latitude }: { longitude: number; latitude: number }, radius: number) {
+export async function findRestaurantsInRadius({ longitude, latitude }: { longitude: number; latitude: number }, radius: number) {
     try {
-        const restaurants = await RestaurantInfoModel.find({ 
+        const restaurants = await RestaurantInfoModel.find({
             location: {
                 $near: {
                     $geometry: {
                         type: "Point",
                         coordinates: [longitude, latitude],
-                      },
+                    },
                     $maxDistance: radius,
                 },
             }

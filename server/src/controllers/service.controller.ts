@@ -86,6 +86,10 @@ export async function getUserInfoByToken(req: JwtReqInterface, res: Response) {
       }
       return res.status(200).json(marketplaceTokenInfos)
     }
+
+
+    // Ekhane Redis implement korte hobe
+
     const userData = await hrUserInfo(user.id);
     res.send(userData);
   } catch (error) {
