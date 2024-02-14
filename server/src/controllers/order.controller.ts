@@ -4,15 +4,22 @@ import { kdsPostIncomingOrder } from "../utilities/kds.utility";
 import { JwtReqInterface } from "../interfaces/JwtReqInterface";
 import { IOrder } from "../interfaces/NewOrderInterface";
 import { preparePlusRestructureOrderDataForInventory, sendDataToInventoryToReduce } from "../utilities/processOrder.utility";
-import { marketplaceUpdateOrderStatus } from "../utilities/marketplace.utility";
+import { getMarketplaceOrderData, marketplaceUpdateOrderStatus } from "../utilities/marketplace.utility";
 
+// Get All Orders from POS and Marketplace
 export async function getAllOrders(req: JwtReqInterface, res: Response) {
   try {
     const { user } = req;
     if (!user) return res.status(401).send({ message: 'Unauthorized.' });
 
-    const orders = await posGetAllOrders(user.token);
-    res.send(orders);
+    if (user.restaurantId) {
+      const posOrders = await posGetAllOrders(user.token);
+      const marketplaceOrders = await getMarketplaceOrderData(user.restaurantId)
+      const allOrders = [...posOrders, ...marketplaceOrders];
+      res.status(200).send(allOrders)
+    }
+
+    // res.send(orders);
   } catch (error) {
     console.log('😭😭😭😭😭😭😭😭😭😭', error);
     res.status(500).send({ message: (error as Error).message });

@@ -3,6 +3,18 @@ import RestaurantInfoModel from "../models/restaurantInfo/restaurantInfo.model";
 import config from "../config";
 
 
+// Get orders data from Marketplace
+export async function getMarketplaceOrderData(restaurantId: number) {
+    try {
+        const res = await axios.get(`${config.MARKETPLACE_BE_BASE_URL}/orders/processing/${restaurantId}`)
+        return res.data;
+    } catch (error) {
+        console.log(error);
+        throw new Error((error as AxiosError<{ message: string }>).response?.data.message)
+    }
+}
+
+
 // Get all the data for a restaurant from Skeleton DB by using its ID + Get the rating info of that restaurant from REVIEW
 export async function getRestaurantDetailsFromDB(restaurantId: string) {
     try {
