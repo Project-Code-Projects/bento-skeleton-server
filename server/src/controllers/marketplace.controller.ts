@@ -39,7 +39,9 @@ export async function findRestaurants(req: JwtReqInterface, res: Response) {
         const mode = (req.query.mode as string).toLowerCase()
 
         const cuisine = req.query.cuisine as string
+        // console.log('cuisine', cuisine);
         const searchTerm = req.query.searchTerm as string;
+
 
         if (mode && cuisine && searchTerm) {
             const data = await restaurantsConsideringModeCuisineSearchTerm(mode, cuisine, searchTerm)

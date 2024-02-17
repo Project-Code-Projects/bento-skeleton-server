@@ -1,5 +1,5 @@
 import { IRestaurantInfoForDB, IRestaurantInfoFromFrontend } from "../../interfaces/RestaurantInfoInterface";
-import { getMultipleRestaurantRatingInfoFromReview } from "../../utilities/marketplace.utility";
+import { getCuisineArray, getMultipleRestaurantRatingInfoFromReview } from "../../utilities/marketplace.utility";
 import RestaurantInfoModel from "./restaurantInfo.model";
 
 // GET Info of one restaurant using its restaurantId
@@ -15,10 +15,16 @@ export async function getOneRestaurantInfoUsingId(restaurantId: number) {
 
 
 // Get All Restaurant's All Info
-export async function getAllRestaurantInfo() {
+export async function getAllRestaurantInfo(limit: number | undefined) {
     try {
-        const data = await RestaurantInfoModel.find({})
-        return data;
+        if (limit) {
+            const data = await RestaurantInfoModel.find({}, '', { limit })
+            return data;
+        } else {
+            const data = await RestaurantInfoModel.find({})
+            return data;
+        }
+
     } catch (error) {
         console.log('😭😭😭😭😭😭😭😭😭😭', error);
         throw new Error((error as Error).message)
@@ -67,10 +73,10 @@ export async function restaurantsBasedOnMode(mode: string) {
 export async function restaurantsConsideringModeCuisineSearchTerm(mode: string, cuisine: string, searchTerm: string) {
     try {
         const regexPattern = new RegExp(searchTerm, 'i')
-
+        const cuisineList = getCuisineArray(cuisine)
         const baseQuery = {
             restaurantName: { $regex: regexPattern },
-            cuisines: { $in: [cuisine] }
+            cuisines: { $in: cuisineList },
         }
 
         let finalQuery;
@@ -96,8 +102,10 @@ export async function restaurantsConsideringModeCuisineSearchTerm(mode: string, 
 // Search with mode and cuisine
 export async function restaurantsConsideringModeCuisine(mode: string, cuisine: string) {
     try {
+        const cuisineList = getCuisineArray(cuisine)
+
         const baseQuery = {
-            cuisines: { $in: [cuisine] }
+            cuisines: { $in: cuisineList }
         }
 
         let finalQuery;

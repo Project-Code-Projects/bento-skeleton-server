@@ -29,7 +29,8 @@ export async function oneRestaurantInfo(req: Request, res: Response) {
 
 export async function allRestaurantsData(req: JwtReqInterface, res: Response) {
     try {
-        const data = await getAllRestaurantInfo();
+        const limit = Number(req.query.limit)
+        const data = await getAllRestaurantInfo(limit);
         res.status(200).send(data)
 
     } catch (error) {

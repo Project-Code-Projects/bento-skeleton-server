@@ -8,7 +8,6 @@ const marketplaceRouter = Router();
 // The Super Route for Delivery and Pickup with query params (mode , cuisine, searchTerm)
 // Restaurants based on cuisine, searchTerm and mode
 // Restaurants based on Just mode (Pickup/Delivery)
-// Restaurants based on mode and cuisine
 // Restaurants based on mode and searchTerm
 marketplaceRouter.get('/restaurants', verifyJWTMiddleware, findRestaurants)
 

@@ -51,7 +51,7 @@ const restaurantInfo = new Schema<IRestaurantInfoForDB>({
     boroughId: {
         type: Schema.ObjectId,
         ref: 'borough',
-        required: false
+        // required: false
     },
 
 
