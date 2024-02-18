@@ -96,7 +96,7 @@ export function getCuisineArray(cuisine: string) {
             "New American Restaurant",
             "Australian Restaurant"
         ],
-        "Middle Eastern": [
+        "Arabian": [
             "Lebanese Restaurant",
             "Ethiopian Restaurant",
             "Falafel Restaurant",
