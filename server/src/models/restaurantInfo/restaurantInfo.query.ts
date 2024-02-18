@@ -1,5 +1,6 @@
 import { IRestaurantInfoForDB, IRestaurantInfoFromFrontend } from "../../interfaces/RestaurantInfoInterface";
 import { getCuisineArray, getMultipleRestaurantRatingInfoFromReview } from "../../utilities/marketplace.utility";
+import { restaurantFiltersFactory } from "../../utilities/restaurant.utility";
 import RestaurantInfoModel from "./restaurantInfo.model";
 
 // GET Info of one restaurant using its restaurantId
@@ -189,5 +190,21 @@ export async function findRestaurantsInRadius({ longitude, latitude }: { longitu
     } catch (error) {
         console.log(error);
         throw new Error("Error while getting restaurants in radius.");
+    }
+}
+
+
+// Working here
+export async function findRestaurantsUsingQuery(queryObject: any) {
+    try {
+        const filter = restaurantFiltersFactory(queryObject)
+        // console.log('filter from query file', filter);
+
+        const restaurants = await RestaurantInfoModel.find(filter, '', { limit: queryObject?.limit ? Number(queryObject?.limit) : 20 })
+        return restaurants;
+        // search in db using the filter here
+    } catch (error) {
+        console.log(error);
+        throw new Error((error as Error).message);
     }
 }

@@ -2,7 +2,10 @@ import { Schema, model } from "mongoose";
 import { IRestaurantInfoForDB } from "../../interfaces/RestaurantInfoInterface";
 
 const restaurantInfo = new Schema<IRestaurantInfoForDB>({
-
+    address: {
+        type: String,
+        default: "121 Uxbridge Rd, Shepherds Bush, Greater London, W12 8NL"
+    },
     allAmbianceImages: {
         type: [String],
         required: true,

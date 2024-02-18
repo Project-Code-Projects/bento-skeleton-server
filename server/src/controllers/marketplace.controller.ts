@@ -1,8 +1,9 @@
-import { Response } from "express";
+import { Response, Request } from "express";
 import { JwtReqInterface } from "../interfaces/JwtReqInterface";
-import { restaurantsBasedOnMode, restaurantsConsideringModeCuisine, restaurantsConsideringModeCuisineSearchTerm, restaurantsConsideringModeSearchTerm } from "../models/restaurantInfo/restaurantInfo.query";
+import { findRestaurantsUsingQuery, restaurantsBasedOnMode, restaurantsConsideringModeCuisine, restaurantsConsideringModeCuisineSearchTerm, restaurantsConsideringModeSearchTerm } from "../models/restaurantInfo/restaurantInfo.query";
 import { getRestaurantDetailsFromDB, testDummy } from "../utilities/marketplace.utility";
 import { getAllCuisines } from "../models/cuisines/cuisines.query";
+import RestaurantInfoModel from "../models/restaurantInfo/restaurantInfo.model";
 
 // Get one restaurant's details using restaurantId . [restaurantName, img, delivery, pickup, address] (need to add rating)
 export async function getRestaurantDetails(req: JwtReqInterface, res: Response) {
@@ -68,8 +69,25 @@ export async function findRestaurants(req: JwtReqInterface, res: Response) {
     }
 
 
+}
+
+// Working here . Gotta attach it to the router later
+export async function getRestaurantsNew(req: Request, res: Response) {
+    try {
+        /*        const mode = (req.query.mode as string).toLowerCase()
+               const cuisine = req.query.cuisine as string
+               const searchTerm = req.query.searchTerm as string;
+               const priceRange = req.query.priceRange as string; */
+
+        const result = await findRestaurantsUsingQuery(req.query)
+        res.send(result)
 
 
+
+    } catch (error) {
+        console.log('😭😭😭😭😭😭😭😭😭😭', error);
+        res.status(500).json({ message: (error as Error).message })
+    }
 }
 
 

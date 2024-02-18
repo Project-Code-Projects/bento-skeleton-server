@@ -1,6 +1,6 @@
 import { Router } from "express";
 import verifyJWTMiddleware from "../middlewares/verifyJWT.middleware";
-import { findRestaurants, getAllCuisineInfos, getRestaurantDetails } from "../controllers/marketplace.controller";
+import { findRestaurants, getAllCuisineInfos, getRestaurantDetails, getRestaurantsNew } from "../controllers/marketplace.controller";
 
 const marketplaceRouter = Router();
 
@@ -17,6 +17,7 @@ marketplaceRouter.get('/restaurant-details/:restaurantId', verifyJWTMiddleware, 
 marketplaceRouter.get('/all-cuisines', verifyJWTMiddleware, getAllCuisineInfos)
 
 
-
+// working here 
+marketplaceRouter.get('/checking', getRestaurantsNew)
 
 export default marketplaceRouter;
