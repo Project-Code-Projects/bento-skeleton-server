@@ -1,6 +1,6 @@
 import { Response } from "express";
 import { JwtReqInterface } from "../interfaces/JwtReqInterface";
-import { findAllRestaurantCurrentUtilization, findAllRestaurantUtilizationsInRadius, findSingleRestaurantUtilization, setRestaurantUtilization } from "../models/restaurantUtilization/restaurantUtilization.query";
+import { findAllRestaurantCurrentUtilization, findAllRestaurantCurrentUtilizationWithInfo, findAllRestaurantUtilizationsInRadius, findSingleRestaurantUtilization, setRestaurantUtilization } from "../models/restaurantUtilization/restaurantUtilization.query";
 import { addUtilizationLog, findAverageHistoricalUtilizationInRadius } from "../models/restaurantUtilizationLog/restaurantUtilizationLog.query";
 import { validateCoordinates, validateDayOfWeek, validateHour, validateRadius } from "../utilities/location.utility";
 
@@ -18,7 +18,7 @@ export async function postRestaurantUtilization (req: JwtReqInterface, res: Resp
 
     const result = await setRestaurantUtilization(restaurantId, utilization);
     if (result) {
-      await addUtilizationLog(restaurantId, utilization);
+      await addUtilizationLog(restaurantId, utilization, result.level);
       return res.send({ status: 'Success' })
     } else return res.status(404).send({ message: 'Restaurant not found.'});
   } catch (error) {
@@ -33,7 +33,7 @@ export async function getAllCurrentUtilization (req: JwtReqInterface, res: Respo
     // const { user } = req;
     // if (!user) return res.status(401).send({ message: 'Unauthorized' });
 
-    const utilizations = await findAllRestaurantCurrentUtilization();
+    const utilizations = await findAllRestaurantCurrentUtilizationWithInfo();
     res.send({ data: utilizations });
   } catch (error) {
     console.log('Error getting utilization ⚠️ 📉', error);

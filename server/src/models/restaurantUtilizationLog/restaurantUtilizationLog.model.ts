@@ -10,6 +10,11 @@ const utilizationLogSchema = new Schema<IRestaurantUtilizationLog>({
     type: Number,
     min: 0
   },
+  level: {
+    type: String,
+    enum: ['LU', 'MU', 'HU'],
+    required: true
+  },
   timestamp: {
     type: Date,
     required: true,

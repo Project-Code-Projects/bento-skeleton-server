@@ -11,6 +11,11 @@ const restuarantUtilizationSchema = new Schema<IRestaurantUtilization>({
     type: Number,
     min: 0
   },
+  level: {
+    type: String,
+    enum: ['LU', 'MU', 'HU'],
+    required: true
+  },
   updatedAt: {
     type: Date
   }

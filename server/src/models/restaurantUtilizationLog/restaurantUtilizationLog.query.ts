@@ -3,12 +3,14 @@ import UtilizationLog from "./restaurantUtilizationLog.model";
 
 export async function addUtilizationLog(
   restaurantId: number,
-  utilization: number
+  utilization: number,
+  level: string
 ) {
   try {
     const newLog = await UtilizationLog.create({
       restaurantId,
       utilization,
+      level,
       timestamp: new Date(),
     });
     return newLog;

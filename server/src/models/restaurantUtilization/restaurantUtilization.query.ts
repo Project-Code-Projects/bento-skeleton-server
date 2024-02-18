@@ -1,3 +1,4 @@
+import { getUtilizationLevel } from "../../utilities/utilization.utility";
 import RestaurantInfoModel from "../restaurantInfo/restaurantInfo.model";
 import RestaurantUtilization from "./restaurantUtilization.model";
 
@@ -6,19 +7,21 @@ export async function setRestaurantUtilization(
   utilization: number
 ) {
   try {
+    const level = getUtilizationLevel(utilization);
     const existingUtilization = await RestaurantUtilization.findOne({
       restaurantId,
     });
     if (existingUtilization) {
       const updatedUtilization = await RestaurantUtilization.findByIdAndUpdate(
         existingUtilization._id,
-        { $set: { utilization, updatedAt: new Date() } }
+        { $set: { utilization, updatedAt: new Date(), level } }
       );
       return updatedUtilization;
     } else {
       const newRestaurant = await RestaurantUtilization.create({
         restaurantId,
         utilization,
+        level,
         updatedAt: new Date(),
       });
       return newRestaurant;
@@ -84,6 +87,25 @@ export async function findAllRestaurantUtilizationsInRadius(
           restaurantId: "$utilization.restaurantId",
           utilization: "$utilization.utilization",
           updatedAt: "$utilization.updatedAt"
+        }
+      }
+    ]);
+    return utilizations;
+  } catch (error) {
+    console.log(error);
+    throw new Error("Error setting restaurant utilization.");
+  }
+}
+
+export async function findAllRestaurantCurrentUtilizationWithInfo() {
+  try {
+    const utilizations = await RestaurantUtilization.aggregate([
+      {
+        $lookup: {
+          localField: 'restaurantId',
+          foreignField: '_id',
+          from: 'restaurantInfos',
+          as: 'restaurantInfo'
         }
       }
     ]);
