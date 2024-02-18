@@ -30,13 +30,52 @@ export async function getAllCuisineInfos(req: JwtReqInterface, res: Response) {
     }
 }
 
+// The Super Route for Restaurant search with query params (mode , cuisine, searchTerm , limit, name )
+export async function getRestaurantsNew(req: JwtReqInterface, res: Response) {
+    try {
+        const result = await findRestaurantsUsingQuery(req.query)
+        res.send(result)
+    } catch (error) {
+        console.log('😭😭😭😭😭😭😭😭😭😭', error);
+        res.status(500).json({ message: (error as Error).message })
+    }
+}
 
+
+
+// --------------------------------------------------------------------------------------------------------------
+// Apu Showed this to teach relation error handling
+export async function testingError(req: JwtReqInterface, res: Response) {
+    try {
+        const { num } = req.body;
+        const isEven = await testDummy(num);
+        res.send(isEven);
+    } catch (error) {
+        console.log('😭😭😭😭😭😭😭😭😭😭', error);
+        // res.status(500).json({ message: (error as Error).message });
+        res.status(500).json({ message: (error as Error).message })
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// OBSOLETE NOW. USING getRestaurantsNew now
 // Get Restaurants List based on Mode, Cuisine, SearchTerm 
 // [NEED TO FIX-- > Get Rating / Like info from Review of each found restaurant and attach it with the final result]
-export async function findRestaurants(req: JwtReqInterface, res: Response) {
+/* export async function findRestaurants(req: JwtReqInterface, res: Response) {
     try {
-
-
         const mode = (req.query.mode as string).toLowerCase()
 
         const cuisine = req.query.cuisine as string
@@ -70,51 +109,4 @@ export async function findRestaurants(req: JwtReqInterface, res: Response) {
 
 
 }
-
-// Working here . Gotta attach it to the router later
-export async function getRestaurantsNew(req: Request, res: Response) {
-    try {
-        /*        const mode = (req.query.mode as string).toLowerCase()
-               const cuisine = req.query.cuisine as string
-               const searchTerm = req.query.searchTerm as string;
-               const priceRange = req.query.priceRange as string; */
-
-        const result = await findRestaurantsUsingQuery(req.query)
-        res.send(result)
-
-
-
-    } catch (error) {
-        console.log('😭😭😭😭😭😭😭😭😭😭', error);
-        res.status(500).json({ message: (error as Error).message })
-    }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// --------------------------------------------------------------------------------------------------------------
-// Apu Showed this to teach relation error handling
-export async function testingError(req: JwtReqInterface, res: Response) {
-    try {
-        const { num } = req.body;
-        const isEven = await testDummy(num);
-        res.send(isEven);
-    } catch (error) {
-        console.log('😭😭😭😭😭😭😭😭😭😭', error);
-        // res.status(500).json({ message: (error as Error).message });
-        res.status(500).json({ message: (error as Error).message })
-    }
-}
+ */

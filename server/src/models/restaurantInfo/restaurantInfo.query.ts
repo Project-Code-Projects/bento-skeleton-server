@@ -194,15 +194,12 @@ export async function findRestaurantsInRadius({ longitude, latitude }: { longitu
 }
 
 
-// Working here
+// The Super Route for Restaurant search with query params (mode , cuisine, searchTerm , limit, name )
 export async function findRestaurantsUsingQuery(queryObject: any) {
     try {
         const filter = restaurantFiltersFactory(queryObject)
-        // console.log('filter from query file', filter);
-
         const restaurants = await RestaurantInfoModel.find(filter, '', { limit: queryObject?.limit ? Number(queryObject?.limit) : 20 })
         return restaurants;
-        // search in db using the filter here
     } catch (error) {
         console.log(error);
         throw new Error((error as Error).message);

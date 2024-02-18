@@ -6,6 +6,7 @@ const functionDictionary: IQueryObj = {
     mode: getModeQuery,
     priceRange: getPriceRangeQuery,
     cuisine: getCuisineQuery,
+    // limit: getLimitQuery
 }
 
 interface IQueryObj {
@@ -17,11 +18,14 @@ export function restaurantFiltersFactory(queryObject: IQueryObj) {
     let filter = {}
 
     for (let query in queryObject) {
-        const resultQueryFunction = functionDictionary[query]
-        const resultQuery = resultQueryFunction(queryObject[query])
-        Object.assign(filter, resultQuery)
+        if (functionDictionary[query]) {
+            const resultQueryFunction = functionDictionary[query]
+            const resultQuery = resultQueryFunction(queryObject[query])
+            Object.assign(filter, resultQuery)
+        }
+
     }
-    console.log('filter obj from utility', filter);
+    // console.log('filter obj from utility', filter);
     return filter
 }
 
@@ -48,4 +52,7 @@ function getCuisineQuery(cuisine: string) {
     return { cuisines: { $in: cuisineList } }
 }
 
+function getLimitQuery(limit: number | string) {
+    return {}
+}
 

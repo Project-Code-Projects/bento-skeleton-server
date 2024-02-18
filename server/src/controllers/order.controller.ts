@@ -13,10 +13,16 @@ export async function getAllOrders(req: JwtReqInterface, res: Response) {
     if (!user) return res.status(401).send({ message: 'Unauthorized.' });
 
     if (user.restaurantId) {
+
+      let result: any[] = []
+
       const posOrders = await posGetAllOrders(user.token);
-      const marketplaceOrders = await getMarketplaceOrderData(user.restaurantId)
-      const allOrders = [...posOrders, ...marketplaceOrders];
-      res.status(200).send(allOrders)
+      result = [...result, ...posOrders]
+
+      // const marketplaceOrders = await getMarketplaceOrderData(user.restaurantId)
+      // result = [...result, ...marketplaceOrders]
+
+      res.status(200).send(result)
     }
 
     // res.send(orders);
