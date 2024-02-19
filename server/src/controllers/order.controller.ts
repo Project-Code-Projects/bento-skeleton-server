@@ -72,7 +72,33 @@ export async function updateOrderStatus(req: JwtReqInterface, res: Response) {
   }
 }
 
-// 1. Send New Order To KDS To Process Order
+
+export async function updateOrderChef(req: JwtReqInterface, res: Response) {
+  try {
+    const { user } = req;
+    if (!user) return res.status(401).send({ message: 'Unauthorized.' });
+
+    const { orderId } = req.params;
+    const { chef } = req.body;
+    if (typeof orderId !== 'string') return res.status(400).send({ message: 'Invalid data.' });
+
+    const updatedOrder = await posUpdateOrderChef(user.token, orderId, chef);
+    res.send(updatedOrder);
+  } catch (error) {
+    console.log('😭😭😭😭😭😭😭😭😭😭', error);
+    res.status(500).send({ message: (error as Error).message });
+  }
+}
+
+
+
+
+
+
+
+
+
+// 1. Send New Order To KDS + Inventory To Process Order
 export async function incomingOrder(req: JwtReqInterface, res: Response) {
   try {
     const { user } = req;
@@ -87,7 +113,7 @@ export async function incomingOrder(req: JwtReqInterface, res: Response) {
     if (order.type == "in-house") {
       result = await kdsPostIncomingOrder(user.token, order);
     }
-    // Working here --------------------
+
     else if (order.type === "pickup" || order.type === "delivery") {
 
       result = await kdsPostIncomingOrder(user.token, order);
@@ -109,20 +135,3 @@ export async function incomingOrder(req: JwtReqInterface, res: Response) {
   }
 }
 
-
-export async function updateOrderChef(req: JwtReqInterface, res: Response) {
-  try {
-    const { user } = req;
-    if (!user) return res.status(401).send({ message: 'Unauthorized.' });
-
-    const { orderId } = req.params;
-    const { chef } = req.body;
-    if (typeof orderId !== 'string') return res.status(400).send({ message: 'Invalid data.' });
-
-    const updatedOrder = await posUpdateOrderChef(user.token, orderId, chef);
-    res.send(updatedOrder);
-  } catch (error) {
-    console.log('😭😭😭😭😭😭😭😭😭😭', error);
-    res.status(500).send({ message: (error as Error).message });
-  }
-}
