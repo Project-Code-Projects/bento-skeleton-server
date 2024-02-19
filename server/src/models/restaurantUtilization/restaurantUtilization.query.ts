@@ -103,7 +103,7 @@ export async function findAllRestaurantCurrentUtilizationWithInfo() {
       {
         $lookup: {
           localField: 'restaurantId',
-          foreignField: '_id',
+          foreignField: 'restaurantId',
           from: 'restaurantInfos',
           as: 'restaurantInfo'
         }
