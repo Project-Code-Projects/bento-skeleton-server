@@ -21,6 +21,7 @@ import hrRouter from "./routers/hr.router";
 import marketplaceRouter from "./routers/marketplace.router";
 import restaurantsRouter from "./routers/restaurants.router";
 import utilizationRouter from "./routers/restaurantUtilization.router";
+import { closeMQConnection, connectAndconsumeMQDataForMarketplaceOrders } from "./controllers/order.controller";
 app.use(cookieParser());
 
 app.use(
@@ -90,6 +91,9 @@ async function main() {
     await mongoose.connect(uri, {});
     console.log("Mongoose connected");
 
+    // Start consuming message from RabbitMQ
+    await connectAndconsumeMQDataForMarketplaceOrders()
+
     app.listen(config.PORT, () => {
       console.log(`[server]: Server is running on port ${config.PORT}`);
     });
@@ -97,5 +101,16 @@ async function main() {
     console.log(err);
   }
 }
+
 // Dont forget the call the main function
 main();
+
+// Handle Server Shutdown. Close MQ Connection
+process.on('SIGINT', async () => {
+  console.log('Closing MQ connection');
+  await closeMQConnection()
+  process.exit(0);
+
+})
+
+
