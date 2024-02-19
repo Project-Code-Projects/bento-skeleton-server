@@ -1,3 +1,4 @@
+import { PipelineStage, Types } from "mongoose";
 import { IRestaurantInfoForDB, IRestaurantInfoFromFrontend } from "../../interfaces/RestaurantInfoInterface";
 import { getCuisineArray, getMultipleRestaurantRatingInfoFromReview } from "../../utilities/marketplace.utility";
 import { restaurantFiltersFactory } from "../../utilities/restaurant.utility";
@@ -203,5 +204,31 @@ export async function findRestaurantsUsingQuery(queryObject: any) {
     } catch (error) {
         console.log(error);
         throw new Error((error as Error).message);
+    }
+}
+
+
+export async function findBulkRestaurantInfo(ids: number[], properties?: string[]) {
+    try {
+        const pipeline: PipelineStage[] = [
+            {
+                $match: {
+                    restaurantId: { $in: ids }
+                }
+            }
+        ]
+
+        if (properties) {
+            const projection: { [key: string]: number } = {}
+            properties.forEach(property => projection[property] = 1);
+            if (!projection['restaurantId']) projection['restaurantId'] = 1;
+            pipeline.push({ $project: projection });
+        }
+
+        const data = await RestaurantInfoModel.aggregate(pipeline);
+        return data;
+    } catch (error) {
+        console.log(error);
+        throw new Error('Error in fetching bulk data from DB.');
     }
 }
