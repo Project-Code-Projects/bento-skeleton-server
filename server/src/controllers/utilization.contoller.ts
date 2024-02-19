@@ -33,7 +33,13 @@ export async function getAllCurrentUtilization (req: JwtReqInterface, res: Respo
     // const { user } = req;
     // if (!user) return res.status(401).send({ message: 'Unauthorized' });
 
-    const utilizations = await findAllRestaurantCurrentUtilizationWithInfo();
+    let { delivery } = req.query;
+    let parsedDelivery: boolean | undefined;
+    if (delivery === 'true') parsedDelivery = true;
+    else if (delivery === 'false') parsedDelivery = false;
+    else parsedDelivery = undefined;
+
+    const utilizations = await findAllRestaurantCurrentUtilizationWithInfo(parsedDelivery);
     res.send({ data: utilizations });
   } catch (error) {
     console.log('Error getting utilization ⚠️ 📉', error);

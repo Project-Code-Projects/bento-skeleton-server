@@ -1,3 +1,4 @@
+import { PipelineStage } from "mongoose";
 import { getUtilizationLevel } from "../../utilities/utilization.utility";
 import RestaurantInfoModel from "../restaurantInfo/restaurantInfo.model";
 import RestaurantUtilization from "./restaurantUtilization.model";
@@ -97,18 +98,46 @@ export async function findAllRestaurantUtilizationsInRadius(
   }
 }
 
-export async function findAllRestaurantCurrentUtilizationWithInfo() {
-  try {
-    const utilizations = await RestaurantUtilization.aggregate([
-      {
-        $lookup: {
-          localField: 'restaurantId',
-          foreignField: 'restaurantId',
-          from: 'restaurantInfos',
-          as: 'restaurantInfo'
-        }
+export async function findAllRestaurantCurrentUtilizationWithInfo(delivery?: boolean) {
+
+  const pipeline: PipelineStage[] = [
+    {
+      $lookup: {
+        localField: 'restaurantId',
+        foreignField: 'restaurantId',
+        from: 'restaurantinfos',
+        as: 'restaurantInfo'
       }
-    ]);
+    },
+    {
+      $unwind: '$restaurantInfo'
+    },
+    {
+      $project: {
+        restaurantId: 1,
+        utilization: 1,
+        level: 1,
+        restaurantName: '$restaurantInfo.restaurantName',
+        restaurantLongitude: '$restaurantInfo.restaurantLongitude',
+        restaurantLatitude: '$restaurantInfo.restaurantLatitude',
+        address: '$restaurantInfo.address',
+        country: '$restaurantInfo.country',
+        rating: '$restaurantInfo.rating',
+        priceRange: '$restaurantInfo.priceRange',
+        delivery: '$restaurantInfo.delivery',
+        deliveryTimeStart: '$restaurantInfo.deliveryTimeStart',
+        deliveryTimeEnd: '$restaurantInfo.deliveryTimeEnd',
+        operatingDays: '$restaurantInfo.operatingDays',
+        operationOpeningTime: '$restaurantInfo.operationOpeningTime',
+        operationClosingTime: '$restaurantInfo.operationOpeningTime',
+      }
+    }
+  ];
+
+  if (typeof delivery === "boolean") pipeline.push({ $match: { delivery }});
+
+  try {
+    const utilizations = await RestaurantUtilization.aggregate(pipeline);
     return utilizations;
   } catch (error) {
     console.log(error);
