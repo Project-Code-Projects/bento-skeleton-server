@@ -36,8 +36,9 @@ export const restaurantRegistration = async (req: Request, res: Response) => {
                         password: restaurantRepDbResult.password
                     };
 
-                    await setRestaurantUtilization(restaurantInfoDbResult.restaurantId, 0);
-                    await addUtilizationLog(restaurantInfoDbResult.restaurantId, 0);
+                    const utilization = await setRestaurantUtilization(restaurantInfoDbResult.restaurantId, 0);
+                    if (utilization)
+                        await addUtilizationLog(restaurantInfoDbResult.restaurantId, 0, utilization.level);
 
                     let hrResponse = await sendOwnerInfoToHR(dataForHR) // Gotta uncomment this when HR API is Ready
 
