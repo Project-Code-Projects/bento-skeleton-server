@@ -21,6 +21,7 @@ import hrRouter from "./routers/hr.router";
 import marketplaceRouter from "./routers/marketplace.router";
 import restaurantsRouter from "./routers/restaurants.router";
 import utilizationRouter from "./routers/restaurantUtilization.router";
+import { Redis } from "ioredis";
 app.use(cookieParser());
 
 app.use(
@@ -31,6 +32,9 @@ app.use(
     exposedHeaders: ["Authorization"],
   })
 );
+
+// Creating Redis Client
+export const redis = new Redis();
 
 app.use(express.json());
 

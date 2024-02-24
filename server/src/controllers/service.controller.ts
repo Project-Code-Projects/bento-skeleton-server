@@ -5,6 +5,7 @@ import { getRedirectUrlForService, validateService } from "../utilities/service.
 import { hrServiceCheck, hrUserInfo } from "../utilities/hr.utility";
 import { createServiceTokenStore, findServiceTokenStore } from "../models/serviceTokenStore/serviceTokenStore.query";
 import { JwtReqInterface } from "../interfaces/JwtReqInterface";
+import { redis } from "..";
 
 export async function redirectToService(req: JwtReqInterface, res: Response) {
   try {
@@ -47,6 +48,8 @@ export async function getUserInfoByToken(req: JwtReqInterface, res: Response) {
   try {
     const user = req.user;
     if (!user) return res.send({ message: 'Unauthorized.' });
+
+    // For Marketplace . userId = 0
     if (user.id === 0) {
       const marketplaceTokenInfos = {
         user: {
@@ -89,9 +92,15 @@ export async function getUserInfoByToken(req: JwtReqInterface, res: Response) {
 
 
     // Ekhane Redis implement korte hobe
+    const cachedData = await redis.get(`userId-${user.id}`)
+    if (cachedData) {
+      res.send(JSON.parse(cachedData))
+    } else {
+      const userData = await hrUserInfo(user.id);
+      await redis.set(`userId-${user.id}`, JSON.stringify(userData), 'EX', 3600)
+      res.send(userData);
+    }
 
-    const userData = await hrUserInfo(user.id);
-    res.send(userData);
   } catch (error) {
     console.log('😭😭😭😭😭😭😭😭😭😭', error);
     res.status(500).send({ message: (error as Error).message });
