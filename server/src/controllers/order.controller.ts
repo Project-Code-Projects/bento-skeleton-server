@@ -17,7 +17,7 @@ export async function getAllOrders(req: JwtReqInterface, res: Response) {
       let result: any[] = []
 
       const posOrders = await posGetAllOrders(user.token);
-      result = [...result, ...posOrders]
+      result = [...result, ...posOrders.data]
 
       // const marketplaceOrders = await getMarketplaceOrderData(user.restaurantId)
       // result = [...result, ...marketplaceOrders]
