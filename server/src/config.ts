@@ -30,6 +30,8 @@ const config = {
 
   REVIEW_BE_BASE_URL: process.env.REVIEW_BE_BASE_URL ?? "http://localhost:4060",
   REVIEW_FE_BASE_URL: process.env.REVIEW_FE_BASE_URL ?? "http://localhost:4061",
+
+  RESERVATION_FE_BASE_URL: process.env.RESERVATION_FE_BASE_URL ?? "http://localhost:4150",
 };
 
 export default config;
