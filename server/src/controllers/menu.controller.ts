@@ -9,12 +9,14 @@ const getOneRestaurantMenu = async (req: JwtReqInterface, res: Response) => {
         if (req.user) {
 
             if (req.user.restaurantId === 0) {
-                const restaurantId = req.params.restaurantId // Not using anymore since menu getting the restaurantId from token
+                const restaurantId = req.params.restaurantId
                 const data = await getMenuWithRestaurantId(restaurantId, req.user.token);
-                res.status(200).send(data)
+                const filteredMenuData = data.filter((i: any) => i.item.availableInMarketPlace === true || i.item.availableInMarketPlace === undefined)
+                res.status(200).send(filteredMenuData)
             } else {
                 const menuData = await getMenuFromToken(req.user.token)
-                res.status(200).send(menuData)
+                const filteredMenuData = menuData.filter((i: any) => i.item.availableInPos === true || i.item.availableInPos === undefined)
+                res.status(200).send(filteredMenuData)
             }
         }
     } catch (error) {
@@ -22,35 +24,6 @@ const getOneRestaurantMenu = async (req: JwtReqInterface, res: Response) => {
 
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
