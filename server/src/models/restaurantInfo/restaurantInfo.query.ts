@@ -4,6 +4,18 @@ import { getCuisineArray, getMultipleRestaurantRatingInfoFromReview } from "../.
 import { restaurantFiltersFactory } from "../../utilities/restaurant.utility";
 import RestaurantInfoModel from "./restaurantInfo.model";
 
+// Update one restaurant info
+export async function updateRestaurantInfo(restaurantId: number, data: any) {
+    try {
+        const updatedDocument = await RestaurantInfoModel.findOneAndUpdate({ restaurantId }, data, { new: true })
+        return updatedDocument
+
+    } catch (error) {
+        console.log(error);
+        throw new Error((error as Error).message)
+    }
+}
+
 // GET Info of one restaurant using its restaurantId
 export async function getOneRestaurantInfoUsingId(restaurantId: number) {
     try {
@@ -200,7 +212,8 @@ export async function findRestaurantsUsingQuery(queryObject: any) {
     try {
         const filter = restaurantFiltersFactory(queryObject)
         const restaurants = await RestaurantInfoModel.find(filter, '', { limit: queryObject?.limit ? Number(queryObject?.limit) : 20 })
-        return restaurants;
+        const filteredRestaurants = restaurants.filter((r: any) => r.showInMarketPlace === true)
+        return filteredRestaurants;
     } catch (error) {
         console.log(error);
         throw new Error((error as Error).message);

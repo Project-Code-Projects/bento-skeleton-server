@@ -10,6 +10,7 @@ export function getCorsOrigin() {
     config.MENU_BE_BASE_URL,
     config.POS_BE_BASE_URL,
     config.REVIEW_BE_BASE_URL,
+    config.RESERVATION_FE_BASE_URL,
     ...config.CORS_ORIGIN.split(","),
   ];
 }

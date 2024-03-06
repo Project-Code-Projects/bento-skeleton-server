@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { JwtReqInterface } from "../interfaces/JwtReqInterface";
-import { findBulkRestaurantInfo, findRestaurantsInRadius, getAllRestaurantInfo, getOneRestaurantInfoUsingId, postRestaurantInfo, updateRestaurantRatingUsingId } from "../models/restaurantInfo/restaurantInfo.query";
+import { findBulkRestaurantInfo, findRestaurantsInRadius, getAllRestaurantInfo, getOneRestaurantInfoUsingId, postRestaurantInfo, updateRestaurantInfo, updateRestaurantRatingUsingId } from "../models/restaurantInfo/restaurantInfo.query";
 import RestaurantInfoModel from "../models/restaurantInfo/restaurantInfo.model";
 import { IRestaurantRep } from "../interfaces/RestaurantRepInterface";
 import { IRestaurantInfoFromFrontend } from "../interfaces/RestaurantInfoInterface";
@@ -11,6 +11,21 @@ import { saveRestaurantRep } from "../models/restaurantRepInfo/restaurantRepInfo
 import RestaurantRepModel from "../models/restaurantRepInfo/restaurantRepInfo.model";
 import { validateCoordinates, validateRadius } from "../utilities/location.utility";
 import { validateBulkIds } from "../utilities/validator.utility";
+
+
+// Update One Restaurant
+export async function updateOneRestaurantController(req: JwtReqInterface, res: Response) {
+    try {
+        const restaurantId = Number(req.params.restaurantId)
+        const dataToUpdate = req.body
+        const result = await updateRestaurantInfo(restaurantId, dataToUpdate)
+        res.status(200).send(result)
+    } catch (error) {
+        console.log('😭😭😭😭😭😭😭😭😭😭', error);
+        res.status(500).json({ message: (error as Error).message })
+    }
+}
+
 
 // GET one restaurant's full info's using its restaurantId 
 export async function oneRestaurantInfo(req: Request, res: Response) {
@@ -110,7 +125,7 @@ export const getRestaurantsInRadius = async (req: JwtReqInterface, res: Response
     }
 }
 
-export async function getBulkRestaurantRating (req: Request, res: Response) {
+export async function getBulkRestaurantRating(req: Request, res: Response) {
     try {
         const { ids } = req.body;
         if (!validateBulkIds(ids)) return res.status(400).send({ message: 'Invalid data.' });

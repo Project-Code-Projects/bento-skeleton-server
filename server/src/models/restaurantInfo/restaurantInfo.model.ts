@@ -47,6 +47,11 @@ const restaurantInfo = new Schema<IRestaurantInfoForDB>({
         required: true,
     },
 
+    showInMarketPlace: {
+        type: Boolean,
+        default: true
+    },
+
     country: {
         type: Object,
         required: true,

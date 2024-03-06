@@ -3,7 +3,6 @@ import { JwtReqInterface } from "../interfaces/JwtReqInterface";
 import { findRestaurantsUsingQuery, restaurantsBasedOnMode, restaurantsConsideringModeCuisine, restaurantsConsideringModeCuisineSearchTerm, restaurantsConsideringModeSearchTerm } from "../models/restaurantInfo/restaurantInfo.query";
 import { getRestaurantDetailsFromDB, testDummy } from "../utilities/marketplace.utility";
 import { getAllCuisines } from "../models/cuisines/cuisines.query";
-import RestaurantInfoModel from "../models/restaurantInfo/restaurantInfo.model";
 
 // Get one restaurant's details using restaurantId . [restaurantName, img, delivery, pickup, address] (need to add rating)
 export async function getRestaurantDetails(req: JwtReqInterface, res: Response) {
@@ -16,7 +15,6 @@ export async function getRestaurantDetails(req: JwtReqInterface, res: Response) 
         res.status(500).json({ message: (error as Error).message })
     }
 }
-
 
 
 // Get all the cuisine's name and image
