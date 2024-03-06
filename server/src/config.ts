@@ -32,6 +32,12 @@ const config = {
   REVIEW_FE_BASE_URL: process.env.REVIEW_FE_BASE_URL ?? "http://localhost:4061",
 
   RESERVATION_FE_BASE_URL: process.env.RESERVATION_FE_BASE_URL ?? "http://localhost:4150",
+
+
+  REDIS_PORT: process.env.REDIS_PORT,
+  REDIS_HOST: process.env.REDIS_HOST,
+  REDIS_PASSWORD: process.env.REDIS_PASSWORD,
+
 };
 
 export default config;
