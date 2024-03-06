@@ -34,7 +34,13 @@ app.use(
 );
 
 // Creating Redis Client
-export const redis = new Redis();
+export const redis = new Redis({
+  port: 10546,
+  host: "redis-10546.c321.us-east-1-2.ec2.cloud.redislabs.com", // Redis host
+  username: "default", // needs Redis >= 6
+  password: "XhdOCmo9AS5zDFmUUvKdfNWwxSe2Y4Bb",
+  db: 0, // Defaults to 0
+});
 
 app.use(express.json());
 

@@ -44,6 +44,7 @@ export async function getTokenFromStore(req: Request, res: Response) {
   }
 }
 
+// Working here ----------------
 export async function getUserInfoByToken(req: JwtReqInterface, res: Response) {
   try {
     const user = req.user;
@@ -91,7 +92,7 @@ export async function getUserInfoByToken(req: JwtReqInterface, res: Response) {
     }
 
 
-    // Ekhane Redis implement korte hobe
+    // Ekhane Redis implement kora hoise
     const cachedData = await redis.get(`userId-${user.id}`)
     if (cachedData) {
       res.send(JSON.parse(cachedData))
