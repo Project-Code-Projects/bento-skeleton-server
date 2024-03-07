@@ -71,6 +71,8 @@ export interface IRestaurantInfoFromFrontend {
 
 export interface IRestaurantInfoForDB extends IRestaurantInfoFromFrontend {
     showInMarketPlace: boolean,
+    marketplaceDiscountPercentage: number,
+    posDiscountPercentage: number,
     address?: string;
     rating: number // FIX here after taking interface from zerin apu
     priceRange?: string // Will be decided on from Menu Builder

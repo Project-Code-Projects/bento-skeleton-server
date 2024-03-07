@@ -4,6 +4,29 @@ import { getCuisineArray, getMultipleRestaurantRatingInfoFromReview } from "../.
 import { restaurantFiltersFactory } from "../../utilities/restaurant.utility";
 import RestaurantInfoModel from "./restaurantInfo.model";
 
+// GET Req from POS to Skeleton to get posDiscountPercentage
+export async function getPosDiscountQuery(restaurantId: number) {
+    try {
+        const posDiscount = await RestaurantInfoModel.findOne({ restaurantId }, { posDiscountPercentage: 1, _id: 0 })
+        return posDiscount
+    } catch (error) {
+        console.log(error);
+        throw new Error((error as Error).message)
+    }
+}
+
+// GET Req from Marketplace to Skeleton to get marketplaceDiscountPercentage
+export async function getMarketplaceDiscountQuery(restaurantId: number) {
+    try {
+        const marketplaceDiscount = await RestaurantInfoModel.findOne({ restaurantId }, { marketplaceDiscountPercentage: 1, _id: 0 })
+        return marketplaceDiscount
+    } catch (error) {
+        console.log(error);
+        throw new Error((error as Error).message)
+    }
+}
+
+
 // Update one restaurant info
 export async function updateRestaurantInfo(restaurantId: number, data: any) {
     try {

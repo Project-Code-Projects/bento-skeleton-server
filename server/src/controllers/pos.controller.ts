@@ -1,6 +1,21 @@
 import { Request, Response } from "express";
 import { changeReservationStatusInReview, getAllReservationOfARestaurant, getAllTableOfAllRestaurantFromPos, getOrderInfoUsingOrderId, getReservationOfARestaurantByDate, getStatsFromPos, getTableUsingRestaurantIdAndTableCapacity, getTablesUsingTableCapacity, postNewReservationOfARestaurant, sendOrderIdWithFullOrderToKdsFromPosToMarkOrderAsServed } from "../utilities/pos.utility";
 import { JwtReqInterface } from "../interfaces/JwtReqInterface";
+import { getPosDiscountQuery } from "../models/restaurantInfo/restaurantInfo.query";
+
+// GET Req from POS to Skeleton to get posDiscountPercentage
+const getPosDiscount = async (req: JwtReqInterface, res: Response) => {
+    try {
+        if (!req.user?.token) return res.status(401).json({ message: 'Unauthorized' })
+        if (req.user.restaurantId) {
+            const discount = await getPosDiscountQuery(req.user.restaurantId)
+            res.status(200).send(discount)
+        }
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({ message: (error as Error).message });
+    }
+}
 
 const getOrderInfo = async (req: JwtReqInterface, res: Response) => {
     try {
@@ -138,7 +153,7 @@ export async function allTableUsingTableCapacityAndRestaurantId(req: JwtReqInter
 }
 
 
-let posController = { orderStats, getOrderInfo, getAllReservations, getReservationByDate, postNewReservation, updateOrderStatusToServedInKds, reservationStatusChange, allTableAllRestaurantInfo, allTableUsingTableCapacity, allTableUsingTableCapacityAndRestaurantId }
+let posController = { orderStats, getOrderInfo, getAllReservations, getReservationByDate, postNewReservation, updateOrderStatusToServedInKds, reservationStatusChange, allTableAllRestaurantInfo, allTableUsingTableCapacity, allTableUsingTableCapacityAndRestaurantId, getPosDiscount }
 
 export default posController;
 

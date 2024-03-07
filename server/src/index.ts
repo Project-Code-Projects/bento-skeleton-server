@@ -71,6 +71,7 @@ app.use("/hr", hrRouter);
 // GET all table data of all restaurant from POS for Review to user for reservations
 // GET req from Review to POS to get Tables Using Table Capacity
 // Get req from Review to POS to get all tables by Restaurant and Table Capacity
+// GET Req from POS to Skeleton to get posDiscountPercentage
 app.use("/pos", posRouter)
 
 // Request from POS and Marketplace for menu
@@ -81,6 +82,7 @@ app.use("/skeleton", skeletonRouter);
 
 // Employee routes
 app.use("/employee", employeeRouter);
+
 
 // All Marketplace related routes
 app.use('/marketplace', marketplaceRouter)

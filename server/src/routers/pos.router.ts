@@ -3,6 +3,10 @@ import posController from "../controllers/pos.controller";
 import verifyJWTMiddleware from "../middlewares/verifyJWT.middleware";
 const posRouter = Router();
 
+
+// GET Req from POS to Skeleton to get posDiscountPercentage
+posRouter.get('/pos-discount-percentage', verifyJWTMiddleware, posController.getPosDiscount)
+
 // POST req From POS to KDS updating the order status to Served
 posRouter.post('/order/served/:orderId', verifyJWTMiddleware, posController.updateOrderStatusToServedInKds)
 

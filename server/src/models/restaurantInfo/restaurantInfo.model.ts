@@ -2,6 +2,14 @@ import { Schema, model } from "mongoose";
 import { IRestaurantInfoForDB } from "../../interfaces/RestaurantInfoInterface";
 
 const restaurantInfo = new Schema<IRestaurantInfoForDB>({
+    marketplaceDiscountPercentage: {
+        type: Number,
+        default: 0
+    },
+    posDiscountPercentage: {
+        type: Number,
+        default: 0
+    },
     address: {
         type: String,
         default: "121 Uxbridge Rd, Shepherds Bush, Greater London, W12 8NL"

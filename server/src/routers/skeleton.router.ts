@@ -13,6 +13,7 @@ skeletonRouter.post('/restaurant-register', restaurantRegistration)
 skeletonRouter.put('/update-restaurant-rating/:restaurantId', verifyJWTMiddleware, updateRestaurantRating)
 
 
+
 // Working Here
 skeletonRouter.put('/update-restaurant/:restaurantId', verifyJWTMiddleware, updateOneRestaurantController)
 

@@ -1,8 +1,20 @@
 import { Response, Request } from "express";
 import { JwtReqInterface } from "../interfaces/JwtReqInterface";
-import { findRestaurantsUsingQuery, restaurantsBasedOnMode, restaurantsConsideringModeCuisine, restaurantsConsideringModeCuisineSearchTerm, restaurantsConsideringModeSearchTerm } from "../models/restaurantInfo/restaurantInfo.query";
+import { findRestaurantsUsingQuery, getMarketplaceDiscountQuery, restaurantsBasedOnMode, restaurantsConsideringModeCuisine, restaurantsConsideringModeCuisineSearchTerm, restaurantsConsideringModeSearchTerm } from "../models/restaurantInfo/restaurantInfo.query";
 import { getRestaurantDetailsFromDB, testDummy } from "../utilities/marketplace.utility";
 import { getAllCuisines } from "../models/cuisines/cuisines.query";
+
+// GET Req from Marketplace to Skeleton to get marketplaceDiscountPercentage
+export async function getMarketplaceDiscountPercentage(req: JwtReqInterface, res: Response) {
+    try {
+        const restaurantId = Number(req.params.restaurantId)
+        const discount = await getMarketplaceDiscountQuery(restaurantId)
+        res.status(200).send(discount)
+    } catch (error) {
+        console.log('😭😭😭😭😭😭😭😭😭😭', error);
+        res.status(500).json({ message: (error as Error).message })
+    }
+}
 
 // Get one restaurant's details using restaurantId . [restaurantName, img, delivery, pickup, address] (need to add rating)
 export async function getRestaurantDetails(req: JwtReqInterface, res: Response) {
