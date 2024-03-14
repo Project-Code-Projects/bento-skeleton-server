@@ -34,7 +34,7 @@ The Bento Skeleton Server connects all the services of the Bento project with ea
 ```
 
 ## Deployed Base URl
-``` ```
+``` https://sak-skeleton-samiya-kazi.koyeb.app ```
 
 ## Getting Started
 
