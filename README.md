@@ -40,7 +40,7 @@ The Bento Skeleton Server connects all the services of the Bento project with ea
 
 ### Prerequisites
 
-- Node.js (version X.X.X or later)
+- Node.js 
 - npm
 - concurrently
 
