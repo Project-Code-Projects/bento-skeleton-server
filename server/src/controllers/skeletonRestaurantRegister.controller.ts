@@ -5,7 +5,6 @@ import { postRestaurantInfo } from '../models/restaurantInfo/restaurantInfo.quer
 import { getNextSequenceValue } from '../models/incrementalRestaurantId/incrementalRestaurantId.query';
 import { saveRestaurantRep } from '../models/restaurantRepInfo/restaurantRepInfo.query';
 import { sendOwnerInfoToHR } from '../utilities/hr.utility';
-import { JwtReqInterface } from '../interfaces/JwtReqInterface';
 import { setRestaurantUtilization } from '../models/restaurantUtilization/restaurantUtilization.query';
 import { addUtilizationLog } from '../models/restaurantUtilizationLog/restaurantUtilizationLog.query';
 import { findBoroughFromPoint } from '../utilities/borough.utility';
@@ -16,11 +15,11 @@ export const restaurantRegistration = async (req: Request, res: Response) => {
         let restaurantRep: IRestaurantRep = req.body.restaurantRep
         let restaurantInfo: IRestaurantInfoFromFrontend = req.body.restaurantInfo
 
-        const incrementalrestaurantId = await getNextSequenceValue('restaurantId');
+        const incrementalRestaurantId = await getNextSequenceValue('restaurantId');
         const borough = await findBoroughFromPoint([restaurantInfo.restaurantLongitude, restaurantInfo.restaurantLatitude]);
 
-        if (incrementalrestaurantId) {
-            restaurantInfo.restaurantId = incrementalrestaurantId;
+        if (incrementalRestaurantId) {
+            restaurantInfo.restaurantId = incrementalRestaurantId;
             if (borough) restaurantInfo.boroughId = borough._id;
             const restaurantInfoDbResult = await postRestaurantInfo(restaurantInfo);
             if (restaurantInfoDbResult) {
@@ -30,7 +29,7 @@ export const restaurantRegistration = async (req: Request, res: Response) => {
                 if (restaurantRepDbResult) {
                     console.log('restaurantRepDbResult', restaurantRepDbResult);
                     let dataForHR = {
-                        restaurantId: restaurantRepDbResult.restaurantId, // Potential Bug Here
+                        restaurantId: restaurantRepDbResult.restaurantId,
                         name: restaurantRepDbResult.firstName + " " + restaurantRepDbResult.lastName,
                         email: restaurantRepDbResult.email,
                         password: restaurantRepDbResult.password
@@ -40,20 +39,15 @@ export const restaurantRegistration = async (req: Request, res: Response) => {
                     if (utilization)
                         await addUtilizationLog(restaurantInfoDbResult.restaurantId, 0, utilization.level);
 
-                    let hrResponse = await sendOwnerInfoToHR(dataForHR) // Gotta uncomment this when HR API is Ready
+                    await sendOwnerInfoToHR(dataForHR)
 
-
-                    res.status(200).json({ 'message': 'All Good' })
+                    res.status(200).json({ 'message': 'Restaurant Created Successfully' })
                 }
-
             }
-
-            // res.send(restaurantInfoDbResult)
         }
 
-
     } catch (error) {
-        console.log('😭😭😭😭😭😭😭😭😭😭', error);
+        console.error(error);
         res.status(500).json({ error: 'Internal Server Error' });
 
     }

@@ -28,7 +28,7 @@ export async function setRestaurantUtilization(
       return newRestaurant;
     }
   } catch (error) {
-    console.log(error);
+    console.error(error);
     throw new Error("Error setting restaurant utilization.");
   }
 }
@@ -38,7 +38,7 @@ export async function findSingleRestaurantUtilization(restaurantId: number) {
     const utilization = await RestaurantUtilization.findOne({ restaurantId });
     return utilization;
   } catch (error) {
-    console.log(error);
+    console.error(error);
     throw new Error("Error setting restaurant utilization.");
   }
 }
@@ -48,7 +48,7 @@ export async function findAllRestaurantCurrentUtilization() {
     const utilizations = await RestaurantUtilization.find();
     return utilizations;
   } catch (error) {
-    console.log(error);
+    console.error(error);
     throw new Error("Error setting restaurant utilization.");
   }
 }
@@ -93,7 +93,7 @@ export async function findAllRestaurantUtilizationsInRadius(
     ]);
     return utilizations;
   } catch (error) {
-    console.log(error);
+    console.error(error);
     throw new Error("Error setting restaurant utilization.");
   }
 }
@@ -134,13 +134,13 @@ export async function findAllRestaurantCurrentUtilizationWithInfo(delivery?: boo
     }
   ];
 
-  if (typeof delivery === "boolean") pipeline.push({ $match: { delivery }});
+  if (typeof delivery === "boolean") pipeline.push({ $match: { delivery } });
 
   try {
     const utilizations = await RestaurantUtilization.aggregate(pipeline);
     return utilizations;
   } catch (error) {
-    console.log(error);
+    console.error(error);
     throw new Error("Error setting restaurant utilization.");
   }
 }

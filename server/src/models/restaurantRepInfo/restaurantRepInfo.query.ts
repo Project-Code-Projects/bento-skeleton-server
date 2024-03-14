@@ -6,7 +6,7 @@ export const saveRestaurantRep = async (data: IRestaurantRep) => {
         const result = await RestaurantRepModel.create(data)
         return result;
     } catch (error) {
-        console.log('😭😭😭😭😭😭😭😭😭😭', error);
+        console.error(error);
     }
 
 }

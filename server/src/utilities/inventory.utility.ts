@@ -7,7 +7,7 @@ export async function getInventoryDataOfARestaurantFromInventory(restaurantId: n
         const res = await axios.get<any>(apiUrl, { headers: { 'Authorization': 'Bearer ' + token } });
         return res.data
     } catch (error) {
-        console.log('😭😭😭😭😭😭😭😭😭😭', error);
+        console.error(error);
         throw new Error((error as AxiosError<{ message: string }>).response?.data.message)
     }
 }
@@ -18,7 +18,7 @@ export async function getDeliveryBoxInfo(restaurantId: number, token: string) {
             { headers: { 'Authorization': 'Bearer ' + token } })
         return res.data
     } catch (error) {
-        console.log('😭😭😭😭😭😭😭😭😭😭', error);
+        console.error(error);
         throw new Error((error as AxiosError<{ message: string }>).response?.data.message)
     }
 }

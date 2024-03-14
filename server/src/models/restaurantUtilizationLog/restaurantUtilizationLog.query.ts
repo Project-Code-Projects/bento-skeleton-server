@@ -15,7 +15,7 @@ export async function addUtilizationLog(
     });
     return newLog;
   } catch (error) {
-    console.log(error);
+    console.error(error);
     throw new Error("Error adding utilization log.");
   }
 }
@@ -79,20 +79,20 @@ export async function findAverageHistoricalUtilizationInRadius(
 
     if (target && (target.dayOfWeek || target.hour)) {
       const firstFilter: PipelineStage = {
-          $match: {
-              $expr: {
-                  $and: [
-                      ...(target.hour ? [{ $eq: [{ $hour: "$timestamp" }, target.hour] }] : []),
-                      ...(target.dayOfWeek ? [{ $eq: [{ $dayOfWeek: "$timestamp" }, target.dayOfWeek] }] : []),
-                  ]
-              }
+        $match: {
+          $expr: {
+            $and: [
+              ...(target.hour ? [{ $eq: [{ $hour: "$timestamp" }, target.hour] }] : []),
+              ...(target.dayOfWeek ? [{ $eq: [{ $dayOfWeek: "$timestamp" }, target.dayOfWeek] }] : []),
+            ]
           }
+        }
       }
 
       pipeline.unshift(firstFilter);
     }
 
-    const data : { restaurantId: number, utilization: number }[] = await UtilizationLog.aggregate(pipeline);
+    const data: { restaurantId: number, utilization: number }[] = await UtilizationLog.aggregate(pipeline);
     return data;
   } catch (error) {
     console.error(error);

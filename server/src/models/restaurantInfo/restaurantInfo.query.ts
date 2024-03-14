@@ -10,7 +10,7 @@ export async function getPosDiscountQuery(restaurantId: number) {
         const posDiscount = await RestaurantInfoModel.findOne({ restaurantId }, { posDiscountPercentage: 1, _id: 0 })
         return posDiscount
     } catch (error) {
-        console.log(error);
+        console.error(error);
         throw new Error((error as Error).message)
     }
 }
@@ -21,7 +21,7 @@ export async function getMarketplaceDiscountQuery(restaurantId: number) {
         const marketplaceDiscount = await RestaurantInfoModel.findOne({ restaurantId }, { marketplaceDiscountPercentage: 1, _id: 0 })
         return marketplaceDiscount
     } catch (error) {
-        console.log(error);
+        console.error(error);
         throw new Error((error as Error).message)
     }
 }
@@ -34,7 +34,7 @@ export async function updateRestaurantInfo(restaurantId: number, data: any) {
         return updatedDocument
 
     } catch (error) {
-        console.log(error);
+        console.error(error);
         throw new Error((error as Error).message)
     }
 }
@@ -45,7 +45,7 @@ export async function getOneRestaurantInfoUsingId(restaurantId: number) {
         const data = await RestaurantInfoModel.find({ restaurantId })
         return data;
     } catch (error) {
-        console.log(error);
+        console.error(error);
         throw new Error((error as Error).message)
     }
 }
@@ -63,7 +63,7 @@ export async function getAllRestaurantInfo(limit: number | undefined) {
         }
 
     } catch (error) {
-        console.log('😭😭😭😭😭😭😭😭😭😭', error);
+        console.error(error);
         throw new Error((error as Error).message)
     }
 }
@@ -99,7 +99,7 @@ export async function restaurantsBasedOnMode(mode: string) {
         }
 
     } catch (error) {
-        console.log('😭😭😭😭😭😭😭😭😭😭', error);
+        console.error(error);
         throw new Error((error as Error).message)
     }
 }
@@ -131,7 +131,7 @@ export async function restaurantsConsideringModeCuisineSearchTerm(mode: string, 
         }
 
     } catch (error) {
-        console.log('😭😭😭😭😭😭😭😭😭😭', error);
+        console.error(error);
         throw new Error((error as Error).message)
     }
 }
@@ -160,7 +160,7 @@ export async function restaurantsConsideringModeCuisine(mode: string, cuisine: s
         }
 
     } catch (error) {
-        console.log('😭😭😭😭😭😭😭😭😭😭', error);
+        console.error(error);
         throw new Error((error as Error).message)
     }
 }
@@ -190,7 +190,7 @@ export async function restaurantsConsideringModeSearchTerm(mode: string, searchT
         }
 
     } catch (error) {
-        console.log('😭😭😭😭😭😭😭😭😭😭', error);
+        console.error(error);
         throw new Error((error as Error).message)
     }
 }
@@ -202,7 +202,7 @@ export async function updateRestaurantRatingUsingId(restaurantId: number, rating
         return updatedRestaurant;
 
     } catch (error) {
-        console.log(error);
+        console.error(error);
         throw new Error((error as Error).message)
     }
 }
@@ -224,7 +224,7 @@ export async function findRestaurantsInRadius({ longitude, latitude }: { longitu
 
         return restaurants;
     } catch (error) {
-        console.log(error);
+        console.error(error);
         throw new Error("Error while getting restaurants in radius.");
     }
 }
@@ -238,7 +238,7 @@ export async function findRestaurantsUsingQuery(queryObject: any) {
         const filteredRestaurants = restaurants.filter((r: any) => r.showInMarketPlace === true)
         return filteredRestaurants;
     } catch (error) {
-        console.log(error);
+        console.error(error);
         throw new Error((error as Error).message);
     }
 }
@@ -264,7 +264,7 @@ export async function findBulkRestaurantInfo(ids: number[], properties?: string[
         const data = await RestaurantInfoModel.aggregate(pipeline);
         return data;
     } catch (error) {
-        console.log(error);
+        console.error(error);
         throw new Error('Error in fetching bulk data from DB.');
     }
 }

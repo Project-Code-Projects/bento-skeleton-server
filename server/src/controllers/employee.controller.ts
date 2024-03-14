@@ -6,22 +6,16 @@ import { JwtReqInterface } from "../interfaces/JwtReqInterface";
 export const employeeCheckIn = async (req: JwtReqInterface, res: Response) => {
   try {
     if (!req.user) return res.status(401).send({ message: 'Unauthorized.' });
-
     const userData: { employeeId: number, position: string } = req.body
-
     if (req.user.restaurantId) {
-      // Implement functionality to send checked in user to HR
       const hrRes = await sendCheckInInfoToHr(userData.employeeId, req.user.restaurantId)
-
       if (userData.position.toLowerCase() == 'chef') {
-        // Send checked in CHEF to KDS
-        await chefCheckIn(req.user.token);  // 
+        await chefCheckIn(req.user.token);
       }
-
       res.status(201).send(hrRes);
     }
   } catch (error) {
-    console.log('😭😭😭😭😭😭😭😭😭😭', error);
+    console.error(error);
     res.status(500).send({ message: (error as Error).message });
   }
 };
@@ -30,25 +24,16 @@ export const employeeCheckIn = async (req: JwtReqInterface, res: Response) => {
 export const employeeCheckOut = async (req: JwtReqInterface, res: Response) => {
   try {
     if (!req.user) return res.status(401).send({ message: 'Unauthorized.' });
-
-    // Implement functionality to send checked out user to HR
     const userData: { employeeId: number, attendanceId: number, position: string } = req.body
-
     if (req.user.restaurantId) {
       const hrRes = await sendCheckOutInfoToHr(userData)
-
-      // Send checked out CHEF to KDS
       if (userData.position.toLowerCase() == 'chef') {
         await chefCheckOut(req.user.token);
       }
-
-
       res.send({ status: "Success", data: hrRes });
-
     }
-
   } catch (error) {
-    console.log('😭😭😭😭😭😭😭😭😭😭', error);
+    console.error(error);
     res.status(500).send({ message: (error as Error).message });
   }
 };
@@ -60,7 +45,7 @@ export const getActiveChefs = async (req: JwtReqInterface, res: Response) => {
     const response = await hrActiveChefs(req.user.restaurantId, req.user.token);
     res.send(response);
   } catch (error) {
-    console.log('😭😭😭😭😭😭😭😭😭😭', error);
+    console.error(error);
     res.status(500).send({ message: (error as Error).message });
   }
 };
@@ -72,7 +57,7 @@ export const getActiveWaiters = async (req: JwtReqInterface, res: Response) => {
     const response = await hrActiveWaiters(req.user.restaurantId, req.user.token);
     res.send(response);
   } catch (error) {
-    console.log('😭😭😭😭😭😭😭😭😭😭', error);
+    console.error(error);
     res.status(500).send({ message: (error as Error).message });
   }
 };

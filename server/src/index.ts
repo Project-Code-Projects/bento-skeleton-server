@@ -22,19 +22,17 @@ import marketplaceRouter from "./routers/marketplace.router";
 import restaurantsRouter from "./routers/restaurants.router";
 import utilizationRouter from "./routers/restaurantUtilization.router";
 import { Redis } from "ioredis";
-app.use(cookieParser());
 
+app.use(cookieParser());
 app.use(
   cors({
     origin: getCorsOrigin(),
-    // origin: "*",
     credentials: true,
     exposedHeaders: ["Authorization"],
   })
 );
 
 // Creating Redis Client
-
 export const redis = new Redis({
   port: Number(config.REDIS_PORT),
   host: config.REDIS_HOST,
@@ -43,55 +41,29 @@ export const redis = new Redis({
 
 app.use(express.json());
 
-// Auth api's
 app.use("/auth", authRouter);
+
 app.use("/service-auth", serviceAuthRouter);
 
-//Request From Menu Builder to Inventory to  get all the ingredients.
 app.use("/inventory", inventoryRouter);
 
-// PUT req from KDS to Pos and Marketplace regarding food preparation status
-// Send New Order data from POS to KDS
 app.use("/orders", orderRouter);
 
-
-// Post req from KDS to HR sending data about chef efficiency to prepare dishes
-// Post req from POS to HR sending data about waiter efficiency 63
-// Post req from Review to HR sending data about review of an order
 app.use("/hr", hrRouter);
 
-// Get req from Review to POS to get an Order Info using OrderId
-
-// Get req from  POS to REVIEW to get all the reservations  ///////
-// Get req from POS to   POS to get reservations of a day using date of that day
-// Post req from    Review to POS for sending new reservations. (Websocket)
-
-
-// POST req From POS to KDS updating the order status to Served
-// GET all table data of all restaurant from POS for Review to user for reservations
-// GET req from Review to POS to get Tables Using Table Capacity
-// Get req from Review to POS to get all tables by Restaurant and Table Capacity
-// GET Req from POS to Skeleton to get posDiscountPercentage
 app.use("/pos", posRouter)
 
-// Request from POS and Marketplace for menu
 app.use("/menu", menuRouter)
 
-// All the skeleton specific Routes
 app.use("/skeleton", skeletonRouter);
 
-// Employee routes
 app.use("/employee", employeeRouter);
 
-
-// All Marketplace related routes
 app.use('/marketplace', marketplaceRouter)
 
-// Get restaurant information
 app.use('/restaurants', restaurantsRouter)
 
 app.use('/utilization', utilizationRouter);
-
 
 
 
@@ -105,8 +77,7 @@ async function main() {
       console.log(`[server]: Server is running on port ${config.PORT}`);
     });
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 }
-// Dont forget the call the main function
 main();

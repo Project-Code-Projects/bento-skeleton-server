@@ -3,7 +3,6 @@ import { changeReservationStatusInReview, getAllReservationOfARestaurant, getAll
 import { JwtReqInterface } from "../interfaces/JwtReqInterface";
 import { getPosDiscountQuery } from "../models/restaurantInfo/restaurantInfo.query";
 
-// GET Req from POS to Skeleton to get posDiscountPercentage
 const getPosDiscount = async (req: JwtReqInterface, res: Response) => {
     try {
         if (!req.user?.token) return res.status(401).json({ message: 'Unauthorized' })
@@ -12,7 +11,7 @@ const getPosDiscount = async (req: JwtReqInterface, res: Response) => {
             res.status(200).send(discount)
         }
     } catch (error) {
-        console.log(error);
+        console.error(error);
         res.status(500).send({ message: (error as Error).message });
     }
 }
@@ -35,7 +34,7 @@ const getAllReservations = async (req: Request, res: Response) => {
         const result = await getAllReservationOfARestaurant(restaurantId)
         res.status(200).send(result);
     } catch (error) {
-        console.log('😭😭😭😭😭😭😭😭😭😭', error);
+        console.error(error);
         res.status(500).send({ message: (error as Error).message });
     }
 
@@ -45,11 +44,10 @@ const getReservationByDate = async (req: Request, res: Response) => {
     try {
         const restaurantId = req.params.restaurantId
         const date = req.params.date;
-        console.log('restaurantId and data', restaurantId, date);
         const result = await getReservationOfARestaurantByDate(restaurantId, date);
         res.status(200).send(result)
     } catch (error) {
-        console.log('😭😭😭😭😭😭😭😭😭😭', error);
+        console.error(error);
         res.status(500).send({ message: (error as Error).message });
     }
 };
@@ -61,7 +59,7 @@ const postNewReservation = async (req: Request, res: Response) => {
         const result = await postNewReservationOfARestaurant(restaurantId, reservationData)
         res.status(201).send(result)
     } catch (error) {
-        console.log('😭😭😭😭😭😭😭😭😭😭', error);
+        console.error(error);
         res.status(500).send({ message: (error as Error).message });
     }
 
@@ -80,7 +78,7 @@ export async function updateOrderStatusToServedInKds(req: JwtReqInterface, res: 
         const result = await sendOrderIdWithFullOrderToKdsFromPosToMarkOrderAsServed(orderId, fullOrder, user.token)
         res.status(200).send(result)
     } catch (error) {
-        console.log('😭😭😭😭😭😭😭😭😭😭', error);
+        console.error(error);
         res.status(500).json((error as Error).message)
     }
 }
@@ -100,7 +98,7 @@ export async function orderStats(req: JwtReqInterface, res: Response) {
             return res.status(406).json({ message: 'Invalid Route' })
         }
     } catch (error) {
-        console.log('😭😭😭😭😭😭😭😭😭😭', error);
+        console.error(error);
         res.send(500).json((error as Error).message)
     }
 }
@@ -111,7 +109,7 @@ export async function allTableAllRestaurantInfo(req: JwtReqInterface, res: Respo
         const result = await getAllTableOfAllRestaurantFromPos(req.user?.token)
         res.status(200).send(result);
     } catch (error) {
-        console.log('😭😭😭😭😭😭😭😭😭😭', error);
+        console.error(error);
         res.status(500).json({ message: (error as Error).message })
     }
 }
@@ -123,7 +121,7 @@ export async function reservationStatusChange(req: Request, res: Response) {
         const result = await changeReservationStatusInReview(reservationId, status)
         res.status(201).send(result)
     } catch (error) {
-        console.log(error);
+        console.error(error);
         res.status(500).json({ message: (error as Error).message })
     }
 }
@@ -134,7 +132,7 @@ export async function allTableUsingTableCapacity(req: JwtReqInterface, res: Resp
         const result = await getTablesUsingTableCapacity(tableCapacity, req.user.token)
         return res.send(result)
     } catch (error) {
-        console.log(error);
+        console.error(error);
         res.status(500).json({ message: (error as Error).message })
     }
 }
@@ -147,7 +145,7 @@ export async function allTableUsingTableCapacityAndRestaurantId(req: JwtReqInter
         const result = await getTableUsingRestaurantIdAndTableCapacity(restaurantId, tableCapacity, req.user?.token)
         res.send(result)
     } catch (error) {
-        console.log(error);
+        console.error(error);
         res.status(500).json({ message: (error as Error).message })
     }
 }

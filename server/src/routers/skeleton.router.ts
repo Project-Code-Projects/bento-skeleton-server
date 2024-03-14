@@ -6,19 +6,16 @@ import verifyJWTMiddleware from "../middlewares/verifyJWT.middleware";
 
 const skeletonRouter = Router();
 
-skeletonRouter.get("/get-all-countries", getAllCountryController); // Obsolete
+skeletonRouter.get("/get-all-countries", getAllCountryController);
 
 skeletonRouter.post('/restaurant-register', restaurantRegistration)
 
 skeletonRouter.put('/update-restaurant-rating/:restaurantId', verifyJWTMiddleware, updateRestaurantRating)
 
-
-
-// Working Here
 skeletonRouter.put('/update-restaurant/:restaurantId', verifyJWTMiddleware, updateOneRestaurantController)
 
-// Save restaurants in bulk in db
 skeletonRouter.post('/restaurant-in-bulk', createBulkRestaurants)
+
 skeletonRouter.post('/reps-in-bulk', createBulkReps)
 
 export default skeletonRouter;

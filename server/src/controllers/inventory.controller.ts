@@ -4,9 +4,6 @@ import { JwtReqInterface } from "../interfaces/JwtReqInterface";
 import { getDeliveryBoxInfo, getInventoryDataOfARestaurantFromInventory } from "../utilities/inventory.utility";
 
 
-
-
-
 //   This API call will be coming from Menu Builder to get all the  ingredients of that Restaurant from the  Inventory.
 async function getIngredientsFromInventory(req: JwtReqInterface, res: Response) {
   try {
@@ -25,17 +22,16 @@ async function getIngredientsFromInventory(req: JwtReqInterface, res: Response) 
 
 async function getDeliveryBoxInfoFromInventory(req: JwtReqInterface, res: Response) {
   try {
-    if (!req.user) return res.status(501).json({ message: 'Unauthorized' })
+    if (!req.user) return res.status(401).json({ message: 'Unauthorized' })
     const restaurantId = parseInt(req.params.restaurantId)
     const allBoxInfo = await getDeliveryBoxInfo(restaurantId, req.user.token)
     res.status(200).send(allBoxInfo)
 
   } catch (error) {
-    console.log('😭😭😭😭😭😭😭😭😭😭', error);
+    console.error(error);
     res.status(500).json({ message: (error as Error).message })
   }
 }
-
 
 
 const inventoryController = {

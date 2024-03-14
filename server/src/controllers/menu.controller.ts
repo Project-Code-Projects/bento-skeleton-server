@@ -1,13 +1,10 @@
 import { Response } from "express";
 import { JwtReqInterface } from "../interfaces/JwtReqInterface";
 import { getMenuCatagories, getMenuItemDetails, getMenuWithRestaurantId, getMenuFromToken } from "../utilities/menu.utility";
-import { Jwt } from "jsonwebtoken";
 
-//  + Marketplace --> MENU 
 const getOneRestaurantMenu = async (req: JwtReqInterface, res: Response) => {
     try {
         if (req.user) {
-
             if (req.user.restaurantId === 0) {
                 const restaurantId = req.params.restaurantId
                 const data = await getMenuWithRestaurantId(restaurantId, req.user.token);
@@ -25,17 +22,15 @@ const getOneRestaurantMenu = async (req: JwtReqInterface, res: Response) => {
     }
 }
 
-
-
 const getAllMenuCatagories = async (req: JwtReqInterface, res: Response) => {
     try {
         if (req.user) {
             const restaurantId = parseInt(req.params.restaurantId)
-            const catagoryData = await getMenuCatagories(restaurantId, req.user.token)
-            res.status(200).send(catagoryData);
+            const categoryData = await getMenuCatagories(restaurantId, req.user.token)
+            res.status(200).send(categoryData);
         }
     } catch (error) {
-        console.log('😭😭😭😭😭😭😭😭😭😭', error);
+        console.error(error);
         res.status(500).json({ error: "Internal Server Error " });
     }
 }
@@ -48,7 +43,7 @@ export async function menuItemDetails(req: JwtReqInterface, res: Response) {
         const result = await getMenuItemDetails(menuItemId, req.user.token)
         res.status(200).send(result)
     } catch (error) {
-        console.log('😭😭😭😭😭😭😭😭😭😭', error);
+        console.error(error);
         res.status(500).json({ message: (error as Error).message })
     }
 }

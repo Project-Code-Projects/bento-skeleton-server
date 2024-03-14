@@ -15,13 +15,14 @@ export async function login(req: Request, res: Response) {
       const token = jwt.sign({ id: user.id, service: "skeleton", restaurantId: user.restaurantId }, config.JWT_SECRET, {
         expiresIn: "7d",
       });
+
       res.setHeader("Authorization", "Bearer " + token);
       res.send({ status: "success", user });
     } else {
       res.status(400).send({ message: "Invalid data." });
     }
   } catch (error) {
-    console.log('😭😭😭😭😭😭😭😭😭😭', error);
+    console.error(error);
     res.status(500).send({ message: (error as Error).message });
   }
 }
@@ -35,11 +36,12 @@ export async function getServices(req: JwtReqInterface, res: Response) {
       res.send(data);
     } else res.status(403).send({ auth: false });
   } catch (error) {
-    console.log('😭😭😭😭😭😭😭😭😭😭', error);
+    console.error(error);
     res.status(500).send({ message: (error as Error).message });
   }
 }
 
+// Checking if a user has access to any certain service
 export async function checkServiceAccess(req: JwtReqInterface, res: Response) {
   try {
     const user = req.user;
@@ -53,6 +55,7 @@ export async function checkServiceAccess(req: JwtReqInterface, res: Response) {
     }
 
     const check = await hrServiceCheck({ userId: user.id, service: user.service });
+
     if (check.auth) {
       res.send({ auth: true });
     } else {
@@ -60,7 +63,7 @@ export async function checkServiceAccess(req: JwtReqInterface, res: Response) {
     }
 
   } catch (error) {
-    console.log('😭😭😭😭😭😭😭😭😭😭', error);
+    console.error(error);
     res.status(500).send({ message: (error as Error).message });
   }
 }
