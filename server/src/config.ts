@@ -8,7 +8,7 @@ const config = {
 
   PORT: process.env.PORT ?? 5000,
   CORS_ORIGIN: process.env.CORS_ORIGIN ?? "*",
-  JWT_SECRET: process.env.JWT_SECRET ?? "secret",
+  JWT_SECRET: process.env.JWT_SECRET ?? "ad77cb1d20419283184dc60c3f1bdb8ef4305f8690cdd9dc680319c106cc2b7b",
 
   HR_BE_BASE_URL: process.env.HR_BE_BASE_URL ?? "http://localhost:4000",
   HR_FE_BASE_URL: process.env.HR_FE_BASE_URL ?? "http://localhost:4000",
