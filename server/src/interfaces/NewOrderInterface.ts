@@ -49,7 +49,7 @@ export interface IIngredient {
     unitOfStock: string;
     quantity: number;
     costPerUnit: number;
-    caloriesPerUnit: number;    //spelling change to calories
+    caloriesPerUnit: number;
     _id: string;
 }
 
@@ -80,17 +80,17 @@ export interface IItem {
     categoryId: string;
     mealTimeId: number;
     item: {
-        _id: string; //
-        itemId: number; //
-        itemName: string; //
-        itemImage: string; //
-        itemDescription: string; //
-        itemQuantity: number; //
-        itemPreparationTime: number; //
-        itemPackingType: IPacking[]; //
-        itemLastingTime?: number; //needed for marketplace
+        _id: string;
+        itemId: number;
+        itemName: string;
+        itemImage: string;
+        itemDescription: string;
+        itemQuantity: number;
+        itemPreparationTime: number;
+        itemPackingType: IPacking[];
+        itemLastingTime?: number;
         itemPortionSize: string;
-        ingredients: { rawIngredients: IIngredient[]; recipes: IRecipe[] }; //IRecipe[]
+        ingredients: { rawIngredients: IIngredient[]; recipes: IRecipe[] };
         options: { add: IOption[]; no: IOption[] };
         chosenOptions?: { add: IOption[]; no: IOption[] };
         optionalNotes?: string;

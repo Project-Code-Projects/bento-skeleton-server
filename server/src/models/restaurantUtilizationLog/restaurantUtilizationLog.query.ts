@@ -15,7 +15,7 @@ export async function addUtilizationLog(
     });
     return newLog;
   } catch (error) {
-    console.error(error);
+    console.log(error);
     throw new Error("Error adding utilization log.");
   }
 }

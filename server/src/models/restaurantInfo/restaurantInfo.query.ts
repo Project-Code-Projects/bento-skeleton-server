@@ -1,6 +1,5 @@
 import { PipelineStage, Types } from "mongoose";
-import { IRestaurantInfoForDB, IRestaurantInfoFromFrontend } from "../../interfaces/RestaurantInfoInterface";
-import { getCuisineArray, getMultipleRestaurantRatingInfoFromReview } from "../../utilities/marketplace.utility";
+import { IRestaurantInfoFromFrontend } from "../../interfaces/RestaurantInfoInterface";
 import { restaurantFiltersFactory } from "../../utilities/restaurant.utility";
 import RestaurantInfoModel from "./restaurantInfo.model";
 
@@ -81,120 +80,6 @@ export const postRestaurantInfo = async (data: IRestaurantInfoFromFrontend) => {
 }
 
 
-// Restaurants based on mode Pickup/Delivery
-export async function restaurantsBasedOnMode(mode: string) {
-    try {
-        let finalQuery;
-        if (mode === 'delivery') {
-            finalQuery = { delivery: true }
-        }
-        else if (mode === 'pickup') {
-            finalQuery = { pickup: true }
-        }
-
-        if (finalQuery) {
-            const restaurantInfosResult: IRestaurantInfoForDB[] = await RestaurantInfoModel.find(finalQuery)
-            return restaurantInfosResult;
-
-        }
-
-    } catch (error) {
-        console.error(error);
-        throw new Error((error as Error).message)
-    }
-}
-
-
-
-// Search with cuisine, searchTerm and mode
-export async function restaurantsConsideringModeCuisineSearchTerm(mode: string, cuisine: string, searchTerm: string) {
-    try {
-        const regexPattern = new RegExp(searchTerm, 'i')
-        const cuisineList = getCuisineArray(cuisine)
-        const baseQuery = {
-            restaurantName: { $regex: regexPattern },
-            cuisines: { $in: cuisineList },
-        }
-
-        let finalQuery;
-
-        if (mode === 'delivery') {
-            finalQuery = { ...baseQuery, delivery: true }
-        } else if (mode === 'pickup') {
-            finalQuery = { ...baseQuery, pickup: true }
-        }
-
-        if (finalQuery) {
-            const restaurantInfosResult: IRestaurantInfoForDB[] = await RestaurantInfoModel.find(finalQuery);
-            return restaurantInfosResult;
-
-        }
-
-    } catch (error) {
-        console.error(error);
-        throw new Error((error as Error).message)
-    }
-}
-
-// Search with mode and cuisine
-export async function restaurantsConsideringModeCuisine(mode: string, cuisine: string) {
-    try {
-        const cuisineList = getCuisineArray(cuisine)
-
-        const baseQuery = {
-            cuisines: { $in: cuisineList }
-        }
-
-        let finalQuery;
-
-        if (mode === 'delivery') {
-            finalQuery = { ...baseQuery, delivery: true }
-        } else if (mode === 'pickup') {
-            finalQuery = { ...baseQuery, pickup: true }
-        }
-
-        if (finalQuery) {
-            const restaurantInfosResult: IRestaurantInfoForDB[] = await RestaurantInfoModel.find(finalQuery)
-            return restaurantInfosResult;
-
-        }
-
-    } catch (error) {
-        console.error(error);
-        throw new Error((error as Error).message)
-    }
-}
-
-// Search with mode and searchTerm
-export async function restaurantsConsideringModeSearchTerm(mode: string, searchTerm: string) {
-    try {
-
-        const regexPattern = new RegExp(searchTerm, 'i')
-
-        const baseQuery = {
-            restaurantName: { $regex: regexPattern },
-        }
-
-        let finalQuery;
-
-        if (mode === 'delivery') {
-            finalQuery = { ...baseQuery, delivery: true }
-        } else if (mode === 'pickup') {
-            finalQuery = { ...baseQuery, pickup: true }
-        }
-
-        if (finalQuery) {
-            const restaurantInfosResult: IRestaurantInfoForDB[] = await RestaurantInfoModel.find(finalQuery)
-            return restaurantInfosResult;
-
-        }
-
-    } catch (error) {
-        console.error(error);
-        throw new Error((error as Error).message)
-    }
-}
-
 
 export async function updateRestaurantRatingUsingId(restaurantId: number, rating: number) {
     try {
@@ -206,7 +91,6 @@ export async function updateRestaurantRatingUsingId(restaurantId: number, rating
         throw new Error((error as Error).message)
     }
 }
-
 
 export async function findRestaurantsInRadius({ longitude, latitude }: { longitude: number; latitude: number }, radius: number) {
     try {
@@ -230,7 +114,6 @@ export async function findRestaurantsInRadius({ longitude, latitude }: { longitu
 }
 
 
-// The Super Route for Restaurant search with query params (mode , cuisine, searchTerm , limit, name )
 export async function findRestaurantsUsingQuery(queryObject: any) {
     try {
         const filter = restaurantFiltersFactory(queryObject)

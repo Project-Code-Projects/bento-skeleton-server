@@ -7,11 +7,3 @@ export interface UserInterface {
   serviceAccess: string[];
 }
 
-/* 
-POS
-KDS
-MARKETPLACE
-INVENTORY
-HR
-MENU BUILDER
-*/
