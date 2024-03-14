@@ -17,7 +17,7 @@ export async function redirectToService(req: JwtReqInterface, res: Response) {
       const checkAccess = await hrServiceCheck({ userId: user.id, service: service.toUpperCase() });
 
       if (checkAccess.auth) {
-        const token = jwt.sign({ id: user.id, service, restaurantId: user.restaurantId }, config.JWT_SECRET as string, {
+        const token = jwt.sign({ id: user.id, service, restaurantId: user.restaurantId }, config.JWT_SECRET, {
           expiresIn: "7d",
         });
         const store = await createServiceTokenStore(token);

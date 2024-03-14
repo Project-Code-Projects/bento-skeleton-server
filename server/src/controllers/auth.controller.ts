@@ -12,7 +12,7 @@ export async function login(req: Request, res: Response) {
       const { employee } = await hrLogin({ email, password });
       const user = employee;
 
-      const token = jwt.sign({ id: user.id, service: "skeleton", restaurantId: user.restaurantId }, config.JWT_SECRET as string, {
+      const token = jwt.sign({ id: user.id, service: "skeleton", restaurantId: user.restaurantId }, config.JWT_SECRET, {
         expiresIn: "7d",
       });
 
